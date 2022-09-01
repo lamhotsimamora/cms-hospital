@@ -34,10 +34,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/slideshow.php') ?>
 
 	<hr>
-	<?php include('component/card.php')?>
+	<?php include('component/info.php') ?>
 
 	<hr>
-	<?php include('component/info.php') ?>
+	<?php include('component/card.php')?>
+
 
 	<hr>
 	<?php include('component/footer.php') ?>

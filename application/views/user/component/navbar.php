@@ -6,16 +6,30 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
-				
+
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="#">Visi Misi</a></li>
+						<li><a class="dropdown-item" href="#">Selayang Pandang</a></li>
 					</ul>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">News</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Docter</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Feedback</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="#">Contact</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Location</a>
+				</li>
+				
 
 			</ul>
 			<form class="d-flex" role="search">
