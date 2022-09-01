@@ -35,11 +35,11 @@ class User extends CI_Controller {
 	}
 
 	public function index(){
-		if ($this->AuthLogin()){
+		//if ($this->AuthLogin()){
 			$this->load->view('user/home');
-		}else{
-			$this->load->view('user/login');
-		}
+		//}else{
+			//$this->load->view('user/login');
+		//}
 	}
 
 	public function login(){
