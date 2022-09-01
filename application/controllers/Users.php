@@ -31,15 +31,27 @@ class Users extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_admin');
+		$this->load->model('M_user');
+		$this->load->model('M_navbar');
 	}
 
 	public function index(){
 		//if ($this->AuthLogin()){
-			$this->load->view('user/home');
+			
+			$data['data_navbar'] = $this->loadDataNavbar();
+			$data['data_navbar_child'] = $this->loadDataNavbarChild();
+			$this->load->view('user/home',$data);
 		//}else{
 			//$this->load->view('user/login');
 		//}
+	}
+
+	private function loadDataNavbar(){
+		return ($this->M_navbar->loadDataNavbar());
+	}
+
+	private function loadDataNavbarChild(){
+		return ($this->M_navbar->loadDataNavbarChild());
 	}
 
 	public function login(){
@@ -50,9 +62,7 @@ class Users extends CI_Controller {
 		}
 	}
 
-	public function data_peserta(){
-		redirect('./user/home');
-	}
+	
 
 	public function home(){
 		if ($this->AuthLogin()){
@@ -130,27 +140,6 @@ class Users extends CI_Controller {
 		echo json_encode($result);
 	}
 
-	public function cetak($id_peserta=null){
-		if (!$this->AuthLogin()){
-			exit(json_encode(array('message'=>'access denied')));
-		}
-		if ($id_peserta){
-			$this->load->model("M_peserta");
-			$this->M_peserta->id_peserta = $id_peserta;
-
-			$check = $this->M_peserta->checkDataById();
-
-			if ($check){
-				$data = $this->M_peserta->loadData_byId();
-
-				$this->load->view('user/cetak',$data);
-			}else{
-				redirect('./user/home');
-			}
-		}else{
-			redirect('./user/home');
-		}
-	}
 }
 
 

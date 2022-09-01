@@ -52,25 +52,24 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">@</h6>
-                <a class="collapse-item" href="">Docters</a>
-                <a class="collapse-item" href="">Spesialis</a>
+                <a class="collapse-item" href="<?= base_url() ?>admin/docters">Docters</a>
+                <a class="collapse-item" href="<?= base_url() ?>admin/spesialis">Spesialis</a>
             </div>
         </div>
     </li>
-
-
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
             aria-expanded="true" aria-controls="collapseFive">
             <i class="fas fa-info"></i>
-            <span>News</span>
+            <span>Post</span>
         </a>
         <div id="collapseFive" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">@</h6>
 
-                <a class="collapse-item" href="">News</a>
+                <a class="collapse-item" href="<?= base_url() ?>admin/post">Post</a>
+                <a class="collapse-item" href="<?= base_url() ?>admin/page">Page</a>
 
             </div>
         </div>
@@ -91,7 +90,7 @@
 
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
-        <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="">
+        <img class="sidebar-card-illustration mb-2" src="<?= base_url() ?>public/assets/img/undraw_rocket.svg" alt="">
         <p class="text-center mb-2"><strong>
                 PDR Technology</strong></p>
     </div>

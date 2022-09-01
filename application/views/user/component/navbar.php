@@ -7,31 +7,49 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Visi Misi</a></li>
-						<li><a class="dropdown-item" href="#">Selayang Pandang</a></li>
-					</ul>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">News</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Docter</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Feedback</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Contact</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Location</a>
-				</li>
-				
+				<?php
+
+				for ($i = 0; $i < count($data_navbar); $i++) {
+					$checking_dropdown = false;
+					$template_dropdown = '';
+
+					$id_navbar = $data_navbar[$i]['id_navbar'];
+
+					foreach ($data_navbar_child as $key => $value) {
+						$id_navbar_child = $value['id_navbar'];
+						$title_child = $value['title_child'];
+						$link_child = $value['link_child'];
+
+						if ($id_navbar == $id_navbar_child) {
+							$checking_dropdown = true;
+							$template_dropdown .= '<li><a class="dropdown-item" href="' . $link_child . '">' . $title_child . '</a></li>';
+						} else {
+							$checking_dropdown = false;
+						}
+					}
+
+					$title =  $data_navbar[$i]['title'];
+					$link =  $data_navbar[$i]['link'];
+
+					if ($checking_dropdown == false) {
+						echo '<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="' . $link . '">' . $title . '</a>
+							</li>';
+					} else {
+						echo '<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="' . $link . '" data-bs-toggle="dropdown" aria-expanded="false">' . $title . '</a>
+								<ul class="dropdown-menu">
+									' . $template_dropdown . '
+								</ul>
+							</li>';
+					}
+				}
+
+
+				?>
 
 			</ul>
+
 			<form class="d-flex" role="search">
 				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success" type="button">Search</button>

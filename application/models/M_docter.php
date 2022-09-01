@@ -13,6 +13,8 @@ class M_docter extends CI_Model
 
 	// Definisi nama tabel
 	protected $table      = 'docters';
+	protected $view      = 'view_docters';
+
 	protected $primaryKey = 'id_docter';
 	protected $useAutoIncrement = true;
 
@@ -24,7 +26,7 @@ class M_docter extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->view);
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return $data;
@@ -111,49 +113,11 @@ class M_docter extends CI_Model
 		return count($data)>0 ? $data : false;
 	}
 
-	public function checkUsername(){
-		$this->db->select('id_peserta')
-			->from($this->table)
-			->where(['username' => $this->username]);
-
-		$obj = $this->db->get();
-
-		$data  = $obj->result();
-
-		return count($data)>0 ? true : false;
-	}
-
-	public function checkToken()
-	{
-		$this->db->select('id_peserta')
-			->from($this->table)
-			->where(['token' => $this->token]);
-
-		$obj = $this->db->get();
-
-		$data  = $obj->result();
-
-		return count($data)>0 ? true : false;
-	}
-
-	public function getToken()
-	{
-		$this->db->select('token')
-			->from($this->table)
-			->where(['username' => $this->username, 'password' => _md5($this->password)]);
-
-		$obj = $this->db->get();
-		$data  = $obj->result();
-
-		return $data;
-	}
 	
 	public function add()
 	{
 		$data = array(
-			'nama_lengkap' => $this->nama_lengkap,
-			'alamat' => $this->alamat,
-			'kartu_keluarga' => $this->kartu_keluarga
+			'nama_lengkap' => $this->nama_lengkap
 		);
 		return $this->db->insert($this->table, $data);
 	}
@@ -161,15 +125,13 @@ class M_docter extends CI_Model
 	public function update()
 	{
 		$data = array(
-			'nama_lengkap' => $this->nama_lengkap,
-			'alamat' => $this->alamat,
-			'kartu_keluarga' => $this->kartu_keluarga
+			'nama_lengkap' => $this->nama_lengkap
 		);
 		$this->db->where('id_peserta', $this->id_peserta);
 		return $this->db->update($this->table, $data);
 	}
 
 	public function delete_data(){
-		return $this->db->delete($this->table, array('id_peserta' => $this->id_peserta));
+		return $this->db->delete($this->table, array('id_docter' => $this->id_docter));
 	}
 }

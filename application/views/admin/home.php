@@ -244,7 +244,7 @@
 		const _URL_SERVER_ = '<?= base_url() ?>';
 	</script>
 
-		
+
 	<script src="<?= base_url('') ?>public/assets/js/jquery/jquery.js"></script>
 	<script src="<?= base_url('') ?>public/assets/bootstrap/js/bootstrap.bundle.js"></script>
 

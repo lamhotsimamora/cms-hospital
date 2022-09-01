@@ -53,13 +53,15 @@ class Admin extends CI_Controller {
 	
 	public function home(){
 		$this->load->view('admin/home');
-		// if ($this->AuthLogin()){
-		// 	$this->load->view('admin/home');
-		// }
-		// else{
-		// 	$this->load->view('admin/login');
-		// }
 	}
+
+	public function docters(){
+		$this->load->view('admin/docters');
+	}
+	public function spesialis(){
+		$this->load->view('admin/spesialis');
+	}
+
 
 
 	public function logout(){
@@ -128,26 +130,13 @@ class Admin extends CI_Controller {
 		echo json_encode($result);
 	}
 
-	public function cetak($id_peserta=null){
-		if (!$this->AuthLogin()){
-			exit(json_encode(array('message'=>'access denied')));
-		}
-		if ($id_peserta){
-			$this->load->model("M_peserta");
-			$this->M_peserta->id_peserta = $id_peserta;
+	public function api_load_data_docters(){
+		$this->load->model('M_docter');
 
-			$check = $this->M_peserta->checkDataById();
+		$response['data'] = $this->M_docter->loadData();
+		$response['result'] = true;
 
-			if ($check){
-				$data = $this->M_peserta->loadData_byId();
-
-				$this->load->view('admin/cetak',$data);
-			}else{
-				redirect('./admin/home');
-			}
-		}else{
-			redirect('./admin/home');
-		}
+		echo json_encode($response);
 	}
 }
 

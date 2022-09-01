@@ -9,7 +9,7 @@ class Navbars extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_admin');
+		$this->load->model('M_navbar');
 	}
 
 	public function index(){
@@ -19,5 +19,7 @@ class Navbars extends CI_Controller {
 			//$this->load->view('user/login');
 		//}
 	}
+
+	
 
 }

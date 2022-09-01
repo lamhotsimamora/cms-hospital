@@ -70,7 +70,7 @@
 
             <a class="dropdown-item d-flex align-items-center" href="#">
                 <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="img/undraw_profile.svg" alt="...">
+                    <img class="rounded-circle" src="<?= base_url() ?>public/assets/img/undraw_profile.svg" alt="...">
                     <div class="status-indicator bg-success"></div>
                 </div>
                 <div>
@@ -91,7 +91,7 @@
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                     <strong id="txt_admin"></strong>
             </span>
-            <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+            <img class="img-profile rounded-circle" src="<?= base_url() ?>public/assets/img/undraw_profile.svg">
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

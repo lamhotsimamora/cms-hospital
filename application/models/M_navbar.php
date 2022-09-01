@@ -11,6 +11,7 @@ class M_navbar extends CI_Model
 
 	// Definisi nama tabel
 	protected $table      = 'navbar';
+	protected $table_2      = 'navbar_child';
 	protected $primaryKey = 'id_navbar';
 	protected $useAutoIncrement = true;
 
@@ -19,14 +20,22 @@ class M_navbar extends CI_Model
 	protected $updatedField  = 'updated_at';
 	protected $deletedField  = 'deleted_at';
 
-	public function loadData()
+	public function loadDataNavbar()
 	{
 		$this->db->select('*')
 			->from($this->table);
 		$obj = $this->db->get();
-		$data  = $obj->result();
-		return $data;
+		return $obj->result_array();
 	}
+
+	public function loadDataNavbarChild()
+	{
+		$this->db->select('*')
+			->from($this->table_2);
+		$obj = $this->db->get();
+		return $obj->result_array();
+	}
+	
 
 	public function loadData_byId(){
 		$this->db->select('*')
