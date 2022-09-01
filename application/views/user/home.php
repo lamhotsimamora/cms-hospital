@@ -39,7 +39,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<hr>
 	<?php include('component/card.php')?>
 
-
 	<hr>
 	<?php include('component/footer.php') ?>
 

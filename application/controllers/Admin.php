@@ -50,17 +50,15 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function data_peserta(){
-		redirect('./admin/home');
-	}
-
+	
 	public function home(){
-		if ($this->AuthLogin()){
-			$this->load->view('admin/home');
-		}
-		else{
-			$this->load->view('admin/login');
-		}
+		$this->load->view('admin/home');
+		// if ($this->AuthLogin()){
+		// 	$this->load->view('admin/home');
+		// }
+		// else{
+		// 	$this->load->view('admin/login');
+		// }
 	}
 
 

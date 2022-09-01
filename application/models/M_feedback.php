@@ -4,16 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_feedback extends CI_Model
 {	
 	// Definisi field/colomn tabel
-	public $id_new;
-	public $title;
-	public $description;
-	public $date_created;
-	public $foto;
+	public $id_feedback;
+	public $rating;
 	//
 
 	// Definisi nama tabel
-	protected $table      = 'news';
-	protected $primaryKey = 'id_news';
+	protected $table      = 'feedback';
+	protected $primaryKey = 'id_rating';
 	protected $useAutoIncrement = true;
 
 	protected $useTimestamps = false;
@@ -33,60 +30,23 @@ class M_feedback extends CI_Model
 	public function loadData_byId(){
 		$this->db->select('*')
 			->from($this->table)
-			->where(['id_news' => $this->id_news]);
+			->where(['id_feedback' => $this->primaryKey]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return count($data)>0 ? $data[0]:null;
 	}
 
-	public function checkDataById(){
-		$this->db->select('id_news')
-			->from($this->table)
-			->where(['id_news' => $this->id_news]);
 
-		$obj = $this->db->get();
-		$data  = $obj->result();
-		return count($data)>0 ? true:false;
-	}
-
-
-	public function search()
-	{
-		$this->db->select('*')
-			->from($this->table)
-			->where(['title' => $this->title]);
-
-		$obj = $this->db->get();
-		$data  = $obj->result();
-
-		return (count($data) > 0) ? true : false;
-	}
-
-
-	public function save_data()
+	public function add()
 	{
 		$data = array(
-			'title' => $this->title,
-			'description' => $this->description,
-			'foto' => $this->foto
-		);
-		$this->db->where('id_new', $this->id_new);
-		return $this->db->update($this->table, $data);
-	}
-
-	public function daftar()
-	{
-		$data = array(
-			'title' => $this->title,
-			'description' => $this->description,
-			'foto' => $this->foto,
-			'date_created'=>$this->date_created
+			'rating' => $this->rating
 		);
 		return $this->db->insert($this->table, $data);
 	}
 	
 	public function delete_data(){
-		return $this->db->delete($this->table, array('id_news' => $this->id_news));
+		return $this->db->delete($this->table, array('id_feedback' => $this->id_feedback));
 	}
 }
