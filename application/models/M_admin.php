@@ -60,13 +60,13 @@ class M_admin extends CI_Model
 	}
 
 
-	public function add()
-	{
-		$data = array(
-			'username' => 'admin',
-			'password' => _md5('admin12345'),
-			'token'=>_randomStr(25)
-		);
-		return $this->db->insert($this->table, $data);
-	}
+	// public function add()
+	// {
+	// 	$data = array(
+	// 		'username' => 'admin',
+	// 		'password' => _md5('admin12345'),
+	// 		'token'=>_randomStr(25)
+	// 	);
+	// 	return $this->db->insert($this->table, $data);
+	// }
 }

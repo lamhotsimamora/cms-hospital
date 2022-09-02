@@ -49,32 +49,74 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			$this->load->view('admin/login');
 		} else {
-			$this->load->view('admin/admin');
+			redirect('/admin/home');
 		}
 	}
 
 
 	public function home()
 	{
-		$this->load->view('admin/home');
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}else{	
+			$this->load->view('admin/home');	
+		}
+	}
+
+	public function post()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/post');
+	}
+
+	public function page()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/page');
+	}
+
+	public function navbar()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/navbar');
+	}
+
+	public function slideshow()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/slideshow');
 	}
 
 	public function docters()
 	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
 		$this->load->view('admin/docters');
 	}
+
 	public function spesialis()
 	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
 		$this->load->view('admin/spesialis');
 	}
 
-
-
-	public function logout()
+	public function hospital()
 	{
-		$this->session->unset_userdata('admin');
-		$this->session->unset_userdata('token');
-		redirect(base_url('/'));
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/hospital');
 	}
 
 	public function api_login()
@@ -98,22 +140,27 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
-	public function api_load_data()
+	public function api_load_hospital()
 	{
-		// if (!$this->AuthLogin()){
-		// 	exit(json_encode(array('message'=>'access denied')));
-		// }
-		$this->load->model('M_peserta');
-		$result = $this->M_peserta->loadData();
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_hospital');
+		$result = $this->M_hospital->loadData();
 
-		echo json_encode($result);
+		$response['result'] = false;
+		if ($result){
+			$response['result'] = true;
+			$response['data'] = $result;
+		}
+		echo json_encode($response);
 	}
 
 	public function api_search_data()
 	{
-		// if (!$this->AuthLogin()){
-		// 	exit(json_encode(array('message'=>'access denied')));
-		// }
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
 		$this->load->model('M_peserta');
 		$search = $this->M_peserta->id_peserta = $this->input->post('search');
 
@@ -124,19 +171,49 @@ class Admin extends CI_Controller
 	}
 
 
-	public function api_delete_data()
+	public function api_delete_spesialis()
 	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+		$this->load->model('M_spesialis');
+		$id_spesialis = $this->input->post('id_spesialis');
 
-		// if (!$this->AuthLogin()){
-		// 	exit(json_encode(array('message'=>'access denied')));
-		// }
-		$this->load->model('M_peserta');
-		$id_peserta = $this->M_peserta->id_peserta = $this->input->post('id_peserta');
+		validationInput($id_spesialis);
+		$this->M_spesialis->id_spesialis = $id_spesialis;
 
-		validationInput($id_peserta);
+		$result = $this->M_spesialis->delete_data();
 
-		$result = $this->M_peserta->delete_data();
-		echo json_encode($result);
+		$response['result'] = false;
+		
+		if ($result){
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_search_docter(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_docter');
+
+		$search = $this->input->post('search');
+
+		validationInput($search);
+
+		$this->M_docter->search = $search;
+
+		$result =  $this->M_docter->searchData($search);
+
+		$response['result'] = false;
+
+		if ($result){
+			$response['data'] = $result;
+			$response['result'] = true;
+		}
+		echo json_encode($response);
 	}
 
 	public function api_load_data_docters()
@@ -159,8 +236,92 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_add_spesialis()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_spesialis');
+
+		$spesialis = $this->input->post('spesialis');
+
+		validationInput($spesialis);
+
+		$this->M_spesialis->spesialis = $spesialis;
+
+		$result =  $this->M_spesialis->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public  function api_update_hospital()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_hospital');
+
+		$nama = $this->input->post('nama');
+		$hp = $this->input->post('hp');
+		$alamat = $this->input->post('alamat');
+		$id = $this->input->post('id');
+
+		$id =1;
+
+		validationInput($nama,$alamat,$hp,$id);
+
+		$this->M_hospital->nama = $nama;
+		$this->M_hospital->alamat = $alamat;
+		$this->M_hospital->hp = $hp;
+		$this->M_hospital->id_hospital = $id;
+
+		$result =  $this->M_hospital->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_update_spesialis()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_spesialis');
+
+		$id_spesialis = $this->input->post('id_spesialis');
+		$spesialis = $this->input->post('spesialis');
+
+		validationInput($spesialis,$id_spesialis);
+
+		$this->M_spesialis->id_spesialis = $id_spesialis;
+		$this->M_spesialis->spesialis = $spesialis;
+
+		$result =  $this->M_spesialis->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+
 	public function api_add_docter()
 	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
 		$this->load->model('M_docter');
 
 		$nama = $this->input->post('nama');
@@ -182,8 +343,41 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_update_docter()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_docter');
+
+		$id_spesialis = $this->input->post('id_spesialis');
+		$id_docter = $this->input->post('id_docter');
+		$ket = $this->input->post('ket');
+		$nama = $this->input->post('nama');
+
+		validationInput($nama,$id_spesialis,$ket,$id_docter);
+
+		$this->M_docter->id_spesialis = $id_spesialis;
+		$this->M_docter->id_docter = $id_docter;
+		$this->M_docter->ket = $ket;
+		$this->M_docter->nama = $nama;
+
+		$result =  $this->M_docter->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function api_delete_docter()
 	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
 		$this->load->model('M_docter');
 
 		$id_docter = $this->input->post('id_docter');
@@ -199,11 +393,55 @@ class Admin extends CI_Controller
 			$response['result'] = true;
 		}
 		echo json_encode($response);
-	}	
-
-
-	public function add(){
-		$this->M_admin->add();
 	}
 
+	public function api_upload_foto_docter()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$id_docter = $this->input->post('id');
+
+		validationInput($id_docter);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/docters/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_docter");
+			$this->M_docter->id_docter = _replaceSq($id_docter);
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_docter->foto = $filename;
+
+			$save = $this->M_docter->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('admin');
+		$this->session->unset_userdata('token');
+		redirect(base_url('/'));
+	}
 }

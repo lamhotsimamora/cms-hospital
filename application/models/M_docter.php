@@ -80,11 +80,10 @@ class M_docter extends CI_Model
 	}
 
 	public function saveFoto(){
-		$data = array(
-			'foto' => $this->foto
-		);
-		$this->db->where('id_docter', $this->id_docter);
-		return $this->db->update($this->table, $data);
+		$query = $this->db->query(
+			"update docters set foto='".$this->foto."' 
+		WHERE id_docter=".$this->id_docter."");
+		return $query;
 	}
 
 	public function updateData()

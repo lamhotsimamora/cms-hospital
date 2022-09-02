@@ -112,13 +112,9 @@
 		<form>
 			<h1 class="h3 mb-3 fw-normal">Login Admin . . .</h1>
 			<hr>
-			<div v-if="message" class="alert alert-danger" role="alert">
-			 {{ error_message }}
-			</div>
-
-
+			
 			<div class="form-floating">
-				<input type="text" class="form-control" v-model="username" @keypress="enterLogin" ref="username"  placeholder="Username">
+				<input type="text" class="form-control" v-model="username" @keypress="enterLogin" ref="username" placeholder="Username">
 				<label for="floatingInput">Username</label>
 			</div>
 			<div class="form-floating">
@@ -134,31 +130,29 @@
 			<button class="w-100 btn btn-lg btn-primary" type="button" @click="login">Login</button>
 			<br>
 			<br>
-			<a href="<?= base_url()?>">Back</a>
+			<a href="<?= base_url() ?>">Back</a>
 			<p class="mt-5 mb-3 text-muted">&copy;2022</p>
 		</form>
 	</main>
 
 	<script>
 		const SERVER = '<?= base_url() ?>';
-		const _ADMIN_LOGIN_ = SERVER+ 'admin/api_login';
-		const _TOKEN_  ='';
+		const _ADMIN_LOGIN_ = SERVER + 'admin/api_login';
+		const _TOKEN_ = '';
 
 		new Vue({
-			el : "#app",
-			data : {
-				username : null,
-				password : null,
-				message : false,
-				error_message : null
+			el: "#app",
+			data: {
+				username: null,
+				password: null,
 			},
 			methods: {
-				enterLogin: function(e){
-					if (e.keyCode==13){
+				enterLogin: function(e) {
+					if (e.keyCode == 13) {
 						this.login()
 					}
 				},
-				login : function(){
+				login: function() {
 					if (this.username == null || this.username === '') {
 						this.$refs.username.focus();
 						return;
@@ -173,13 +167,33 @@
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,
-							username : this.username,
-							password : this.password
+							username: this.username,
+							password: this.password
 						}
 					}).ajax($response => {
-						console.log($response)
+						var obj = JSON.parse($response);
+						if (obj) {
+							var result = obj.result;
+
+							if (result) {
+								Swal.fire({
+									title: 'Success',
+									text: 'Login Berhasil !',
+									icon: 'success',
+									confirmButtonText: 'OK'
+								});
+								reload(SERVER+'admin/home');
+							} else {
+								Swal.fire({
+									title: 'Upppz !',
+									text: 'Maaf ! Login Gagal !',
+									icon: 'error',
+									confirmButtonText: 'OK'
+								})
+							}
+						}
 					})
-					
+
 				}
 			},
 		})

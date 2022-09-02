@@ -17,9 +17,9 @@ class Users extends CI_Controller {
 			$token = $this->session->userdata('token');
 			$token = $token[0]->{"token"};
 
-			$this->M_admin->token = $token;
+			$this->M_user->token = $token;
 		
-			if (!$this->M_admin->checkToken()){
+			if (!$this->M_user->checkToken()){
 				$this->session->unset_userdata('admin');
 				$this->session->unset_userdata('token');
 				return false;
@@ -84,14 +84,14 @@ class Users extends CI_Controller {
 	{
 		$response = array('message'=>'Login Failed','result'=>false);
 
-		$this->M_admin->username =  $this->input->post('username');
-		$this->M_admin->password = $this->input->post('password');
+		$this->M_user->username =  $this->input->post('username');
+		$this->M_user->password = $this->input->post('password');
 
-		$result = $this->M_admin->login();
+		$result = $this->M_user->login();
 		
 		if ($result){
 
-			$token= $this->M_admin->getToken();
+			$token= $this->M_user->getToken();
 	
 			$this->session->set_userdata('admin',true);
 			$this->session->set_userdata('token',$token);
