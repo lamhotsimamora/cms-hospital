@@ -90,8 +90,13 @@
 							<div class="card-body" id="hospital" v-cloak>
 
 								<center>
-									<br>
-									<img :src="img_hospital" alt="" width="100px" height="100px" id="img_docter" name="img_docter">
+									<input type="file" @change="selectFoto" accept="image/*" id="file_img" name="file_img"> <br><br>
+									<img :src="img_foto" alt="" width="100px" height="100px" id="img_foto" name="img_foto">
+								</center>
+								<br>
+								<center>
+									<button class="btn btn-success btn-sm" @click="uploadFoto">Upload</button>
+						
 								</center>
 								<hr>
 								<div class="input-group">
@@ -156,6 +161,11 @@
 		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
 		const id_hospital = 1;
 
+		
+		var _READY_UPLOAD_FOTO_ = false;
+		const $typefile_allowed = ['image/png', 'image/jpeg'];
+
+
 		var $hospital = new Vue({
 			el: '#hospital',
 			data: {
@@ -163,10 +173,118 @@
 				alamat: null,
 				hp: null,
 				foto: null,
-				img_hospital: NO_IMAGE,
-				id_hospital: id_hospital
+				id_hospital: id_hospital,
+				img_foto: NO_IMAGE
 			},
 			methods: {
+				uploadFoto: function(){
+					if (_READY_UPLOAD_FOTO_ == false) {
+						console.log("Not ready")
+						return;
+					}
+
+					if (this.id_hospital == null) {
+						console.log("Not ready")
+						return;
+					}
+					this.loading = true;
+					new Upload({
+						// Array
+						el: ['file_img'],
+						// String
+						url: _URL_SERVER_ + '/admin/api_upload_foto_hospital',
+						// String
+						data: this.id_hospital,
+						// String
+						token: _TOKEN_
+					}).start(($response) => {
+						var obj = JSON.parse($response);
+
+						if (obj) {
+							var result = obj.result;
+
+							if (result == true) {
+								Swal.fire({
+									icon: 'success',
+									title: 'Success',
+									text: 'File Berhasil Diupload !',
+									footer: '<a href=""></a>'
+								});
+								$post.loadData();
+								_READY_UPLOAD_FOTO_ = false;
+								this.img_foto = NO_IMAGE;
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'File Gagal Diupload !',
+									footer: '<a href="">Silahkan coba lagi</a>'
+								})
+							}
+							this.loading = false;
+						}
+					});
+				
+				},
+				selectFoto : function(){
+					if (event.target.files && event.target.files[0]) {
+						const obj_file = event.target.files[0];
+
+						var image = URL.createObjectURL(obj_file);
+
+						const fileName = obj_file.name;
+
+						var sizeFile = obj_file.size / 1000;
+						sizeFile = Math.floor(sizeFile);
+						const typefile = obj_file.type;
+
+						var $typefile_not_allowed = false;
+
+						// check ukuran file jika lebih dari 2.5 mb maka akan ditolak
+						if (sizeFile > 1500) {
+							Swal.fire({
+								title: 'Uppz!',
+								text: 'Maximum size file is 1.5 Mb',
+								icon: 'error',
+								confirmButtonText: 'Ok'
+							})
+							_READY_UPLOAD_FOTO_ = false;
+							this.img_foto = NO_IMAGE;
+							return;
+						}
+
+						if (typefile === $typefile_allowed[0] ||
+							typefile === $typefile_allowed[1]) {
+							$typefile_not_allowed = true;
+						}
+
+						// check jenis file apakah file gambar atau bukan
+						if ($typefile_not_allowed) {
+							_READY_UPLOAD_FOTO_ = true;
+							console.log("Ready To Upload");
+							this.img_foto = image;
+						} else {
+							_READY_UPLOAD_FOTO_ = false;
+							Swal.fire({
+								title: 'Uppz!',
+								text: 'File extension is not allowed',
+								icon: 'error',
+								confirmButtonText: 'Ok'
+							});
+							this.img_foto = NO_IMAGE;
+						}
+					} else {
+						_READY_UPLOAD_FOTO_ = false;
+						Swal.fire({
+							title: 'Uppz!',
+							text: 'Foto belum dipilih :)',
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						});
+
+						this.img_foto = NO_IMAGE;
+					}
+				},
 				enterUpdate: function(e) {
 					if (e.keyCode == 13) {
 						this.updateData()
@@ -227,6 +345,12 @@
 								this.nama = obj.data.nama;
 								this.alamat = obj.data.alamat;
 								this.hp = obj.data.hp;
+
+								var foto = obj.data.foto;
+
+								foto = _URL_SERVER_+'public/img/hospital/'+foto;
+								this.img_foto = foto
+								console.log(foto)
 							}
 						}
 					})

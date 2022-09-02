@@ -92,7 +92,7 @@
 								<button class="btn btn-primary btn-md" @click="newPost">New</button>
 								<br> <br>
 								<div class="table-responsive">
-									
+
 									<div class="input-group">
 										<input type="text" v-model="search" @keypress="searchData" ref="search" class="form-control bg-light border-0 small" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
 									</div>
@@ -102,7 +102,7 @@
 											<tr>
 												<th>Title</th>
 												<!-- <th>Description</th> -->
-												<th>Foto</th>
+												<th>Cover</th>
 												<th>@</th>
 											</tr>
 										</thead>
@@ -111,8 +111,9 @@
 											<tr v-for="data in data_post">
 												<td>{{ data . title }}</td>
 												<!-- <td>{{ data . description }}</td> -->
-												<td>{{ data . foto }}</td>
+												<td v-html="viewCover(data.cover)"></td>
 												<td>
+													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uploadFotoModal" @click="getIdPost(data.id_post)">Upload</button>
 													<button @click="editPost(data.id_post)" class="btn btn-warning btn-sm">Edit</button>
 													<button @click="deleteData(data.id_post)" class="btn btn-danger btn-sm">x</button>
 												</td>
@@ -147,6 +148,38 @@
 		<i class="fas fa-angle-up"></i>
 	</a>
 
+	<!-- upload foto Modal-->
+	<div class="modal fade" id="uploadFotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Upload Cover</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<center v-if="loading">
+						<div class="spinner-border text-primary" role="status">
+							<span class="visually-hidden"></span>
+						</div>
+					</center>
+					<hr>
+					<center>
+						<input type="file" @change="selectFoto" accept="image/*" id="file_img" name="file_img"> <br><br>
+						<img :src="img_foto" alt="" width="100px" height="100px" id="img_foto" name="img_foto">
+					</center> <br>
+
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="#" @click="uploadFoto">Upload</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Upload Foto Docter Modal-->
 
 
 	<?php include('component/logout.php') ?>
@@ -165,10 +198,132 @@
 
 	<script>
 		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
-		const _POST_LOAD_ALL_DATA_ = _URL_SERVER_+'admin/api_load_all_post';
-		const _POST_DELETE_DATA_ = _URL_SERVER_+'admin/api_delete_post';
+		const _POST_LOAD_ALL_DATA_ = _URL_SERVER_ + 'admin/api_load_all_post';
+		const _POST_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_post';
 
-		new Vue({
+
+		var _READY_UPLOAD_FOTO_ = false;
+		const $typefile_allowed = ['image/png', 'image/jpeg'];
+
+	   var $uploadFoto =	new Vue({
+			el: '#uploadFotoModal',
+			data: {
+				loading: null,
+				img_foto: NO_IMAGE,
+				id_post : null
+			},
+			methods: {
+				selectFoto: function() {
+					if (event.target.files && event.target.files[0]) {
+						const obj_file = event.target.files[0];
+
+						var image = URL.createObjectURL(obj_file);
+
+						const fileName = obj_file.name;
+
+						var sizeFile = obj_file.size / 1000;
+						sizeFile = Math.floor(sizeFile);
+						const typefile = obj_file.type;
+
+						var $typefile_not_allowed = false;
+
+						// check ukuran file jika lebih dari 2.5 mb maka akan ditolak
+						if (sizeFile > 1500) {
+							Swal.fire({
+								title: 'Uppz!',
+								text: 'Maximum size file is 1.5 Mb',
+								icon: 'error',
+								confirmButtonText: 'Ok'
+							})
+							_READY_UPLOAD_FOTO_ = false;
+							this.img_foto = NO_IMAGE;
+							return;
+						}
+
+						if (typefile === $typefile_allowed[0] ||
+							typefile === $typefile_allowed[1]) {
+							$typefile_not_allowed = true;
+						}
+
+						// check jenis file apakah file gambar atau bukan
+						if ($typefile_not_allowed) {
+							_READY_UPLOAD_FOTO_ = true;
+							console.log("Ready To Upload");
+							this.img_foto = image;
+						} else {
+							_READY_UPLOAD_FOTO_ = false;
+							Swal.fire({
+								title: 'Uppz!',
+								text: 'File extension is not allowed',
+								icon: 'error',
+								confirmButtonText: 'Ok'
+							});
+							this.img_foto = NO_IMAGE;
+						}
+					} else {
+						_READY_UPLOAD_FOTO_ = false;
+						Swal.fire({
+							title: 'Uppz!',
+							text: 'Foto belum dipilih :)',
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						});
+
+						this.img_foto = NO_IMAGE;
+					}
+				},
+				uploadFoto: function() {
+					if (_READY_UPLOAD_FOTO_ == false) {
+						console.log("Not ready")
+						return;
+					}
+
+					if (this.id_post == null) {
+						console.log("Not ready")
+						return;
+					}
+					this.loading = true;
+					new Upload({
+						// Array
+						el: ['file_img'],
+						// String
+						url: _URL_SERVER_ + '/admin/api_upload_foto_post',
+						// String
+						data: this.id_post,
+						// String
+						token: _TOKEN_
+					}).start(($response) => {
+						var obj = JSON.parse($response);
+
+						if (obj) {
+							var result = obj.result;
+
+							if (result == true) {
+								Swal.fire({
+									icon: 'success',
+									title: 'Success',
+									text: 'File Berhasil Diupload !',
+									footer: '<a href=""></a>'
+								});
+								$post.loadData();
+								_READY_UPLOAD_FOTO_ = false;
+								this.img_foto = NO_IMAGE;
+							} else {
+								Swal.fire({
+									icon: 'error',
+									title: 'Oops...',
+									text: 'File Gagal Diupload !',
+									footer: '<a href="">Silahkan coba lagi</a>'
+								})
+							}
+							this.loading = false;
+						}
+					});
+				}
+			}
+		})
+
+		var $post = new Vue({
 			el: '#post',
 			data: {
 				title: null,
@@ -176,10 +331,23 @@
 				search: null
 			},
 			methods: {
-				editPost:function(id_post){
-					reload(_URL_SERVER_+'admin/editPost/'+id_post);
+				viewCover : function(data){
+					var path = 'public/img/posts/';
+					if (data === '' || data == null) {
+						data = NO_IMAGE;
+					} else {
+						data = _URL_SERVER_ + path + data;
+					}
+					return `<img src="${data}" width="80" height="80" class="img-thumbnail"></img>`;
 				},
-				deleteData: function(id_post){
+				getIdPost: function($id){
+					
+					$uploadFoto.id_post = $id;
+				},
+				editPost: function(id_post) {
+					reload(_URL_SERVER_ + 'admin/editPost/' + id_post);
+				},
+				deleteData: function(id_post) {
 					if (id_post) {
 						Swal.fire({
 							title: 'Yakin mau hapus data ini ?',
@@ -212,18 +380,18 @@
 						})
 					}
 				},
-				enterSearch: function(e){
-					if (e.keyCode==13){
+				enterSearch: function(e) {
+					if (e.keyCode == 13) {
 						this.searchData()
 					}
 				},
-				searchData: function(){
+				searchData: function() {
 
 				},
-				newPost: function(){
-					reload(_URL_SERVER_+'admin/addPost');
+				newPost: function() {
+					reload(_URL_SERVER_ + 'admin/addPost');
 				},
-				loadData: function(){
+				loadData: function() {
 					Vony({
 						url: _POST_LOAD_ALL_DATA_,
 						method: 'post'

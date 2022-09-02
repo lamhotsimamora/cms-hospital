@@ -40,7 +40,12 @@ class M_hospital extends CI_Model
 		return count($data)>0 ? $data[0]:null;
 	}
 
-
+	public function saveFoto(){
+		$query = $this->db->query(
+			"update hospitals set foto='".$this->foto."' 
+		WHERE id_hospital=".$this->id_hospital."");
+		return $query;
+	}
 
 	public function updateData()
 	{

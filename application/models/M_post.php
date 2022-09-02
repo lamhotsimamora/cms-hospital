@@ -89,6 +89,13 @@ class M_post extends CI_Model
 		return (count($data) > 0) ? true : false;
 	}
 
+	public function saveFoto(){
+		$query = $this->db->query(
+			"update post set cover='".$this->cover."' 
+		WHERE id_post=".$this->id_post."");
+		return $query;
+	}
+
 
 	public function updateData()
 	{

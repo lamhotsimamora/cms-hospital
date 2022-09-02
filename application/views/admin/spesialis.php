@@ -94,9 +94,6 @@
 										Add Spesialis</button>
 
 									<hr>
-									<div class="input-group">
-										<input type="text" v-model="search" @keypress="searchData" ref="search" class="form-control bg-light border-0 small" placeholder="Search Spesialis" aria-label="Search" aria-describedby="basic-addon2">
-									</div><br>
 									<table class="table table-bordered" width="100%" cellspacing="0">
 										<thead>
 											<tr>

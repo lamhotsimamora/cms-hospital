@@ -549,6 +549,91 @@ class Admin extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function api_upload_foto_hospital(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$id_hospital = $this->input->post('id');
+
+		validationInput($id_hospital);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/hospital/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_hospital");
+			$this->M_hospital->id_hospital = _replaceSq($id_hospital);
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_hospital->foto = $filename;
+
+			$save = $this->M_hospital->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+	public function api_upload_foto_post()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$id_post = $this->input->post('id');
+
+		validationInput($id_post);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/posts/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_post");
+			$this->M_post->id_post = _replaceSq($id_post);
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_post->cover = $filename;
+
+			$save = $this->M_post->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
 	public function logout()
 	{
 		$this->session->unset_userdata('admin');
