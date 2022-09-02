@@ -68,7 +68,15 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/post');
+		$this->load->view('admin/post_all');
+	}
+
+	public function addPost()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/addPost');
 	}
 
 	public function page()
@@ -216,6 +224,15 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_load_all_post(){
+		$this->load->model('M_post');
+
+		$response['data'] = $this->M_post->loadData();
+		$response['result'] = true;
+
+		echo json_encode($response);
+	}
+
 	public function api_load_data_docters()
 	{
 		$this->load->model('M_docter');
@@ -258,6 +275,100 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_update_post(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_post');
+
+		$id_post = $this->input->post('id_post');
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+
+		validationInput($id_post,$title,$description);
+
+		$this->M_post->title = $title;
+		$this->M_post->description = $description;
+		$this->M_post->id_post = $id_post;
+
+		$result =  $this->M_post->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function editPost($id_post=null){
+		if ($id_post){
+			$this->load->model("M_post");
+
+			$this->M_post->id_post = $id_post;
+
+			$result = $this->M_post->checkDataById();
+
+			if ($result){
+				$response['data'] = $this->M_post->getDataById();
+
+				$this->load->view("admin/editPost",$response);
+			}else{
+				redirect('/admin/post');
+			}
+		}else{
+			redirect('/admin/post');
+		}
+	}
+
+	public function api_add_post()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_post');
+
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+
+		validationInput($title,$description);
+
+		$this->M_post->title = $title;
+		$this->M_post->description = $description;
+
+		$result =  $this->M_post->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_delete_post(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_post');
+
+		$id_post = $this->input->post('id_post');
+
+		validationInput($id_post);
+
+		$this->M_post->id_post = $id_post;
+
+		$result =  $this->M_post->delete_data();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public  function api_update_hospital()
 	{

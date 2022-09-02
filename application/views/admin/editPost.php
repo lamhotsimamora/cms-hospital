@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Post</title>
+	<title>Edit Post</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,7 +68,7 @@
 
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Post</h1>
+						<h1 class="h3 mb-0 text-gray-800">Edit Post</h1>
 						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
 					</div>
 
@@ -85,21 +85,23 @@
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">
-									<a href="">Post</a>
+									<a href="">Edit Post</a>
 								</h6>
 							</div>
 							<div class="card-body" id="post" v-cloak>
+								<a href="<?= base_url() ?>admin/post">Back To Post</a>
+							<hr>
+							
 								<div class="input-group">
-									<input type="text" v-model="title" @keypress="enterUpdate" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
+									<input type="text" v-model="title" @keypress="enterSave" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
 								</div> <br>
 
 								<div id="txt_description">
-									<p>This is some sample content.</p>
+									<?= $data['description'] ?>
 								</div>
-								<br>
 
 								<hr>
-								<button class="btn btn-primary btn-md" @click="updateData">Save</button>
+								<button class="btn btn-primary btn-md" @click="savePost">Save</button>
 							</div>
 						</div>
 
@@ -134,6 +136,8 @@
 		// get token from 
 		const _TOKEN_ = '';
 		const _URL_SERVER_ = '<?= base_url() ?>';
+
+		const _POST_EDIT_DATA_ = _URL_SERVER_ +'admin/api_update_post';
 	</script>
 
 
@@ -146,6 +150,9 @@
 	<script>
 		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
 
+		const title = "<?= $data['title']; ?>";
+		const id_post = "<?= $data['id_post']; ?>";
+		
 
 		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
 			CKEDITOR.tools.enableHtml5Elements(document);
@@ -198,25 +205,59 @@
 				title: null
 			},
 			methods: {
-				enterUpdate: function() {
-
+				enterSave : function(e) {
+					if (e.keyCode==13){
+						this.savePost();
+					}
 				},
-				updateData: function() {
+				savePost: function() {
 					if (this.title == null || this.title === '') {
 						this.$refs.title.focus();
 						return;
 					}
 					var txt_description = CKEDITOR.instances.txt_description.getData()
 
-
-					if (this.txt_description == null || this.txt_description === '') {
+					if (txt_description == null || txt_description === '') {
 						
 						return;
 					}
+
+					Vony({
+						url: _POST_EDIT_DATA_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_,
+							title: this.title,
+							description : txt_description,
+							id_post : id_post
+						}
+					}).ajax($response => {
+						const $obj = JSON.parse($response);
+
+						if ($obj) {
+							const $result = $obj.result;
+
+							if ($result) {
+								this.title = null;
+								showToast('Data has been updated !', 'success')
+								Swal.fire({
+									title: 'Success',
+									text: 'Post has been updated !',
+									icon: 'success',
+									confirmButtonText: 'Ok'
+								})
+							} else {
+								var message = $obj.message;
+								showToast(message, 'danger')
+							}
+						}
+					});
 				}
+
+				
 			},
 			mounted() {
-				
+				this.title = title;
 				initSample()
 			},
 		})

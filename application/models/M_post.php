@@ -43,6 +43,17 @@ class M_post extends CI_Model
 		return count($data) > 0 ? $data[0] : null;
 	}
 
+	public function getDataById()
+	{
+		$this->db->select('*')
+			->from($this->table)
+			->where(['id_post' => $this->id_post]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
+		return count($data) > 0 ? $data[0] : false;
+	}
+
 	public function checkDataById()
 	{
 		$this->db->select('id_post')
@@ -84,7 +95,6 @@ class M_post extends CI_Model
 		$data = array(
 			'title' => $this->title,
 			'description' => $this->description,
-			'cover' => $this->cover,
 			'date_created' => $this->date_created,
 			'time_created' => $this->time_created,
 		);
@@ -97,9 +107,9 @@ class M_post extends CI_Model
 		$data = array(
 			'title' => $this->title,
 			'description' => $this->description,
-			'cover' => $this->cover,
-			'date_created' => $this->date_created,
-			'time_created' => $this->time_created,
+			'cover' => null,
+			'date_created' => _getDate(),
+			'time_created' => _getTime(),
 		);
 		return $this->db->insert($this->table, $data);
 	}
