@@ -286,9 +286,6 @@
 							this.data_spesialis = obj.data;
 						}
 					})
-				},
-				searchData: function() {
-
 				}
 			},
 			mounted() {

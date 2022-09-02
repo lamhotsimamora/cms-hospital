@@ -224,6 +224,31 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_search_post(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_post');
+
+		$search = $this->input->post('search');
+
+		validationInput($search);
+
+		$this->M_post->search = $search;
+
+		$result =  $this->M_post->searchData($search);
+
+		$response['result'] = false;
+
+		if ($result){
+			$response['data'] = $result;
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+
 	public function api_load_all_post(){
 		$this->load->model('M_post');
 

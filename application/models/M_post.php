@@ -129,7 +129,7 @@ class M_post extends CI_Model
 
 		$obj = $this->db->get();
 
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 
 		return count($data) > 0 ? $data : false;
 	}
