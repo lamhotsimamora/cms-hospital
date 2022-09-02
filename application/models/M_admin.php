@@ -12,8 +12,7 @@ class M_admin extends CI_Model
 	//
 
 	// Definisi nama tabel
-	protected $table      = 'admin';
-	protected $view      = '';
+	protected $table      = 'admins';
 	protected $primaryKey = 'id_admin';
 	protected $useAutoIncrement = true;
 

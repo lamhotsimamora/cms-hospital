@@ -199,6 +199,11 @@ class Admin extends CI_Controller
 			$response['result'] = true;
 		}
 		echo json_encode($response);
+	}	
+
+
+	public function add(){
+		$this->M_admin->add();
 	}
 
 }

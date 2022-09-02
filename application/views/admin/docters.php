@@ -442,14 +442,14 @@
 		})
 
 		new Vue({
-			el : '#uploadFotoModal',
-			data : {
-				img_docter : null,
-				alert : null,
-				
+			el: '#uploadFotoModal',
+			data: {
+				img_docter: null,
+				alert: null,
+
 			},
 			methods: {
-				uploadFoto : function(){
+				uploadFoto: function() {
 
 				}
 			},
@@ -457,8 +457,8 @@
 
 
 		new Vue({
-			el : "#editDocterModal",
-			data : {
+			el: "#editDocterModal",
+			data: {
 				docter_name: null,
 				spesialis: null,
 				error_message: null,
@@ -467,13 +467,13 @@
 				ket: null
 			},
 			methods: {
-				showEditModal: function(data){
+				showEditModal: function(data) {
 					console.log(data)
 				},
-				selectSpesialis : function(){
+				selectSpesialis: function() {
 
 				},
-				updateData : function(){
+				updateData: function() {
 
 				}
 			},

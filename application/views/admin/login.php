@@ -108,17 +108,21 @@
 
 <body class="text-center">
 
-	<main class="form-signin w-100 m-auto">
+	<main class="form-signin w-100 m-auto" id="app">
 		<form>
 			<h1 class="h3 mb-3 fw-normal">Login Admin . . .</h1>
 			<hr>
+			<div v-if="message" class="alert alert-danger" role="alert">
+			 {{ error_message }}
+			</div>
+
 
 			<div class="form-floating">
-				<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-				<label for="floatingInput">Email address</label>
+				<input type="text" class="form-control" v-model="username" @keypress="enterLogin" ref="username"  placeholder="Username">
+				<label for="floatingInput">Username</label>
 			</div>
 			<div class="form-floating">
-				<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+				<input type="password" class="form-control" v-model="password" @keypress="enterLogin" ref="password" placeholder="Password">
 				<label for="floatingPassword">Password</label>
 			</div>
 
@@ -127,7 +131,7 @@
 					<input type="checkbox" value="remember-me"> Remember me
 				</label>
 			</div> -->
-			<button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+			<button class="w-100 btn btn-lg btn-primary" type="button" @click="login">Login</button>
 			<br>
 			<br>
 			<a href="<?= base_url()?>">Back</a>
@@ -135,6 +139,51 @@
 		</form>
 	</main>
 
+	<script>
+		const SERVER = '<?= base_url() ?>';
+		const _ADMIN_LOGIN_ = SERVER+ 'admin/api_login';
+		const _TOKEN_  ='';
+
+		new Vue({
+			el : "#app",
+			data : {
+				username : null,
+				password : null,
+				message : false,
+				error_message : null
+			},
+			methods: {
+				enterLogin: function(e){
+					if (e.keyCode==13){
+						this.login()
+					}
+				},
+				login : function(){
+					if (this.username == null || this.username === '') {
+						this.$refs.username.focus();
+						return;
+					}
+					if (this.password == null || this.password === '') {
+						this.$refs.password.focus();
+						return;
+					}
+
+					Vony({
+						url: _ADMIN_LOGIN_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_,
+							username : this.username,
+							password : this.password
+						}
+					}).ajax($response => {
+						console.log($response)
+					})
+					
+				}
+			},
+		})
+	</script>
 
 
 </body>
