@@ -1,22 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_docter extends CI_Model
+class M_spesialis extends CI_Model
 {
 
 	// Definisi field/colomn tabel
-	public $id_docter;
-	public $nama;
 	public $id_spesialis;
-	public $foto;
-	public $ket;
+	public $spesialis;
 	//
 
 	// Definisi nama tabel
-	protected $table      = 'docters';
-	protected $view      = 'view_docters';
+	protected $table      = 'spesialis';
 
-	protected $primaryKey = 'id_docter';
+	protected $primaryKey = 'id_spesialis';
 	protected $useAutoIncrement = true;
 
 	protected $useTimestamps = false;
@@ -27,7 +23,7 @@ class M_docter extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->view);
+			->from($this->table);
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return $data;
@@ -37,7 +33,7 @@ class M_docter extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['id_docter' => $this->id_docter]);
+			->where(['id_spesialis' => $this->id_spesialis]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -46,32 +42,21 @@ class M_docter extends CI_Model
 
 	public function checkDataById()
 	{
-		$this->db->select('id_docter')
+		$this->db->select('id_spesialis')
 			->from($this->table)
-			->where(['id_docter' => $this->id_docter]);
+			->where(['id_spesialis' => $this->id_spesialis]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return count($data) > 0 ? true : false;
 	}
 
-	public function getIdDocter()
-	{
-		$this->db->select('id_docter')
-			->from($this->table)
-			->where(['id_docter' => $this->id_docter]);
-
-		$obj = $this->db->get();
-		$data  = $obj->result();
-
-		return (count($data) > 0) ? $data[0] : false;
-	}
 
 	public function search()
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['nama' => $this->nama]);
+			->where(['spesialis' => $this->spesialis]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -79,31 +64,20 @@ class M_docter extends CI_Model
 		return (count($data) > 0) ? true : false;
 	}
 
-	public function saveFoto(){
-		$data = array(
-			'foto' => $this->foto
-		);
-		$this->db->where('id_docter', $this->id_docter);
-		return $this->db->update($this->table, $data);
-	}
 
 	public function updateData()
 	{
 		$data = array(
-			'nama' => $this->nama,
-			'id_spesialis' => $this->id_spesialis,
-			'ket' => $this->ket
+			'spesialis' => $this->spesialis
 		);
-		$this->db->where('id_docter', $this->id_docter);
+		$this->db->where('id_spesialis', $this->id_spesialis);
 		return $this->db->update($this->table, $data);
 	}
 
 	public function addData()
 	{
 		$data = array(
-			'nama' => $this->nama,
-			'id_spesialis' => $this->id_spesialis,
-			'ket' => $this->ket
+			'spesialis' => $this->spesialis
 		);
 		return $this->db->insert($this->table, $data);
 	}
@@ -112,7 +86,7 @@ class M_docter extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->like('nama', $search);
+			->like('spesialis', $search);
 
 		$obj = $this->db->get();
 
@@ -123,6 +97,6 @@ class M_docter extends CI_Model
 
 	public function delete_data()
 	{
-		return $this->db->delete($this->table, array('id_docter' => $this->id_docter));
+		return $this->db->delete($this->table, array('id_spesialis' => $this->id_spesialis));
 	}
 }

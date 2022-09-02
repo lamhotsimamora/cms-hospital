@@ -4,8 +4,6 @@
 <head>
 
 	<title>Docters</title>
-
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -102,7 +100,7 @@
 									<table class="table table-bordered" width="100%" cellspacing="0">
 										<thead>
 											<tr>
-												<th>Docter Name</th>
+												<th>Nama</th>
 												<th>Spesialis</th>
 												<th>Foto</th>
 												<th>@</th>
@@ -115,7 +113,8 @@
 												<td>{{ data . spesialis }}</td>
 												<td v-html="viewFotoDocters(data.foto)"></td>
 												<td>
-													<button data-toggle="modal" data-target="#editDocterModal" @click="showEditModal(data.id_docter,data.name,data.id_spesialis,data.foto)" class="btn btn-warning btn-sm">Edit</button>
+													<button data-toggle="modal" data-target="#editDocterModal" @click="showEditModal(data)" class="btn btn-warning btn-sm">Edit</button>
+													<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadFotoModal">Foto</button>
 													<button @click="deleteData(data.id_docter)" class="btn btn-danger btn-sm">x</button>
 												</td>
 											</tr>
@@ -163,7 +162,7 @@
 				</div>
 				<div class="modal-body">
 					<div v-if="alert" class="alert alert-danger" role="alert">
-						@{{ error_message }}
+						{{ error_message }}
 					</div>
 
 					<div class="input-group">
@@ -175,15 +174,14 @@
 						<label for="exampleFormControlSelect1">Select SPESIALIS</label>
 						<select v-model="spesialis" @change="selectSpesialis" class="form-control form-control-sm" id="exampleFormControlSelect1">
 							<option :value="spesialis.id_spesialis" v-for="spesialis in data_spesialis">
-								@{{ spesialis . spesialis }}</option>
+								{{ spesialis . spesialis }}
+							</option>
 						</select>
 					</div>
 					<hr>
-					<center>
-						<input type="file" onchange="selectFoto(event)" accept="image/*" id="file_img" name="file_img"> <br><br>
-						<img :src="img_docter" alt="" width="100px" height="100px" id="img_docter" name="img_docter">
-					</center> <br>
-
+					<div class="input-group">
+						<input type="text" @keypress="enterSave" v-model="ket" ref="ket" class="form-control bg-light border-0 small" placeholder="Keterangan" aria-label="Search" aria-describedby="basic-addon2">
+					</div>
 
 				</div>
 				<div class="modal-footer">
@@ -194,6 +192,38 @@
 		</div>
 	</div>
 	<!-- End Edit Docter Modal-->
+
+	<!-- upload foto Modal-->
+	<div class="modal fade" id="uploadFotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Upload Foto Docter</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div v-if="alert" class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+
+					<center>
+						<input type="file" onchange="selectFoto(event)" accept="image/*" id="file_img" name="file_img"> <br><br>
+						<img :src="img_docter" alt="" width="100px" height="100px" id="img_docter" name="img_docter">
+					</center> <br>
+
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="#" @click="uploadFoto">Upload</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Upload Foto Docter Modal-->
+
 
 
 	<!-- Add Docter Modal-->
@@ -209,22 +239,25 @@
 				<div class="modal-body">
 
 					<div v-if="alert" class="alert alert-danger" role="alert">
-						@{{ error_message }}
+						{{ error_message }}
 					</div>
 
 					<div class="input-group">
 						<input type="text" @keypress="enterSave" v-model="docter_name" ref="docter_name" class="form-control bg-light border-0 small" placeholder="Docter Name" aria-label="Search" aria-describedby="basic-addon2">
-
 					</div>
 					<hr>
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Select SPESIALIS</label>
 						<select @keypress="enterSave" v-model="spesialis" @change="selectSpesialis" class="form-control form-control-sm" id="exampleFormControlSelect1">
 							<option :value="spesialis.id_spesialis" v-for="spesialis in data_spesialis">
-								@{{ spesialis . spesialis }}</option>
+								{{ spesialis . spesialis }}
+							</option>
 						</select>
 					</div>
-
+					<hr>
+					<div class="input-group">
+						<input type="text" @keypress="enterSave" v-model="ket" ref="ket" class="form-control bg-light border-0 small" placeholder="Keterangan" aria-label="Search" aria-describedby="basic-addon2">
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -240,6 +273,9 @@
 		// get token from 
 		const _TOKEN_ = '';
 		const _URL_SERVER_ = '<?= base_url() ?>';
+		const _SPESIALIS_LOAD_DATA_ = _URL_SERVER_ + 'admin/api_load_spesialis';
+		const _DOCTER_ADD_DATA_ = _URL_SERVER_ + 'admin/api_add_docter';
+		const _DOCTER_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_docter';
 	</script>
 
 
@@ -250,15 +286,47 @@
 	<script src="<?= base_url('') ?>public/assets/js/sb-admin-2.min.js"></script>
 
 	<script>
-		new Vue({
+		var $docter = new Vue({
 			el: '#table_docter',
 			data: {
 				data_docters: null,
 				search: null
 			},
 			methods: {
-				deleteData: function(){
+				deleteData: function(id_docter) {
+					if (id_docter) {
+						Swal.fire({
+							title: 'Yakin mau hapus data ini ?',
+							text: "",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Yes'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								Vony({
+									url: _DOCTER_DELETE_DATA_,
+									method: 'POST',
+									data: {
+										_token: _TOKEN_,
+										id_docter: id_docter
+									}
+								}).ajax($response => {
+									const $obj = JSON.parse($response);
+									if ($obj.result == true) {
+										showToast('Data has been deleted !', 'success')
+										this.loadDataDocter();
+									} else {
+										this.data_docters = null;
+										showToast('Data gagal dihapus !')
+									}
+								});
 
+
+							}
+						})
+					}
 				},
 				viewFotoDocters: function() {
 
@@ -284,6 +352,130 @@
 			},
 			mounted() {
 				this.loadData();
+			},
+		})
+
+		new Vue({
+			el: "#addDocterModal",
+			data: {
+				docter_name: null,
+				spesialis: null,
+				error_message: null,
+				data_spesialis: null,
+				alert: null,
+				ket: null
+			},
+			mounted() {
+				this.loadSpesialis();
+			},
+			methods: {
+
+				loadSpesialis: function() {
+					Vony({
+						url: _SPESIALIS_LOAD_DATA_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_
+						}
+					}).ajax($response => {
+						const $obj = JSON.parse($response);
+						if ($obj.result == true) {
+							this.data_spesialis = $obj.data;
+						} else {
+							this.data_spesialis = null;
+							showToast('Failed load data !', 'danger')
+						}
+					});
+				},
+				selectSpesialis: function() {
+
+				},
+				enterSave: function(e) {
+					if (e.keyCode == 13) {
+						this.save();
+					}
+				},
+				save: function() {
+					if (this.docter_name == null || this.docter_name === '') {
+						this.$refs.docter_name.focus();
+						return;
+					}
+
+					if (this.spesialis === 'NULL' || this.spesialis == null) {
+						this.error_message = "Pilih Spesialis Dulu...";
+						this.alert = true;
+						return;
+					}
+					if (this.ket == null || this.ket === '') {
+						this.$refs.ket.focus();
+						return;
+					}
+					this.alert = false;
+					Vony({
+						url: _DOCTER_ADD_DATA_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_,
+							nama: this.docter_name,
+							id_spesialis: this.spesialis,
+							ket: this.ket
+						}
+					}).ajax($response => {
+						const $obj = JSON.parse($response);
+
+						if ($obj) {
+							const $result = $obj.result;
+
+							if ($result) {
+								this.docter_name = null;
+								this.ket = null
+								$docter.loadData();
+								showToast('Data has been added !', 'success')
+							} else {
+								var message = $obj.message;
+								showToast(message, 'danger')
+							}
+						}
+					});
+				}
+			},
+		})
+
+		new Vue({
+			el : '#uploadFotoModal',
+			data : {
+				img_docter : null,
+				alert : null,
+				
+			},
+			methods: {
+				uploadFoto : function(){
+
+				}
+			},
+		})
+
+
+		new Vue({
+			el : "#editDocterModal",
+			data : {
+				docter_name: null,
+				spesialis: null,
+				error_message: null,
+				data_spesialis: null,
+				alert: null,
+				ket: null
+			},
+			methods: {
+				showEditModal: function(data){
+					console.log(data)
+				},
+				selectSpesialis : function(){
+
+				},
+				updateData : function(){
+
+				}
 			},
 		})
 	</script>
