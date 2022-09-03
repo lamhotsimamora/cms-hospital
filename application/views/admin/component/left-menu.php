@@ -19,3 +19,13 @@
         </div>
     </div>
 </li>
+
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="<?= base_url() ?>admin/feedback" data-target aria-expanded="true"
+        aria-controls="">
+        <i class="fas fa-clock"></i>
+        <span>Feedback</span>
+    </a>
+    
+</li>

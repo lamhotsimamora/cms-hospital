@@ -27,15 +27,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/navbar.php') ?>
 
 	<br>
+	
 	<main class="container">
 		<div class="bg-light p-5 rounded">
 			<h1><?= $data['name']; ?></h1>
 			<hr>
 			<p class="lead">
-				<?= $data['description']; ?>
+			<?= $data['description']; ?>
 			</p>
 		</div>
 	</main>
+
 	<hr>
 	
 	<?php include('component/card.php')?>

@@ -311,8 +311,6 @@
 					$editDocter.spesialis = data.spesialis;
 					$editDocter.ket = data.ket;
 					$editDocter.id_docter = data.id_docter;
-					console.log(data.id_docter);
-					console.log(data.spesialis);
 				},
 				getIdDocter: function(id_docter) {
 					console.log(id_docter)

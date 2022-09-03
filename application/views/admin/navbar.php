@@ -109,7 +109,7 @@
 										<tbody>
 											<tr v-for="data in data_navbar">
 												<td>{{ data . title }}</td>
-												<td>{{ data . link }}</td>
+												<td v-html="viewLink(data.link)"></td>
 												<td>
 													<button @click="showModal(data)" data-toggle="modal" data-target="#editNavbarModal" class="btn btn-warning btn-sm">Edit</button>
 													<button @click="deleteData(data.id_navbar)" class="btn btn-danger btn-sm">x</button>
@@ -166,12 +166,20 @@
 						class="form-control bg-light border-0 small" placeholder="Title" 
 						aria-label="Search" aria-describedby="basic-addon2">
 					</div>
-					<hr>
-					<div class="input-group">
+					<br>
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Select Page</label>
+						<select v-model="pages" @change="selectPage" class="form-control form-control-sm" id="exampleFormControlSelect1">
+							<option :value="page.slug" v-for="page in data_pages">
+								{{ page.name }}
+							</option>
+						</select>
+					</div>
+					<!-- <div class="input-group">
 						<input type="text" @keypress="enterSave" v-model="link" ref="link" 
 						class="form-control bg-light border-0 small" placeholder="Link" 
 						aria-label="Search" aria-describedby="basic-addon2">
-					</div>
+					</div> -->
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -202,16 +210,19 @@
 						class="form-control bg-light border-0 small" placeholder="Title" 
 						aria-label="Search" aria-describedby="basic-addon2">
 					</div>
-					<hr>
-					<div class="input-group">
-						<input type="text" @keypress="enterSave" v-model="link" ref="link" 
-						class="form-control bg-light border-0 small" placeholder="Link" 
-						aria-label="Search" aria-describedby="basic-addon2">
+					<br>
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Select Page</label>
+						<select v-model="pages" @change="selectPage" class="form-control form-control-sm" id="exampleFormControlSelect1">
+							<option :value="page.slug" v-for="page in data_pages">
+								{{ page.name }}
+							</option>
+						</select>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="#" @click="update">Save</a>
+					<a class="btn btn-primary" href="#" @click="updateData">Save</a>
 				</div>
 			</div>
 		</div>
@@ -237,6 +248,7 @@
 
 		const _NAVBAR_LOAD_ALL_DATA_ = _URL_SERVER_ + 'admin/api_load_all_navbar';
 		const _NAVBAR_ADD_DATA_ = _URL_SERVER_ + 'admin/api_add_navbar';
+		const _NAVBAR_EDIT_DATA_ = _URL_SERVER_ + 'admin/api_update_navbar';
 		const _NAVBAR_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_navbar';
 		const _NAVBAR_SEARCH_DATA_ = _URL_SERVER_ + 'admin/api_search_navbar';
 
@@ -250,9 +262,14 @@
 				title: null,
 				link:null,
 				data_navbar: null,
-				search: null
+				search: null,
+				pages: null
 			},
 			methods: {
+				viewLink:function(value){
+					var final= _URL_SERVER_ +'page/p/'+value;
+					return `<a href="${final}" target="_blank">${value}</a>`;
+				},	
 				showModal: function(data){
 					$editNavbarModal.id_navbar = data.id_navbar;
 					$editNavbarModal.title = data.title;
@@ -346,18 +363,43 @@
 			data : {
 				title : null,
 				link : null,
-				alert:null
+				alert:null,
+				pages:null,
+				data_pages:null
+			},
+			mounted() {
+				this.loadPages()
 			},
 			methods: {
+				loadPages: function(){
+					Vony({
+						url: _URL_SERVER_ + 'admin/api_load_all_page',
+						method: 'post'
+					}).ajax((response) => {
+						var obj = JSON.parse(response);
+
+						if (obj) {
+							this.data_pages = obj.data;
+						}
+					})
+				},
+				selectPage:function(){
+
+				},
 				save: function(){
 					if (this.title == null || this.title === '') {
 						this.$refs.title.focus();
 						return;
 					}
-					if (this.link == null || this.link === '') {
-						this.$refs.link.focus();
+
+					if (this.pages === 'NULL' || this.pages == null) {
+
 						return;
 					}
+					// if (this.link == null || this.link === '') {
+					// 	this.$refs.link.focus();
+					// 	return;
+					// }
 
 					Vony({
 						url: _NAVBAR_ADD_DATA_,
@@ -365,7 +407,7 @@
 						data: {
 							_token: _TOKEN_,
 							title : this.title,
-							link : this.link
+							link : this.pages
 						}
 					}).ajax($response => {
 						const $obj = JSON.parse($response);
@@ -399,15 +441,69 @@
 				title : null,
 				link : null,
 				alert:null,
-				id_navbar:null
+				id_navbar:null,
+				pages:null,
+				data_pages:null
+			},
+			mounted() {
+				this.loadPage()
 			},
 			methods: {
-				update: function(){
+				loadPage: function(){
+					Vony({
+						url: _URL_SERVER_ + 'admin/api_load_all_page',
+						method: 'post'
+					}).ajax((response) => {
+						var obj = JSON.parse(response);
 
+						if (obj) {
+							this.data_pages = obj.data;
+						}
+					})
+				},
+				selectPage: function(){
+
+				},
+				updateData: function(){
+					if (this.title == null || this.title === '') {
+						this.$refs.title.focus();
+						return;
+					}
+					if (this.link == null || this.link === '') {
+						this.$refs.link.focus();
+						return;
+					}
+
+					Vony({
+						url: _NAVBAR_EDIT_DATA_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_,
+							title : this.title,
+							link : this.pages,
+							id_navbar: this.id_navbar
+						}
+					}).ajax($response => {
+						const $obj = JSON.parse($response);
+
+						if ($obj) {
+							const $result = $obj.result;
+
+							if ($result) {
+								this.title = null;
+								this.link = null
+								$navbar.loadData();
+								showToast('Data has been updated !', 'success')
+							} else {
+								var message = $obj.message;
+								showToast(message, 'danger')
+							}
+						}
+					});
 				},
 				enterSave: function(e){
 					if (e.keyCode==13){
-						this.update()
+						this.updateData()
 					}
 				}
 			},

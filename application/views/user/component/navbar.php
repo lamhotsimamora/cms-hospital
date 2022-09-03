@@ -31,13 +31,16 @@
 					$title =  $data_navbar[$i]['title'];
 					$link =  $data_navbar[$i]['link'];
 
+					$server = base_url() . 'page/p/';
+
 					if ($checking_dropdown == false) {
 						echo '<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="' . $link . '">' . $title . '</a>
+								<a class="nav-link active" aria-current="page" href="' . $server . $link . '">' . $title . '</a>
 							</li>';
 					} else {
 						echo '<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="' . $link . '" data-bs-toggle="dropdown" aria-expanded="false">' . $title . '</a>
+								<a class="nav-link dropdown-toggle" href="' . $server . $link . '" 
+								data-bs-toggle="dropdown" aria-expanded="false">' . $title . '</a>
 								<ul class="dropdown-menu">
 									' . $template_dropdown . '
 								</ul>

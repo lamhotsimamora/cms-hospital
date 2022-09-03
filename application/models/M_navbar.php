@@ -66,23 +66,14 @@ class M_navbar extends CI_Model
 		return count($data)>0 ? true:false;
 	}
 
-	public function save_data()
+	public function updateData()
 	{
 		$data = array(
 			'title' => $this->title,
 			'link' => $this->link
 		);
-		$this->db->where('id_navbar', $this->primaryKey);
+		$this->db->where('id_navbar', $this->id_navbar);
 		return $this->db->update($this->table, $data);
-	}
-
-	public function daftar()
-	{
-		$data = array(
-			'title' => $this->title,
-			'link' => $this->link
-		);
-		return $this->db->insert($this->table, $data);
 	}
 	
 	public function delete_data(){

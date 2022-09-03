@@ -67,16 +67,19 @@ class Admin extends CI_Controller
 	{
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
+		}else{
+			$this->load->view('admin/post_all');
 		}
-		$this->load->view('admin/post_all');
 	}
 
 	public function page()
 	{
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
+		}else{
+			$this->load->view('admin/page_all');
 		}
-		$this->load->view('admin/page_all');
+		
 	}
 
 	public function addPost()
@@ -84,7 +87,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/addPost');
+		else{
+			$this->load->view('admin/addPost');
+		}
 	}
 
 	public function addPage()
@@ -92,7 +97,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/addPage');
+		else{
+			$this->load->view('admin/addPage');
+		}
 	}
 
 	public function navbar()
@@ -100,7 +107,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/navbar');
+		else{
+			$this->load->view('admin/navbar');
+		}
 	}
 
 	public function slideshow()
@@ -108,7 +117,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/slideshow');
+		else{
+			$this->load->view('admin/slideshow');
+		}
 	}
 
 
@@ -117,7 +128,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/docters');
+		else{
+			$this->load->view('admin/docters');
+		}
 	}
 
 	public function spesialis()
@@ -125,7 +138,9 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/spesialis');
+		else{
+			$this->load->view('admin/spesialis');
+		}
 	}
 
 	public function hospital()
@@ -133,7 +148,18 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/hospital');
+		else{
+			$this->load->view('admin/hospital');
+		}
+	}
+
+	public function feedback(){
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		else{
+			$this->load->view('admin/feedback');
+		}
 	}
 
 	public function api_login()
@@ -670,6 +696,33 @@ class Admin extends CI_Controller
 		$this->M_docter->nama = $nama;
 
 		$result =  $this->M_docter->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_update_navbar()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_navbar');
+
+		$id_navbar = $this->input->post('id_navbar');
+		$title = $this->input->post('title');
+		$link = $this->input->post('link');
+
+		validationInput($title,$id_navbar,$link);
+
+		$this->M_navbar->id_navbar = $id_navbar;
+		$this->M_navbar->title = $title;
+		$this->M_navbar->link = $link;
+
+		$result =  $this->M_navbar->updateData();
 
 		$response['result'] = false;
 		if ($result) {
