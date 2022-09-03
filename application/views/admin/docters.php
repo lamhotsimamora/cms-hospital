@@ -313,7 +313,6 @@
 					$editDocter.id_docter = data.id_docter;
 				},
 				getIdDocter: function(id_docter) {
-					console.log(id_docter)
 					$uploadFoto.id_docter = id_docter;
 				},
 				deleteData: function(id_docter) {

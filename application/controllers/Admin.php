@@ -118,7 +118,7 @@ class Admin extends CI_Controller
 			redirect('/admin/login');
 		}
 		else{
-			$this->load->view('admin/slideshow');
+			$this->load->view('admin/slideshows');
 		}
 	}
 
@@ -235,6 +235,27 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_delete_slideshow()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+		$this->load->model('M_slideshows');
+		$id_slideshow = $this->input->post('id_slideshow');
+
+		validationInput($id_slideshow);
+		$this->M_slideshows->id_slideshow = $id_slideshow;
+
+		$result = $this->M_slideshows->delete_data();
+
+		$response['result'] = false;
+		
+		if ($result){
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function api_search_docter(){
 		if (!$this->AuthLogin()) {
 			exit(json_encode(array('message' => 'access denied')));
@@ -283,6 +304,14 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_load_all_slideshow(){
+		$this->load->model('M_slideshows');
+
+		$response['data'] = $this->M_slideshows->loadData();
+		$response['result'] = true;
+
+		echo json_encode($response);
+	}
 
 	public function api_load_all_post(){
 		$this->load->model('M_post');
@@ -332,6 +361,32 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_add_slideshow()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_slideshows');
+
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+
+		validationInput($title,$description);
+
+		$this->M_slideshows->title = $title;
+		$this->M_slideshows->description = $description;
+
+		$result =  $this->M_slideshows->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+
 	public function api_add_spesialis()
 	{
 		if (!$this->AuthLogin()) {
@@ -380,6 +435,33 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_update_slideshow(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_slideshows');
+
+		$id_slideshow = $this->input->post('id_slideshow');
+		$title = $this->input->post('title');
+		$description = $this->input->post('description');
+
+		validationInput($id_slideshow,$title,$description);
+
+		$this->M_slideshows->title = $title;
+		$this->M_slideshows->description = $description;
+		$this->M_slideshows->id_slideshow = $id_slideshow;
+
+		$result =  $this->M_slideshows->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_update_page(){
 		if (!$this->AuthLogin()) {

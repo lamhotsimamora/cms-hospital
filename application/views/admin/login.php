@@ -112,9 +112,14 @@
 		<form>
 			<h1 class="h3 mb-3 fw-normal">Login Admin . . .</h1>
 			<hr>
+
+			<div v-if="loading" class="spinner-border text-primary" role="status">
+			<span class="visually-hidden"></span>
+			</div>
+			<hr>
 			
 			<div class="form-floating">
-				<input type="text" class="form-control" v-model="username" @keypress="enterLogin" ref="username" placeholder="Username">
+				<input id="txt_username" type="text" class="form-control" v-model="username" @keypress="enterLogin" ref="username" placeholder="Username">
 				<label for="floatingInput">Username</label>
 			</div>
 			<div class="form-floating">
@@ -140,11 +145,16 @@
 		const _ADMIN_LOGIN_ = SERVER + 'admin/api_login';
 		const _TOKEN_ = '';
 
+		ready(function(){
+			Vony({id:'txt_username'}).focus()
+		});
+
 		new Vue({
 			el: "#app",
 			data: {
 				username: null,
 				password: null,
+				loading : false
 			},
 			methods: {
 				enterLogin: function(e) {
@@ -161,6 +171,7 @@
 						this.$refs.password.focus();
 						return;
 					}
+					this.loading =true;
 
 					Vony({
 						url: _ADMIN_LOGIN_,
@@ -171,6 +182,7 @@
 							password: this.password
 						}
 					}).ajax($response => {
+						this.loading = false;
 						var obj = JSON.parse($response);
 						if (obj) {
 							var result = obj.result;

@@ -26,7 +26,7 @@ class M_slideshows extends CI_Model
 		$this->db->select('*')
 			->from($this->table);
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return $data;
 	}
 
@@ -93,7 +93,6 @@ class M_slideshows extends CI_Model
 	{
 		$data = array(
 			'title' => $this->title,
-			'image' => $this->image,
 			'description' => $this->description,
 			'date_created' => _getDate(),
 		);

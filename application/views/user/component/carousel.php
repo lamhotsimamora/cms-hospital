@@ -8,67 +8,54 @@
 		<!-- CONTENT -->
 
 		<!-- carosel1 -->
-		<div class="carousel-item active">
-			<img class="bd-placeholder-img" width="100%" height="100%" src="<?= base_url('') ?>public/assets/img/hospital1.jpg" alt="">
-			<!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-				<rect width="100%" height="100%" fill="#717" />
-			</svg> -->
+		<?php
 
+
+		$server = base_url() . 'public/';
+		$no_image = 'no-img.png';
+
+		$i = 1;
+		foreach ($data_slideshow as $key => $value) {
+			$title = $value['title'];
+			$image = $value['image'];
+
+			if ($image==='' || $image==null){
+				$image = 'assets/img/'.$no_image;
+			}else{
+				$image = 'img/slideshow/'.$image;
+			}
+
+			$description = $value['description'];
+
+			$active  = '';
+			if ($i == 1) {
+				$active = 'active';
+			} else {
+				$active = '';
+			}
+
+			echo '<div class="carousel-item ' . $active . '">
+			<img class="bd-placeholder-img" width="100%" height="100%" src="' . $server . $image . '" alt="">
+			
+	
 			<div class="container">
 				<div class="carousel-caption text-start" style="color:black">
 					<h1>
-						Title 1
+						' . $title . '
 					</h1>
 					<p>
-						Quis sint cupidatat reprehenderit esse commodo voluptate. Aute pariatur officia id laborum in ut aute culpa et reprehenderit. Excepteur ea ea esse magna non dolore. Do irure tempor est sit. Culpa labore anim amet qui aliqua. Nulla consectetur consequat elit pariatur magna incididunt commodo laboris officia sit. Sit enim ex laborum laborum ea laboris duis.
+						' . $description . '
 					</p>
-					<p><a class="btn btn-lg btn-primary" href="#">Sign Up</a></p>
+					<p><a class="btn btn-lg btn-primary" href="#">News</a></p>
 				</div>
 			</div>
-		</div>
+		</div>';
+
+			$i++;
+		}
+		?>
 		<!-- carosel1 -->
 
-		<!-- carosel2 -->
-		<div class="carousel-item">
-		<img class="bd-placeholder-img" width="100%" height="100%" src="<?= base_url('') ?>public/assets/img/hospital2.jpg" alt="">
-				
-		<!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-				<rect width="100%" height="100%" fill="#177" />
-			</svg> -->
-
-			<div class="container">
-				<div class="carousel-caption" style="color:black">
-					<h1>
-						Title 2
-					</h1>
-					<p>
-						Voluptate culpa consequat voluptate minim Lorem voluptate amet dolor anim adipisicing. Sint excepteur dolor mollit proident quis ipsum deserunt esse officia. Deserunt sint ipsum dolore enim dolore proident ullamco et pariatur tempor nisi. Cupidatat ad tempor adipisicing officia. Eu proident reprehenderit eiusmod labore in dolore in incididunt ipsum ullamco in in. Ad est et reprehenderit ad est.
-					</p>
-					<p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
-				</div>
-			</div>
-		</div>
-		<!-- carosel2 -->
-
-		<!-- carosel3 -->
-		<div class="carousel-item">
-		<img class="bd-placeholder-img" width="100%" height="100%" src="<?= base_url('') ?>public/assets/img/hospital3.jpg" alt="">
-			
-			<!-- <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-				<rect width="100%" height="100%" fill="#677" />
-			</svg> -->
-
-			<div class="container">
-				<div class="carousel-caption text-end" style="color:black">
-					<h1>Title 3</h1>
-					<p>
-						Mollit ipsum fugiat in aute ea. Adipisicing non amet labore dolor tempor voluptate tempor exercitation cillum cupidatat aliqua aute. Veniam voluptate dolore deserunt ut deserunt mollit eu sint culpa. Sunt mollit eiusmod officia enim Lorem ut culpa eu ea culpa. Adipisicing magna et excepteur commodo Lorem aliquip aliquip. Velit elit irure ad labore irure fugiat aute tempor laboris quis nisi ad nulla. Voluptate non labore ullamco consectetur ad velit duis consectetur esse sit cillum dolore.
-					</p>
-					<p><a class="btn btn-lg btn-primary" href="#">Browse</a></p>
-				</div>
-			</div>
-		</div>
-		<!-- carosel3 -->	 	
 
 		<!-- CONTENT -->
 	</div>
