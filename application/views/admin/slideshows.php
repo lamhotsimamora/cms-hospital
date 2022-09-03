@@ -595,8 +595,8 @@
 						return;
 					}
 
-					console.log(this.id_docter)
-					if (this.id_docter == null) {
+					console.log(this.id_slideshow)
+					if (this.id_slideshow == null) {
 						console.log("Not ready")
 						return;
 					}
@@ -605,9 +605,9 @@
 						// Array
 						el: ['file_img'],
 						// String
-						url: _URL_SERVER_ + '/admin/api_upload_foto_docter',
+						url: _URL_SERVER_ + '/admin/api_upload_foto_slideshow',
 						// String
-						data: this.id_docter,
+						data: this.id_slideshow,
 						// String
 						token: _TOKEN_
 					}).start(($response) => {
@@ -623,7 +623,7 @@
 									text: 'File Berhasil Diupload !',
 									footer: '<a href=""></a>'
 								});
-								$docter.loadData();
+								$slideshow.loadData();
 								_READY_UPLOAD_FOTO_ = false;
 								this.img_slideshow = NO_IMAGE;
 							} else {

@@ -29,7 +29,7 @@ class M_docter extends CI_Model
 		$this->db->select('*')
 			->from($this->view);
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return $data;
 	}
 

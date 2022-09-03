@@ -1,6 +1,12 @@
 <footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2022 PDR Technology</p>
+    <p>
+			<?php 
+
+			echo $footer;
+
+			?>
+		</p>
 </footer>
 
 <!-- <footer class="footer mt-auto py-3 bg-light">

@@ -34,6 +34,8 @@ class Users extends CI_Controller {
 		$this->load->model('M_user');
 		$this->load->model('M_navbar');
 		$this->load->model('M_slideshows');
+		$this->load->model('M_docter');
+		$this->load->model('M_footer');
 	}
 
 	public function index(){
@@ -42,10 +44,20 @@ class Users extends CI_Controller {
 			$data['data_navbar'] = $this->loadDataNavbar();
 			$data['data_navbar_child'] = $this->loadDataNavbarChild();
 			$data['data_slideshow'] = $this->loadDataSlideShows();
+			$data['data_docter'] = $this->loadDataDocters();
+			$data['footer'] = $this->loadFooter();
 			$this->load->view('user/home',$data);
 		//}else{
 			//$this->load->view('user/login');
 		//}
+	}
+
+	private function loadFooter(){
+		return ($this->M_footer->loadData());
+	}
+	
+	private function loadDataDocters(){
+		return ($this->M_docter->loadData());
 	}
 
 	private function loadDataNavbar(){

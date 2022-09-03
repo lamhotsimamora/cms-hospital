@@ -879,6 +879,50 @@ class Admin extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function api_upload_foto_slideshow()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$id_slideshow = $this->input->post('id');
+
+		validationInput($id_slideshow);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/slideshow/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_slideshows");
+			$this->M_slideshows->id_slideshow = _replaceSq($id_slideshow);
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_slideshows->image = $filename;
+
+			$save = $this->M_slideshows->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+
 	public function api_upload_foto_hospital(){
 		if (!$this->AuthLogin()) {
 			exit(json_encode(array('message' => 'access denied')));

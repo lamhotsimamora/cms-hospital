@@ -1,19 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_slideshows extends CI_Model
+class M_footer extends CI_Model
 {
+
 	// Definisi field/colomn tabel
-	public $id_slideshow;
-	public $image;
-	public $title;
-	public $description;
+	public $id_footer;
+	public $footer;
 	//
 
 	// Definisi nama tabel
-	protected $table      = 'slideshows';
+	protected $table      = 'footer';
 
-	protected $primaryKey = 'id_slideshow';
+	protected $primaryKey = 'id_footer';
 	protected $useAutoIncrement = true;
 
 	protected $useTimestamps = false;
@@ -26,22 +25,15 @@ class M_slideshows extends CI_Model
 		$this->db->select('*')
 			->from($this->table);
 		$obj = $this->db->get();
-		$data  = $obj->result_array();
+		$data  = $obj->result();
 		return $data;
-	}
-
-	public function saveFoto(){
-		$query = $this->db->query(
-			"update slideshows set image='".$this->image."' 
-		WHERE id_slideshow=".$this->id_slideshow."");
-		return $query;
 	}
 
 	public function loadData_byId()
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['id_slideshow' => $this->id_slideshow]);
+			->where(['id_footer' => $this->id_footer]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -50,32 +42,21 @@ class M_slideshows extends CI_Model
 
 	public function checkDataById()
 	{
-		$this->db->select('id_slideshow')
+		$this->db->select('id_footer')
 			->from($this->table)
-			->where(['id_slideshow' => $this->id_slideshow]);
+			->where(['id_footer' => $this->id_footer]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return count($data) > 0 ? true : false;
 	}
 
-	public function getIdPost()
-	{
-		$this->db->select('id_slideshow')
-			->from($this->table)
-			->where(['id_slideshow' => $this->id_slideshow]);
-
-		$obj = $this->db->get();
-		$data  = $obj->result();
-
-		return (count($data) > 0) ? $data[0] : false;
-	}
 
 	public function search()
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['title' => $this->title]);
+			->where(['spesialis' => $this->spesialis]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -87,21 +68,16 @@ class M_slideshows extends CI_Model
 	public function updateData()
 	{
 		$data = array(
-			'title' => $this->title,
-			'image' => $this->image,
-			'description' => $this->description,
-			'date_created' => _getDate(),
+			'footer' => $this->footer
 		);
-		$this->db->where('id_slideshow', $this->id_slideshow);
+		$this->db->where('id_footer', $this->id_footer);
 		return $this->db->update($this->table, $data);
 	}
 
 	public function addData()
 	{
 		$data = array(
-			'title' => $this->title,
-			'description' => $this->description,
-			'date_created' => _getDate(),
+			'footer' => $this->footer
 		);
 		return $this->db->insert($this->table, $data);
 	}
@@ -110,7 +86,7 @@ class M_slideshows extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->like('title', $this->title);
+			->like('spesialis', $search);
 
 		$obj = $this->db->get();
 
@@ -121,6 +97,6 @@ class M_slideshows extends CI_Model
 
 	public function delete_data()
 	{
-		return $this->db->delete($this->table, array('id_slideshow' => $this->id_slideshow));
+		return $this->db->delete($this->table, array('id_footer' => $this->id_footer));
 	}
 }

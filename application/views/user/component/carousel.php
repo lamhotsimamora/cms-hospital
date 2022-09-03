@@ -40,10 +40,10 @@
 	
 			<div class="container">
 				<div class="carousel-caption text-start" style="color:black">
-					<h1>
+					<h1 style="background-color:DodgerBlue;">
 						' . $title . '
 					</h1>
-					<p>
+					<p style="background-color:white;">
 						' . $description . '
 					</p>
 					<p><a class="btn btn-lg btn-primary" href="#">News</a></p>
