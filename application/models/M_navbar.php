@@ -35,6 +35,15 @@ class M_navbar extends CI_Model
 		$obj = $this->db->get();
 		return $obj->result_array();
 	}
+
+	public function addData()
+	{
+		$data = array(
+			'title' => $this->title,
+			'link' => $this->link
+		);
+		return $this->db->insert($this->table, $data);
+	}
 	
 
 	public function loadData_byId(){
@@ -77,6 +86,6 @@ class M_navbar extends CI_Model
 	}
 	
 	public function delete_data(){
-		return $this->db->delete($this->table, array('id_navbar' => $this->primaryKey));
+		return $this->db->delete($this->table, array('id_navbar' => $this->id_navbar));
 	}
 }

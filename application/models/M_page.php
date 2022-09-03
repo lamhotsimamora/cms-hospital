@@ -54,6 +54,17 @@ class M_page extends CI_Model
 		return count($data) > 0 ? true : false;
 	}
 
+	public function checkDataBySlug()
+	{
+		$this->db->select('id_page')
+			->from($this->table)
+			->where(['slug' => $this->slug]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result();
+		return count($data) > 0 ? true : false;
+	}
+
 	public function getIdPost()
 	{
 		$this->db->select('id_page')
@@ -98,6 +109,16 @@ class M_page extends CI_Model
 		$this->db->select('*')
 			->from($this->table)
 			->where(['id_page' => $this->id_page]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
+		return count($data) > 0 ? $data[0] : false;
+	}
+
+	public function getDataBySlug(){
+		$this->db->select('*')
+			->from($this->table)
+			->where(['slug' => $this->slug]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result_array();

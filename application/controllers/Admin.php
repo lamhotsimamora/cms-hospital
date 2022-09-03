@@ -286,6 +286,16 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_load_all_navbar()
+	{
+		$this->load->model('M_navbar');
+
+		$response['data'] = $this->M_navbar->loadDataNavbar();
+		$response['result'] = true;
+
+		echo json_encode($response);
+	}
+
 	public function api_load_spesialis()
 	{
 		$this->load->model('M_spesialis');
@@ -484,6 +494,28 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_delete_navbar(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_navbar');
+
+		$id_navbar = $this->input->post('id_navbar');
+
+		validationInput($id_navbar);
+
+		$this->M_navbar->id_navbar = $id_navbar;
+
+		$result =  $this->M_navbar->delete_data();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function api_delete_page(){
 		if (!$this->AuthLogin()) {
 			exit(json_encode(array('message' => 'access denied')));
@@ -590,6 +622,32 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_add_navbar()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_navbar');
+
+		$title = $this->input->post('title');
+		$link = $this->input->post('link');
+
+		validationInput($title, $link);
+
+		$this->M_navbar->title = $title;
+		$this->M_navbar->link = $link;
+
+		$result =  $this->M_navbar->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_update_docter()
 	{
