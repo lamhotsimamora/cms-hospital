@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Add Post</title>
+	<title>Add Page</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,7 +68,7 @@
 
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">New Post</h1>
+						<h1 class="h3 mb-0 text-gray-800">New Page</h1>
 						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
 					</div>
 
@@ -85,14 +85,16 @@
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">
-									<a href="">New Post</a>
+									<a href="">New Page</a>
 								</h6>
 							</div>
-							<div class="card-body" id="post" v-cloak>
-								<a href="<?= base_url() ?>admin/post">Back To Post</a>
+							<div class="card-body" id="page" v-cloak>
+								<a href="<?= base_url() ?>admin/page">Back To Page</a>
 							<hr>
 								<div class="input-group">
-									<input type="text" v-model="title" @keypress="enterSave" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
+									<input type="text" v-model="name" @keypress="enterSave" ref="name" 
+									class="form-control bg-light border-0 small" placeholder="Name" 
+									aria-label="Search" aria-describedby="basic-addon2">
 								</div> <br>
 
 								<div id="txt_description">
@@ -136,7 +138,7 @@
 		const _TOKEN_ = '';
 		const _URL_SERVER_ = '<?= base_url() ?>';
 
-		const _POST_ADD_DATA_ = _URL_SERVER_ +'admin/api_add_post';
+		const _PAGE_ADD_DATA_ = _URL_SERVER_ +'admin/api_add_page';
 	</script>
 
 
@@ -197,9 +199,9 @@
 			}
 		})();
 		new Vue({
-			el: '#post',
+			el: '#page',
 			data: {
-				title: null
+				name : null
 			},
 			methods: {
 				enterSave : function(e) {
@@ -208,8 +210,8 @@
 					}
 				},
 				savePost: function() {
-					if (this.title == null || this.title === '') {
-						this.$refs.title.focus();
+					if (this.name == null || this.name === '') {
+						this.$refs.name.focus();
 						return;
 					}
 					var txt_description = CKEDITOR.instances.txt_description.getData()
@@ -221,11 +223,11 @@
 					}
 
 					Vony({
-						url: _POST_ADD_DATA_,
+						url: _PAGE_ADD_DATA_,
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,
-							title: this.title,
+							name: this.name,
 							description : txt_description
 						}
 					}).ajax($response => {
@@ -235,11 +237,11 @@
 							const $result = $obj.result;
 
 							if ($result) {
-								this.title = null;
+								this.name = null;
 								showToast('Data has been added !', 'success')
 								Swal.fire({
 									title: 'Success',
-									text: 'Post has been added !',
+									text: 'Page has been added !',
 									icon: 'success',
 									confirmButtonText: 'Ok'
 								})

@@ -5,9 +5,9 @@ class M_page extends CI_Model
 {
 	// Definisi field/colomn tabel
 	public $id_page;
-	public $title;
+	public $name;
+	public $slug;
 	public $description;
-	public $cover;
 	public $date_created;
 	public $time_created;
 	//
@@ -70,7 +70,7 @@ class M_page extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->where(['title' => $this->title]);
+			->where(['name' => $this->name]);
 
 		$obj = $this->db->get();
 		$data  = $obj->result();
@@ -81,25 +81,40 @@ class M_page extends CI_Model
 
 	public function updateData()
 	{
+		$final_slug = str_replace(" ","-",$this->name);
+		$final_slug = trim($final_slug);
+
 		$data = array(
-			'title' => $this->title,
-			'description' => $this->description,
-			'cover' => $this->cover,
-			'date_created' => $this->date_created,
-			'time_created' => $this->time_created,
+			'name' => $this->name,
+			'slug' => strtolower($final_slug),
+			'description' => $this->description
 		);
 		$this->db->where('id_page', $this->id_page);
 		return $this->db->update($this->table, $data);
 	}
 
+	public function getDataById()
+	{
+		$this->db->select('*')
+			->from($this->table)
+			->where(['id_page' => $this->id_page]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
+		return count($data) > 0 ? $data[0] : false;
+	}
+
 	public function addData()
 	{
+		$final_slug = str_replace(" ","-",$this->name);
+		$final_slug = trim($final_slug);
+
 		$data = array(
-			'title' => $this->title,
+			'name' => $this->name,
+			'slug' => strtolower($final_slug),
 			'description' => $this->description,
-			'cover' => $this->cover,
-			'date_created' => $this->date_created,
-			'time_created' => $this->time_created,
+			'date_created' => _getDate(),
+			'time_created' => _getTime(),
 		);
 		return $this->db->insert($this->table, $data);
 	}
@@ -108,7 +123,7 @@ class M_page extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->like('title', $this->title);
+			->like('name', $this->name);
 
 		$obj = $this->db->get();
 

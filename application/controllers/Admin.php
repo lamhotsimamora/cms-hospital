@@ -71,6 +71,14 @@ class Admin extends CI_Controller
 		$this->load->view('admin/post_all');
 	}
 
+	public function page()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		$this->load->view('admin/page_all');
+	}
+
 	public function addPost()
 	{
 		if (!$this->AuthLogin()) {
@@ -79,12 +87,12 @@ class Admin extends CI_Controller
 		$this->load->view('admin/addPost');
 	}
 
-	public function page()
+	public function addPage()
 	{
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		}
-		$this->load->view('admin/page');
+		$this->load->view('admin/addPage');
 	}
 
 	public function navbar()
@@ -102,6 +110,7 @@ class Admin extends CI_Controller
 		}
 		$this->load->view('admin/slideshow');
 	}
+
 
 	public function docters()
 	{
@@ -258,6 +267,15 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_load_all_page(){
+		$this->load->model('M_page');
+
+		$response['data'] = $this->M_page->loadData();
+		$response['result'] = true;
+
+		echo json_encode($response);
+	}
+
 	public function api_load_data_docters()
 	{
 		$this->load->model('M_docter');
@@ -327,6 +345,32 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_update_page(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_page');
+
+		$id_page = $this->input->post('id_page');
+		$name = $this->input->post('name');
+		$description = $this->input->post('description');
+
+		validationInput($id_page,$name,$description);
+
+		$this->M_page->name = $name;
+		$this->M_page->description = $description;
+		$this->M_page->id_page = $id_page;
+
+		$result =  $this->M_page->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function editPost($id_post=null){
 		if ($id_post){
 			$this->load->model("M_post");
@@ -344,6 +388,27 @@ class Admin extends CI_Controller
 			}
 		}else{
 			redirect('/admin/post');
+		}
+	}
+
+	public function editPage($id_page=null){
+		if ($id_page){
+			
+			$this->load->model("M_page");
+
+			$this->M_page->id_page = $id_page;
+
+			$result = $this->M_page->checkDataById();
+
+			if ($result){
+				$response['data'] = $this->M_page->getDataById();
+
+				$this->load->view("admin/editPage",$response);
+			}else{
+				redirect('/admin/page');
+			}
+		}else{
+			redirect('/admin/page');
 		}
 	}
 
@@ -372,6 +437,31 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_add_page()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_page');
+
+		$name = $this->input->post('name');
+		$description = $this->input->post('description');
+
+		validationInput($name,$description);
+
+		$this->M_page->name = $name;
+		$this->M_page->description = $description;
+
+		$result =  $this->M_page->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function api_delete_post(){
 		if (!$this->AuthLogin()) {
 			exit(json_encode(array('message' => 'access denied')));
@@ -386,6 +476,28 @@ class Admin extends CI_Controller
 		$this->M_post->id_post = $id_post;
 
 		$result =  $this->M_post->delete_data();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_delete_page(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_page');
+
+		$id_page = $this->input->post('id_page');
+
+		validationInput($id_page);
+
+		$this->M_page->id_page = $id_page;
+
+		$result =  $this->M_page->delete_data();
 
 		$response['result'] = false;
 		if ($result) {
