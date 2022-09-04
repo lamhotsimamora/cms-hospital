@@ -27,7 +27,8 @@ class M_docter extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->view);
+			->from($this->view)
+			->order_by('id_docter', 'desc');
 		$obj = $this->db->get();
 		$data  = $obj->result_array();
 		return $data;

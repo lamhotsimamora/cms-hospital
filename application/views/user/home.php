@@ -31,13 +31,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/news.php') ?>
 
 	<hr>
-	<?php include('component/slideshow.php') ?>
+	<?php include('component/docters.php') ?>
 
 	<hr>
 	<?php include('component/info.php') ?>
 
 	<hr>
-	<?php include('component/card.php')?>
+	<?php include('component/map.php')?>
 
 	<hr>
 	<?php include('component/footer.php') ?>

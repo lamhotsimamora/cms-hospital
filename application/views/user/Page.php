@@ -40,7 +40,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<hr>
 	
-	<?php include('component/card.php')?>
+	<?php include('component/map.php')?>
 
 	<hr>
 	<?php include('component/footer.php') ?>

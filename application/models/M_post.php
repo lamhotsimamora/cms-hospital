@@ -26,9 +26,22 @@ class M_post extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->table)
+			->order_by('id_post', 'desc');
+		
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
+		return $data;
+	}
+
+	public function loadDataLimit(){
+		$this->db->select('*')
+			->from($this->table)
+			->order_by('id_post', 'desc')
+			->limit(1);
+		
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
 		return $data;
 	}
 

@@ -122,6 +122,27 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function footer()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		else{
+			$this->load->view('admin/footer');
+		}
+	}
+
+	public function map()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		else{
+			$this->load->view('admin/map');
+		}
+	}
+
+
 
 	public function docters()
 	{
@@ -150,6 +171,16 @@ class Admin extends CI_Controller
 		}
 		else{
 			$this->load->view('admin/hospital');
+		}
+	}
+
+	public function partner()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		}
+		else{
+			$this->load->view('admin/partner');
 		}
 	}
 
@@ -198,6 +229,41 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_load_footer()
+	{
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_footer');
+		$result = $this->M_footer->loadData();
+
+		$response['result'] = false;
+		if ($result){
+			$response['result'] = true;
+			$response['data'] = $result;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_load_map()
+	{
+		if (!$this->AuthLogin()){
+			exit(json_encode(array('message'=>'access denied')));
+		}
+		$this->load->model('M_map');
+		$result = $this->M_map->loadData();
+
+		$response['result'] = false;
+		if ($result){
+			$response['result'] = true;
+			$response['data'] = $result;
+		}
+		echo json_encode($response);
+	}
+
+
+
 
 	public function api_search_data()
 	{
@@ -386,6 +452,31 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_add_partner()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_partner');
+
+		$title = $this->input->post('title');
+		$link = $this->input->post('link');
+
+		validationInput($title,$link);
+
+		$this->M_partner->title = $title;
+		$this->M_partner->link = $link;
+
+		$result =  $this->M_partner->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_add_spesialis()
 	{
@@ -435,6 +526,52 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_update_map(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_map');
+
+		$location = $this->input->post('location');
+
+		validationInput($location);
+
+		$this->M_map->location = $location;
+
+		$result =  $this->M_map->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+
+	public function api_update_footer(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_footer');
+
+		$footer = $this->input->post('footer');
+
+		validationInput($footer);
+
+		$this->M_footer->footer = $footer;
+
+		$result =  $this->M_footer->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_update_slideshow(){
 		if (!$this->AuthLogin()) {
@@ -602,6 +739,29 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
+	public function api_delete_partner(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_partner');
+
+		$id_partner = $this->input->post('id_partner');
+
+		validationInput($id_partner);
+
+		$this->M_partner->id_partner = $id_partner;
+
+		$result =  $this->M_partner->delete_data();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+
 	public function api_delete_navbar(){
 		if (!$this->AuthLogin()) {
 			exit(json_encode(array('message' => 'access denied')));
@@ -702,6 +862,34 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_update_partner()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_partner');
+
+		$id_partner = $this->input->post('id_partner');
+		$title = $this->input->post('title');
+		$link = $this->input->post('link');
+
+		validationInput($id_partner,$title,$link);
+
+		$this->M_partner->id_partner = $id_partner;
+		$this->M_partner->title = $title;
+		$this->M_partner->link = $link;
+
+		$result =  $this->M_partner->updateData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 
 	public function api_add_docter()
@@ -879,6 +1067,50 @@ class Admin extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function api_upload_foto_partner()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$id_partner = $this->input->post('id');
+
+		validationInput($id_partner);
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/partners/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_partner");
+			$this->M_partner->id_partner = _replaceSq($id_partner);
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_partner->foto = $filename;
+
+			$save = $this->M_partner->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+
 	public function api_upload_foto_slideshow()
 	{
 		if (!$this->AuthLogin()) {
@@ -1006,6 +1238,14 @@ class Admin extends CI_Controller
 		}
 
 		echo json_encode($result);
+	}
+
+	public function api_load_data_partner(){
+		$this->load->model('M_partner');
+
+		$data['data'] = $this->M_partner->loadData();
+
+		echo json_encode($data);
 	}
 
 	public function logout()

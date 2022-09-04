@@ -26,7 +26,8 @@ class M_page extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->table)
+			->order_by('id_page', 'desc');
 		$obj = $this->db->get();
 		$data  = $obj->result();
 		return $data;

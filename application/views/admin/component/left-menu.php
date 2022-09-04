@@ -15,7 +15,9 @@
             <h6 class="collapse-header">@</h6>
             <a class="collapse-item" href="<?= base_url() ?>admin/navbar">Navbar</a>
             <a class="collapse-item" href="<?= base_url() ?>admin/slideshow">Slideshow</a>
-            <a class="collapse-item" href="<?= base_url() ?>admin/location">Map</a>
+            <a class="collapse-item" href="<?= base_url() ?>admin/map">Map</a>
+            <a class="collapse-item" href="<?= base_url() ?>admin/footer">Footer</a>
+            <a class="collapse-item" href="<?= base_url() ?>admin/partner">Partners</a>
         </div>
     </div>
 </li>

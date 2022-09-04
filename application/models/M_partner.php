@@ -4,16 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_partner extends CI_Model
 {	
 	// Definisi field/colomn tabel
-	public $id_new;
+	public $id_partner;
 	public $title;
-	public $description;
-	public $date_created;
-	public $foto;
+	public $image;
+	public $link;
 	//
 
 	// Definisi nama tabel
-	protected $table      = 'news';
-	protected $primaryKey = 'id_news';
+	protected $table      = 'partners';
+	protected $primaryKey = 'id_partner';
 	protected $useAutoIncrement = true;
 
 	protected $useTimestamps = false;
@@ -26,18 +25,8 @@ class M_partner extends CI_Model
 		$this->db->select('*')
 			->from($this->table);
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return $data;
-	}
-
-	public function loadData_byId(){
-		$this->db->select('*')
-			->from($this->table)
-			->where(['id_news' => $this->id_news]);
-
-		$obj = $this->db->get();
-		$data  = $obj->result();
-		return count($data)>0 ? $data[0]:null;
 	}
 
 	public function checkDataById(){
@@ -64,29 +53,33 @@ class M_partner extends CI_Model
 	}
 
 
-	public function save_data()
+	public function saveFoto(){
+		$query = $this->db->query(
+			"update partners set image='".$this->foto."' 
+		WHERE id_partner=".$this->id_partner."");
+		return $query;
+	}
+
+	public function updateData()
 	{
 		$data = array(
 			'title' => $this->title,
-			'description' => $this->description,
-			'foto' => $this->foto
+			'link' => $this->link
 		);
-		$this->db->where('id_new', $this->id_new);
+		$this->db->where('id_partner', $this->id_partner);
 		return $this->db->update($this->table, $data);
 	}
 
-	public function daftar()
+	public function addData()
 	{
 		$data = array(
 			'title' => $this->title,
-			'description' => $this->description,
-			'foto' => $this->foto,
-			'date_created'=>$this->date_created
+			'link' => $this->link
 		);
 		return $this->db->insert($this->table, $data);
 	}
 	
 	public function delete_data(){
-		return $this->db->delete($this->table, array('id_news' => $this->id_news));
+		return $this->db->delete($this->table, array('id_partner' => $this->id_partner));
 	}
 }

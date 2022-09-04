@@ -23,10 +23,11 @@ class M_footer extends CI_Model
 	public function loadData()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->table)
+			->where(['id_footer' => 1]);
 		$obj = $this->db->get();
-		$data  = $obj->result();
-		return $data;
+		$data  = $obj->result_array();
+		return count($data)>0 ? $data[0] : false;
 	}
 
 	public function loadData_byId()
@@ -70,30 +71,11 @@ class M_footer extends CI_Model
 		$data = array(
 			'footer' => $this->footer
 		);
-		$this->db->where('id_footer', $this->id_footer);
+		$this->db->where('id_footer', 1);
 		return $this->db->update($this->table, $data);
 	}
 
-	public function addData()
-	{
-		$data = array(
-			'footer' => $this->footer
-		);
-		return $this->db->insert($this->table, $data);
-	}
 
-	public function searchData($search)
-	{
-		$this->db->select('*')
-			->from($this->table)
-			->like('spesialis', $search);
-
-		$obj = $this->db->get();
-
-		$data  = $obj->result();
-
-		return count($data) > 0 ? $data : false;
-	}
 
 	public function delete_data()
 	{

@@ -23,7 +23,8 @@ class M_navbar extends CI_Model
 	public function loadDataNavbar()
 	{
 		$this->db->select('*')
-			->from($this->table);
+			->from($this->table)
+			->order_by('id_navbar', 'desc');
 		$obj = $this->db->get();
 		return $obj->result_array();
 	}

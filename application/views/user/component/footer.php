@@ -3,7 +3,7 @@
     <p>
 			<?php 
 
-			echo $footer;
+			echo $data_footer['footer'];
 
 			?>
 		</p>

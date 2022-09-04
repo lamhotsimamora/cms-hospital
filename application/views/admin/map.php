@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Footer</title>
+	<title>Map</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -67,7 +67,7 @@
 
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Footer</h1>
+						<h1 class="h3 mb-0 text-gray-800">Map</h1>
 						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
 					</div>
 
@@ -84,16 +84,19 @@
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">
-									<a href="">Footer</a>
+									<a href="">Map</a>
 								</h6>
 							</div>
-							<div class="card-body" id="footer" v-cloak>
+							<div class="card-body" id="map" v-cloak>
 
+							<a href="https://www.embedgooglemap.net/" target="_blank">Get Map</a>
+							<hr>
 								
 								<div class="input-group">
-									<input type="text" v-model="footer" @keypress="enterSave" ref="footer" 
-									class="form-control bg-light border-0 small" placeholder="Footer" aria-label="Search" aria-describedby="basic-addon2">
+									<textarea name="" placeholder="Location" class="form-input"  
+									v-model="location" @keypress="enterSave" ref="location"  id="" cols="55" rows="5"></textarea>
 								</div>
+
 								<br>
 								<button class="btn btn-primary btn-md" @click="save">Save</button>
 							</div>
@@ -141,14 +144,14 @@
 	<script src="<?= base_url('') ?>public/assets/js/sb-admin-2.min.js"></script>
 
 	<script>
-		const _FOOTER_UPDATE_DATA_  = _URL_SERVER_ + 'admin/api_update_footer';
-		const _FOOTER_LOAD_DATA_ = _URL_SERVER_ + 'admin/api_load_footer';
+		const _MAP_UPDATE_DATA_  = _URL_SERVER_ + 'admin/api_update_map';
+		const _MAP_LOAD_DATA_ = _URL_SERVER_ + 'admin/api_load_map';
 		
 
-		var $footer = new Vue({
-			el: '#footer',
+		var $map = new Vue({
+			el: '#map',
 			data: {
-				footer : null
+				location : null
 			},
 			methods: {
 				enterSave: function(e) {
@@ -157,17 +160,17 @@
 					}
 				},
 				save: function() {
-					if (this.footer == null || this.footer === '') {
-						this.$refs.footer.focus();
+					if (this.location == null || this.location === '') {
+						this.$refs.location.focus();
 						return;
 					}
 					
 					Vony({
-						url: _FOOTER_UPDATE_DATA_,
+						url: _MAP_UPDATE_DATA_,
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,
-							footer: this.footer
+							location : encodeURI(this.location)
 						}
 					}).ajax($response => {
 						const $obj = JSON.parse($response);
@@ -188,7 +191,7 @@
 				},
 				loadData: function() {
 					Vony({
-						url: _FOOTER_LOAD_DATA_,
+						url: _MAP_LOAD_DATA_,
 						method: 'post'
 					}).ajax((response) => {
 						var obj = JSON.parse(response);
@@ -197,7 +200,7 @@
 							var result = obj.result;
 
 							if (result) {
-								this.footer = obj.data.footer;
+								this.location = obj.data.location;
 							}
 						}
 					})
