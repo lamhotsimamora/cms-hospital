@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Add Post</title>
+	<title>Feedback</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +20,6 @@
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/upload.js"></script>
-	<script src="<?= base_url('') ?>public/assets/js/ckeditor.js"></script>
 
 	<script src="<?= base_url('') ?>public/assets/js/toast.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/toast-app.js"></script>
@@ -68,7 +67,7 @@
 
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">New Post</h1>
+						<h1 class="h3 mb-0 text-gray-800">Feedback</h1>
 						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 							<i class="fas fa-back fa-sm text-white-50"></i>
 						Back To App
@@ -88,22 +87,17 @@
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
 								<h6 class="m-0 font-weight-bold text-primary">
-									<a href="">New Post</a>
+									<a href="">Feedback</a>
 								</h6>
 							</div>
-							<div class="card-body" id="post" v-cloak>
-								<a href="<?= base_url() ?>admin/post">Back To Post</a>
-							<hr>
+							<div class="card-body" id="feedback" v-cloak>
+
+								
 								<div class="input-group">
-									<input type="text" v-model="title" @keypress="enterSave" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
-								</div> <br>
-
-								<div id="txt_description">
-									
+									<input type="text" v-model="feedback" @keypress="" ref="feedback" 
+									class="form-control bg-light border-0 small" placeholder="feedback" aria-label="Search" aria-describedby="basic-addon2">
 								</div>
-
-								<hr>
-								<button class="btn btn-primary btn-md" @click="savePost">Save</button>
+								
 							</div>
 						</div>
 
@@ -139,7 +133,7 @@
 		const _TOKEN_ = '';
 		const _URL_SERVER_ = '<?= base_url() ?>';
 
-		const _POST_ADD_DATA_ = _URL_SERVER_ +'admin/api_add_post';
+		const _FEEDBACK_LOAD_DATA_ = _URL_SERVER_ +'admin/api_load_feedback';
 	</script>
 
 
@@ -150,120 +144,33 @@
 	<script src="<?= base_url('') ?>public/assets/js/sb-admin-2.min.js"></script>
 
 	<script>
-		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
+	
 
-
-
-		if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
-			CKEDITOR.tools.enableHtml5Elements(document);
-
-		// The trick to keep the editor in the sample quite small
-		// unless user specified own height.
-		CKEDITOR.config.height = 150;
-		CKEDITOR.config.width = 'auto';
-
-		var initSample = (function() {
-			var wysiwygareaAvailable = isWysiwygareaAvailable(),
-				isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
-
-			return function() {
-				var editorElement = CKEDITOR.document.getById('txt_description');
-
-				// :(((
-				if (isBBCodeBuiltIn) {
-					editorElement.setHtml(
-						'Hello world!\n\n' +
-						'I\'m an instance of [url=https://ckeditor.com]CKEditor[/url].'
-					);
-				}
-
-				// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
-				if (wysiwygareaAvailable) {
-					CKEDITOR.replace('txt_description');
-				} else {
-					editorElement.setAttribute('contenteditable', 'true');
-					CKEDITOR.inline('txt_description');
-
-					// TODO we can consider displaying some info box that
-					// without wysiwygarea the classic editor may not work.
-				}
-			};
-
-			function isWysiwygareaAvailable() {
-				// If in development mode, then the wysiwygarea must be available.
-				// Split REV into two strings so builder does not replace it :D.
-				if (CKEDITOR.revision == ('%RE' + 'V%')) {
-					return true;
-				}
-
-				return !!CKEDITOR.plugins.get('wysiwygarea');
-			}
-		})();
-		new Vue({
-			el: '#post',
+		var $feedback = new Vue({
+			el: '#feedback',
 			data: {
-				title: null
+				feedback : null
 			},
 			methods: {
-				enterSave : function(e) {
-					if (e.keyCode==13){
-						this.savePost();
-					}
-				},
-				savePost: function() {
-					if (this.title == null || this.title === '') {
-						this.$refs.title.focus();
-						return;
-					}
-					var txt_description = CKEDITOR.instances.txt_description.getData()
-
-
-					if (txt_description == null || txt_description === '') {
-						
-						return;
-					}
-
+				
+				loadData: function() {
 					Vony({
-						url: _POST_ADD_DATA_,
-						method: 'POST',
-						data: {
-							_token: _TOKEN_,
-							title: this.title,
-							description : encodeURI(txt_description)
-						}
-					}).ajax($response => {
-						const $obj = JSON.parse($response);
+						url: _FEEDBACK_LOAD_DATA_,
+						method: 'post'
+					}).ajax((response) => {
+						var obj = JSON.parse(response);
 
-						if ($obj) {
-							const $result = $obj.result;
+						if (obj) {
+							var result = obj.result;
 
-							if ($result) {
-								this.title = null;
-								showToast('Data has been added !', 'success')
-								Swal.fire({
-									title: 'Success',
-									text: 'Post has been added !',
-									icon: 'success',
-									confirmButtonText: 'Ok'
-								})
-							} else {
-								var message = $obj.message;
-								showToast(message, 'danger')
+							if (result) {
+								this.footer = obj.data.footer;
 							}
 						}
-					});
+					})
 				}
-
-				
-			},
-			mounted() {
-				
-				initSample()
-			},
+			}
 		})
-
-		
-
 	</script>
 
 </body>

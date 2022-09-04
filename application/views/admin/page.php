@@ -69,7 +69,10 @@
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Page</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
+						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+							<i class="fas fa-back fa-sm text-white-50"></i>
+						Back To App
+						</a>	
 					</div>
 
 					<!-- Content Row -->
@@ -88,7 +91,7 @@
 									<a href="">Page</a>
 								</h6>
 							</div>
-							<div class="card-body" id="post" v-cloak>
+							<div class="card-body" id="page" v-cloak>
 								<div class="input-group">
 									<input type="text" v-model="title" @keypress="enterUpdate" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
 								</div> <br>
@@ -149,7 +152,7 @@
 
 
 		new Vue({
-			el: '#post',
+			el: '#page',
 			data: {
 				title: null
 			},

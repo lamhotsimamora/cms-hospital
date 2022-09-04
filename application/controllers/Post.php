@@ -38,6 +38,7 @@ class Post extends CI_Controller {
 				$data['data_navbar_child'] = $this->loadDataNavbarChild();
 				$data['data_footer'] = $this->loadDataFooter();
 				$data['data_partner'] = $this->loadDataPartner();
+				$data['data_map'] = $this->loadDataMap();
 
 
 				$this->load->view('user/post',$data);
@@ -47,6 +48,11 @@ class Post extends CI_Controller {
 		}else{
 			redirect('.');
 		}
+	}
+
+	
+	private function loadDataMap(){
+		return ($this->M_map->loadData());
 	}
 
 	private function loadDataPartner(){

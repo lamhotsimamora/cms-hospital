@@ -95,13 +95,13 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="">
+            <a class="dropdown-item" href="<?= base_url() ?>admin/post">
                 <i class="fas fa-heartbeat fa-sm fa-fw mr-2 text-gray-400"></i>
-                My Hospital
+                Post
             </a>
-            <a class="dropdown-item" href="">
+            <a class="dropdown-item" href="<?= base_url() ?>admin/page">
                 <i class="fas fa-user-md fa-sm fa-fw mr-2 text-gray-400"></i>
-                Docters
+                Page
             </a>
 
            
@@ -116,3 +116,15 @@
 
 </ul>
 
+
+
+<script>
+	function logoutApp(){
+		Vony({
+			url : '<?= base_url() ?>admin/logout'
+		}).ajax(()=>{
+			reload('.');
+		});
+		
+	}
+</script>

@@ -68,8 +68,11 @@
 
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Post</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
+						<h1 class="h3 mb-0 text-gray-800">Page</h1>
+						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+							<i class="fas fa-back fa-sm text-white-50"></i>
+						Back To App
+						</a>	
 					</div>
 
 					<!-- Content Row -->
@@ -110,7 +113,7 @@
 										<tbody>
 											<tr v-for="data in data_page">
 												<td>{{ data . name }}</td>
-												<td>{{ data . slug }}</td>
+												<td v-html="viewLink(data.slug)"></td>
 												<!-- <td v-html="viewCover(data.cover)"></td> -->
 												<td>
 													<!-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#uploadFotoModal" @click="getIdPage(data.id_page)">Upload</button> -->
@@ -203,127 +206,7 @@
 		const _PAGE_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_page';
 		const _PAGE_SEARCH_DATA_ = _URL_SERVER_ + 'admin/api_search_page';
 
-		var _READY_UPLOAD_FOTO_ = false;
-		const $typefile_allowed = ['image/png', 'image/jpeg'];
-
-		var $uploadFoto = new Vue({
-			el: '#uploadFotoModal',
-			data: {
-				loading: null,
-				img_foto: NO_IMAGE,
-				id_post: null
-			},
-			methods: {
-				selectFoto: function() {
-					if (event.target.files && event.target.files[0]) {
-						const obj_file = event.target.files[0];
-
-						var image = URL.createObjectURL(obj_file);
-
-						const fileName = obj_file.name;
-
-						var sizeFile = obj_file.size / 1000;
-						sizeFile = Math.floor(sizeFile);
-						const typefile = obj_file.type;
-
-						var $typefile_not_allowed = false;
-
-						// check ukuran file jika lebih dari 2.5 mb maka akan ditolak
-						if (sizeFile > 1500) {
-							Swal.fire({
-								title: 'Uppz!',
-								text: 'Maximum size file is 1.5 Mb',
-								icon: 'error',
-								confirmButtonText: 'Ok'
-							})
-							_READY_UPLOAD_FOTO_ = false;
-							this.img_foto = NO_IMAGE;
-							return;
-						}
-
-						if (typefile === $typefile_allowed[0] ||
-							typefile === $typefile_allowed[1]) {
-							$typefile_not_allowed = true;
-						}
-
-						// check jenis file apakah file gambar atau bukan
-						if ($typefile_not_allowed) {
-							_READY_UPLOAD_FOTO_ = true;
-							console.log("Ready To Upload");
-							this.img_foto = image;
-						} else {
-							_READY_UPLOAD_FOTO_ = false;
-							Swal.fire({
-								title: 'Uppz!',
-								text: 'File extension is not allowed',
-								icon: 'error',
-								confirmButtonText: 'Ok'
-							});
-							this.img_foto = NO_IMAGE;
-						}
-					} else {
-						_READY_UPLOAD_FOTO_ = false;
-						Swal.fire({
-							title: 'Uppz!',
-							text: 'Foto belum dipilih :)',
-							icon: 'error',
-							confirmButtonText: 'Ok'
-						});
-
-						this.img_foto = NO_IMAGE;
-					}
-				},
-				uploadFoto: function() {
-					if (_READY_UPLOAD_FOTO_ == false) {
-						console.log("Not ready")
-						return;
-					}
-
-					if (this.id_post == null) {
-						console.log("Not ready")
-						return;
-					}
-					this.loading = true;
-					new Upload({
-						// Array
-						el: ['file_img'],
-						// String
-						url: _URL_SERVER_ + '/admin/api_upload_foto_post',
-						// String
-						data: this.id_post,
-						// String
-						token: _TOKEN_
-					}).start(($response) => {
-						var obj = JSON.parse($response);
-
-						if (obj) {
-							var result = obj.result;
-
-							if (result == true) {
-								Swal.fire({
-									icon: 'success',
-									title: 'Success',
-									text: 'File Berhasil Diupload !',
-									footer: '<a href=""></a>'
-								});
-								$post.loadData();
-								_READY_UPLOAD_FOTO_ = false;
-								this.img_foto = NO_IMAGE;
-							} else {
-								Swal.fire({
-									icon: 'error',
-									title: 'Oops...',
-									text: 'File Gagal Diupload !',
-									footer: '<a href="">Silahkan coba lagi</a>'
-								})
-							}
-							this.loading = false;
-						}
-					});
-				}
-			}
-		})
-
+		
 		var $page = new Vue({
 			el: '#page',
 			data: {
@@ -332,8 +215,12 @@
 				search: null
 			},
 			methods: {
+				viewLink: function(v){
+					var final= _URL_SERVER_+'page/p/'+v;
+					return `<a href="${final}">${v}</a>`;
+				},
 				viewCover: function(data) {
-					var path = 'public/img/posts/';
+					var path = 'public/img/page/';
 					if (data === '' || data == null) {
 						data = NO_IMAGE;
 					} else {
@@ -341,7 +228,7 @@
 					}
 					return `<img src="${data}" width="80" height="80" class="img-thumbnail"></img>`;
 				},
-				getIdPost: function($id) {
+				getIdPage: function($id) {
 
 					$uploadFoto.id_post = $id;
 				},

@@ -69,7 +69,10 @@
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Navbar</h1>
-						<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> </a>
+						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+							<i class="fas fa-back fa-sm text-white-50"></i>
+						Back To App
+						</a>	
 					</div>
 
 					<!-- Content Row -->
@@ -111,7 +114,9 @@
 												<td>{{ data . title }}</td>
 												<td v-html="viewLink(data.link)"></td>
 												<td>
+													
 													<button @click="showModal(data)" data-toggle="modal" data-target="#editNavbarModal" class="btn btn-warning btn-sm">Edit</button>
+													<button @click="addIdNavbar(data.id_navbar)" data-toggle="modal" data-target="#addChildModal" class="btn btn-success btn-sm">Add Child</button>
 													<button @click="deleteData(data.id_navbar)" class="btn btn-danger btn-sm">x</button>
 												</td>
 											</tr>
@@ -167,9 +172,55 @@
 						aria-label="Search" aria-describedby="basic-addon2">
 					</div>
 					<br>
+					
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Select Page</label>
-						<select v-model="pages" @change="selectPage" class="form-control form-control-sm" id="exampleFormControlSelect1">
+						<select v-model="pages" class="form-control form-control-sm" id="exampleFormControlSelect1">
+							<option :value="page.slug" v-for="page in data_pages">
+								{{ page.name }}
+							</option>
+						</select>
+					</div>
+					<a href="<?= base_url() ?>admin/page">+ New Page</a>
+					<!-- <div class="input-group">
+						<input type="text" @keypress="enterSave" v-model="link" ref="link" 
+						class="form-control bg-light border-0 small" placeholder="Link" 
+						aria-label="Search" aria-describedby="basic-addon2">
+					</div> -->
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="#" @click="save">Save</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="addChildModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Child</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div v-if="alert" class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+
+					<div class="input-group">
+						<input type="text" @keypress="enterSave" v-model="title" ref="title" 
+						class="form-control bg-light border-0 small" placeholder="Title" 
+						aria-label="Search" aria-describedby="basic-addon2">
+					</div>
+					<br>
+					
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Select Page</label>
+						<select v-model="pages"  class="form-control form-control-sm" id="exampleFormControlSelect1">
 							<option :value="page.slug" v-for="page in data_pages">
 								{{ page.name }}
 							</option>
@@ -213,7 +264,7 @@
 					<br>
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Select Page</label>
-						<select v-model="pages" @change="selectPage" class="form-control form-control-sm" id="exampleFormControlSelect1">
+						<select v-model="pages" class="form-control form-control-sm" id="exampleFormControlSelect1">
 							<option :value="page.slug" v-for="page in data_pages">
 								{{ page.name }}
 							</option>
@@ -252,10 +303,47 @@
 		const _NAVBAR_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_navbar';
 		const _NAVBAR_SEARCH_DATA_ = _URL_SERVER_ + 'admin/api_search_navbar';
 
+		const _PAGES_LOAD_DATA_ = _URL_SERVER_ + 'admin/api_load_all_page';
+
+
 		var _READY_UPLOAD_FOTO_ = false;
 		const $typefile_allowed = ['image/png', 'image/jpeg'];
 
-	
+	var $addChildModal=	new Vue({
+			el : '#addChildModal',
+			data : {
+				title: null,
+				link:null,
+				data_pages : null,
+				pages: null,
+				id_navbar : null,
+				alert:null
+			},
+			mounted() {
+				this.loadPages()
+			},
+			methods: {
+				save:function(){
+
+				},
+				enterSave: function(){
+
+				},
+				loadPages: function() {
+					Vony({
+						url: _PAGES_LOAD_DATA_,
+						method: 'post'
+					}).ajax((response) => {
+						var obj = JSON.parse(response);
+
+						if (obj) {
+							this.data_pages = obj.data;
+						}
+					})
+				}
+			},
+		})
+		
 		var $navbar = new Vue({
 			el: '#navbar',
 			data: {
@@ -266,6 +354,9 @@
 				pages: null
 			},
 			methods: {
+				addIdNavbar:function(id){
+					$addChildModal.id_navbar = id;
+				},
 				viewLink:function(value){
 					var final= _URL_SERVER_ +'page/p/'+value;
 					return `<a href="${final}" target="_blank">${value}</a>`;
@@ -373,7 +464,7 @@
 			methods: {
 				loadPages: function(){
 					Vony({
-						url: _URL_SERVER_ + 'admin/api_load_all_page',
+						url: _PAGES_LOAD_DATA_,
 						method: 'post'
 					}).ajax((response) => {
 						var obj = JSON.parse(response);
@@ -382,9 +473,6 @@
 							this.data_pages = obj.data;
 						}
 					})
-				},
-				selectPage:function(){
-
 				},
 				save: function(){
 					if (this.title == null || this.title === '') {
@@ -460,9 +548,6 @@
 							this.data_pages = obj.data;
 						}
 					})
-				},
-				selectPage: function(){
-
 				},
 				updateData: function(){
 					if (this.title == null || this.title === '') {
