@@ -338,7 +338,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_navbar_child`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child`  AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child` 
+ AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar` ;
 
 --
 -- Indexes for dumped tables

@@ -164,6 +164,15 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function change_password()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		} else {
+			$this->load->view('admin/change_password',$this->data);
+		}
+	}
+
 	public function hospital()
 	{
 		if (!$this->AuthLogin()) {
@@ -203,8 +212,9 @@ class Admin extends CI_Controller
 		if ($result) {
 
 			$token = $this->M_admin->getToken();
+			$id_admin = $this->M_admin->getIdAdmin();
 
-			$this->session->set_userdata('admin', true);
+			$this->session->set_userdata('admin', $id_admin);
 			$this->session->set_userdata('token', $token);
 
 			$response = array('message' => 'Login Success', 'result' => true);
@@ -227,6 +237,39 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_change_password()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+		$this->load->model('M_admin');
+
+		$password_lama = $this->input->post('password_lama');
+		$password_baru = $this->input->post('password_baru');
+
+		validationInput($password_lama,$password_baru);
+
+		$this->M_admin->password = $password_lama;
+		$result = $this->M_admin->checkPassword();
+
+		
+		$response['result'] = false;
+		if ($result){
+			$id_admin =  $this->session->userdata('admin');
+			
+			$this->M_admin->id_admin = $id_admin['id_admin'];
+			$this->M_admin->password = $password_baru;
+
+			$result = $this->M_admin->updatePassword();
+			
+			if ($result){
+				$response['result'] = true;
+			}
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_load_footer()
 	{
