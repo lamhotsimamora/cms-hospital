@@ -4,7 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 class Admin extends CI_Controller
-{
+{	
+	private $data;
 
 	public function AuthLogin()
 	{
@@ -33,12 +34,20 @@ class Admin extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('M_admin');
+		$this->load->model('M_hospital');
+		$this->data['data_hospital'] = $this->loadDataHospital();
 	}
+
+	private function loadDataHospital(){
+		$this->M_hospital->id_hospital = 1;
+		return $this->M_hospital->loadData_byId(1);
+	}
+
 
 	public function index()
 	{
 		if ($this->AuthLogin()) {
-			$this->load->view('admin/home');
+			$this->load->view('admin/home',$this->data);
 		} else {
 			$this->load->view('admin/login');
 		}
@@ -59,7 +68,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/home');
+			$this->load->view('admin/home',$this->data);
 		}
 	}
 
@@ -68,7 +77,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/post_all');
+			$this->load->view('admin/post_all',$this->data);
 		}
 	}
 
@@ -77,7 +86,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/page_all');
+			$this->load->view('admin/page_all',$this->data);
 		}
 	}
 
@@ -86,7 +95,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/addPost');
+			$this->load->view('admin/addPost',$this->data);
 		}
 	}
 
@@ -95,7 +104,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/addPage');
+			$this->load->view('admin/addPage',$this->data);
 		}
 	}
 
@@ -104,7 +113,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/navbar');
+			$this->load->view('admin/navbar',$this->data);
 		}
 	}
 
@@ -113,7 +122,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/slideshows');
+			$this->load->view('admin/slideshows',$this->data);
 		}
 	}
 
@@ -122,7 +131,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/footer');
+			$this->load->view('admin/footer',$this->data);
 		}
 	}
 
@@ -131,7 +140,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/map');
+			$this->load->view('admin/map',$this->data);
 		}
 	}
 
@@ -142,7 +151,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/docters');
+			$this->load->view('admin/docters',$this->data);
 		}
 	}
 
@@ -151,7 +160,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/spesialis');
+			$this->load->view('admin/spesialis',$this->data);
 		}
 	}
 
@@ -160,7 +169,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/hospital');
+			$this->load->view('admin/hospital',$this->data);
 		}
 	}
 
@@ -169,7 +178,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/partner');
+			$this->load->view('admin/partner',$this->data);
 		}
 	}
 
@@ -178,7 +187,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/feedback');
+			$this->load->view('admin/feedback',$this->data);
 		}
 	}
 
@@ -658,6 +667,7 @@ class Admin extends CI_Controller
 
 			if ($result) {
 				$response['data'] = $this->M_page->getDataById();
+				$response['data_hospital'] = $this->data['data_hospital'];
 
 				$this->load->view("admin/editPage", $response);
 			} else {

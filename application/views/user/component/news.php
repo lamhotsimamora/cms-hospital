@@ -14,17 +14,21 @@
 
 		if ($cover===''||$cover==null){
 			$cover = $no_image;
+		}else{
+			$cover = $server.'public/img/posts/'.$cover;
 		}
 
-		echo '  <h1>'.$title.'</h1>
+		echo '  <h1 style="color:#34495e">
+			<a href="'.$server.'post/detail/'.$link.'">'.$title.'</a>
+		</h1>
 		<hr>
-					<p class="lead">
-						<img class="thumbnail" src="'.$server.'public/img/posts/'.$cover.'"></img>
-					</p>
-					<small>'.$date.'</small><hr>
-					<a class="btn btn-lg btn-primary btn-sm" href="'.$server.'post/detail/'.$link.'">
-						Read More
-					</a>';
+		<p class="lead">
+			<img class="thumbnail" src="'.$cover.'"></img>
+		</p>
+		<small>'.$date.'</small><hr>
+		<a class="btn btn-lg btn-primary btn-sm" href="'.$server.'post/detail/'.$link.'">
+			Read More
+		</a>';
 	}
 
 	?>

@@ -26,14 +26,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/navbar.php') ?>
 
+	
+	<?php include('component/carousel.php') ?>
+
 	<br>
 	<main class="container">
 		<div class="bg-light p-5 rounded">
-			<h1><?= $data['title']; ?></h1>
+			<h1 style="color:#34495e">
+				<a href="<?= base_url().'post/detail/'.$data['id_post'] ?>"><?= $data['title']; ?></a>
+			</h1>
+			<hr>
+			<?php 
+			
+			$foto = '';
+			$server = base_url().'public/';
+			if ($data['cover']==='' || $data['cover']==null){
+				$foto = $server.'assets/img/no-img.png';
+			}else{
+				$foto = $server.'img/posts/'.$data['cover'];
+			}
+
+			?>
+			<img src="<?= $foto ?>" class="img-thumbnail" alt="">
 			<hr>
 			<p class="lead">
 				<?= $data['description']; ?>
 			</p>
+			<hr>
+			<small>
+				<i>
+					<?= $data['date_created'] ?>
+,
+					<?= $data['time_created'] ?>
+				</i>
+			</small>
 		</div>
 	</main>
 	<hr>

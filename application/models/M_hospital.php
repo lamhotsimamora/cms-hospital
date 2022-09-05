@@ -36,7 +36,7 @@ class M_hospital extends CI_Model
 			->where(['id_hospital' => $this->id_hospital]);
 
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return count($data)>0 ? $data[0]:null;
 	}
 

@@ -103,6 +103,11 @@
 									
 								</div>
 
+								<br>
+								<div v-if="loading" class="spinner-border text-success" role="status">
+									<span class="visually-hidden"></span>
+								</div>
+
 								<hr>
 								<button class="btn btn-primary btn-md" @click="savePost">Save</button>
 							</div>
@@ -203,7 +208,8 @@
 		new Vue({
 			el: '#page',
 			data: {
-				name : null
+				name : null,
+				loading : false
 			},
 			methods: {
 				enterSave : function(e) {
@@ -220,10 +226,10 @@
 
 
 					if (txt_description == null || txt_description === '') {
+						txt_description = '-';
 						
-						return;
 					}
-
+					this.loading = true;
 					Vony({
 						url: _PAGE_ADD_DATA_,
 						method: 'POST',
@@ -234,7 +240,7 @@
 						}
 					}).ajax($response => {
 						const $obj = JSON.parse($response);
-
+						this.loading = false
 						if ($obj) {
 							const $result = $obj.result;
 

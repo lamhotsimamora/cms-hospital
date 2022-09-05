@@ -39,6 +39,7 @@ class Users extends CI_Controller {
 		$this->load->model('M_map');
 		$this->load->model('M_partner');
 		$this->load->model('M_post');
+		$this->load->model('M_hospital');
 	}
 
 	public function index(){
@@ -52,11 +53,17 @@ class Users extends CI_Controller {
 			$data['data_map'] = $this->loadDataMap();
 			$data['data_partner'] = $this->loadDataPartner();
 			$data['data_post'] = $this->loadDataPost();
+			$data['data_hospital'] = $this->loadDataHospital();
 
 			$this->load->view('user/home',$data);
 		//}else{
 			//$this->load->view('user/login');
 		//}
+	}
+
+	private function loadDataHospital(){
+		$this->M_hospital->id_hospital = 1;
+		return $this->M_hospital->loadData_byId(1);
 	}
 
 	private function loadDataPost(){

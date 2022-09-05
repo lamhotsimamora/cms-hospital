@@ -101,6 +101,10 @@
 								<div id="txt_description">
 									
 								</div>
+								<br>
+								<div v-if="loading" class="spinner-border text-success" role="status">
+									<span class="visually-hidden"></span>
+								</div>
 
 								<hr>
 								<button class="btn btn-primary btn-md" @click="savePost">Save</button>
@@ -202,7 +206,8 @@
 		new Vue({
 			el: '#post',
 			data: {
-				title: null
+				title: null,
+				loading: false
 			},
 			methods: {
 				enterSave : function(e) {
@@ -219,10 +224,15 @@
 
 
 					if (txt_description == null || txt_description === '') {
-						
+						Swal.fire({
+							title: 'Upppz !',
+							text: 'Description must be write !',
+							icon: 'error',
+							confirmButtonText: 'OK'
+						})
 						return;
 					}
-
+					this.loading  = true;
 					Vony({
 						url: _POST_ADD_DATA_,
 						method: 'POST',
@@ -233,7 +243,7 @@
 						}
 					}).ajax($response => {
 						const $obj = JSON.parse($response);
-
+						this.loading = false;
 						if ($obj) {
 							const $result = $obj.result;
 

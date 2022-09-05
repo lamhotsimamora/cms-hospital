@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/docters.php') ?>
 
 	<hr>
-	<?php include('component/info.php') ?>
+	<?php include('component/hospital.php') ?>
 
 	<hr>
 	<?php include('component/map.php')?>

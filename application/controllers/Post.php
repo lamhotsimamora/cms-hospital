@@ -39,7 +39,7 @@ class Post extends CI_Controller {
 				$data['data_footer'] = $this->loadDataFooter();
 				$data['data_partner'] = $this->loadDataPartner();
 				$data['data_map'] = $this->loadDataMap();
-
+				$data['data_slideshow'] = $this->loadDataSlideShows();
 
 				$this->load->view('user/post',$data);
 			}else{
@@ -49,7 +49,10 @@ class Post extends CI_Controller {
 			redirect('.');
 		}
 	}
-
+	private function loadDataSlideShows(){
+		return $this->M_slideshows->loadData();
+	}
+	
 	
 	private function loadDataMap(){
 		return ($this->M_map->loadData());

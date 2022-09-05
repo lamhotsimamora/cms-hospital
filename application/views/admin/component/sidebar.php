@@ -6,7 +6,9 @@
 		<div class="sidebar-brand-icon rotate-n-15">
 			<i class="fas fa-hospital-symbol"></i>
 		</div>
-		<div class="sidebar-brand-text mx-3">My Hospital <sup id="name_hospital"></sup></div>
+		<div class="sidebar-brand-text mx-3">
+			<?= $data_hospital['nama'] ?>
+		</div>
 	</a>
 
 	<!-- Divider -->
@@ -31,7 +33,9 @@
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseXX" aria-expanded="true" aria-controls="collapseXX">
 			<i class="fas fa-heartbeat"></i>
-			<span>My Hospital</span>
+			<span>
+				<?= ($data_hospital['nama']) ?>
+			</span>
 		</a>
 		<div id="collapseXX" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
@@ -87,8 +91,7 @@
 
 	<!-- Sidebar Message -->
 	<div class="sidebar-card d-none d-lg-flex">
-		<img class="sidebar-card-illustration mb-2" 
-		src="<?= base_url() ?>public/assets/img/undraw_rocket.svg" alt="">
+		<img class="sidebar-card-illustration mb-2" src="<?= base_url() ?>public/assets/img/undraw_rocket.svg" alt="">
 		<p class="text-center mb-2"><strong>
 				PDR Technology</strong></p>
 	</div>

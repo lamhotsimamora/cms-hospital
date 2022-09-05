@@ -55,7 +55,8 @@ class Page extends CI_Controller {
 				$data['data_footer'] = $this->loadDataFooter();
 				$data['data_partner'] = $this->loadDataPartner();
 				$data['data_map'] = $this->loadDataMap();
-
+				$data['data_slideshow'] = $this->loadDataSlideShows();
+			
 
 				$this->load->view('user/page',$data);
 			}else{
@@ -64,6 +65,10 @@ class Page extends CI_Controller {
 		}else{
 			redirect('.');
 		}
+	}
+
+	private function loadDataSlideShows(){
+		return $this->M_slideshows->loadData();
 	}
 
 	private function loadDataMap(){
