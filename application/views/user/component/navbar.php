@@ -9,6 +9,8 @@
 
 				<?php
 
+				$server = base_url() . 'page/p/';
+
 				for ($i = 0; $i < count($data_navbar); $i++) {
 					$checking_dropdown = false;
 					$template_dropdown = '';
@@ -22,7 +24,7 @@
 
 						if ($id_navbar == $id_navbar_child) {
 							$checking_dropdown = true;
-							$template_dropdown .= '<li><a class="dropdown-item" href="' . $link_child . '">' . $title_child . '</a></li>';
+							$template_dropdown .= '<li><a class="dropdown-item" href="' . $server.$link_child . '">' . $title_child . '</a></li>';
 						} else {
 							$checking_dropdown = false;
 						}
@@ -31,7 +33,6 @@
 					$title =  $data_navbar[$i]['title'];
 					$link =  $data_navbar[$i]['link'];
 
-					$server = base_url() . 'page/p/';
 
 					if ($checking_dropdown == false) {
 						echo '<li class="nav-item">

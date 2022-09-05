@@ -89,7 +89,7 @@
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">Pasiens</h6>
+									<h6 class="m-0 font-weight-bold text-primary"></h6>
 									<div class="dropdown no-arrow">
 										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -117,7 +117,7 @@
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">Absens</h6>
+									<h6 class="m-0 font-weight-bold text-primary"></h6>
 									<div class="dropdown no-arrow">
 										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -161,7 +161,7 @@
 							<!-- Project Card Example -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+									<h6 class="m-0 font-weight-bold text-primary"></h6>
 								</div>
 								<div class="card-body">
 									<h4 class="small font-weight-bold">@<span class="float-right">20%</span></h4>
@@ -178,7 +178,7 @@
 								<div class="col-lg-6 mb-4">
 									<div class="card bg-primary text-white shadow">
 										<div class="card-body">
-											Primary
+											
 											<div class="text-white-50 small">#4e73df</div>
 										</div>
 									</div>
@@ -186,7 +186,7 @@
 								<div class="col-lg-6 mb-4">
 									<div class="card bg-success text-white shadow">
 										<div class="card-body">
-											Success
+											
 											<div class="text-white-50 small">#1cc88a</div>
 										</div>
 									</div>
@@ -201,20 +201,20 @@
 							<!-- Illustrations -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Hospital</h6>
+									<h6 class="m-0 font-weight-bold text-primary"></h6>
 								</div>
 								<div class="card-body">
-									{{-- text --}}
+								
 								</div>
 							</div>
 
 							<!-- Approach -->
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="-m-0 font-weight-bold text-primary">Hospital</h6>
+									<h6 class="-m-0 font-weight-bold text-primary"></h6>
 								</div>
 								<div class="card-body">
-									<p>Irure fugiat Lorem anim excepteur officia reprehenderit.</p>
+									<p></p>
 								</div>
 							</div>
 

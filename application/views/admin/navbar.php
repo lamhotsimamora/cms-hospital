@@ -71,8 +71,8 @@
 						<h1 class="h3 mb-0 text-gray-800">Navbar</h1>
 						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 							<i class="fas fa-back fa-sm text-white-50"></i>
-						Back To App
-						</a>	
+							Back To App
+						</a>
 					</div>
 
 					<!-- Content Row -->
@@ -114,7 +114,7 @@
 												<td>{{ data . title }}</td>
 												<td v-html="viewLink(data.link)"></td>
 												<td>
-													
+
 													<button @click="showModal(data)" data-toggle="modal" data-target="#editNavbarModal" class="btn btn-warning btn-sm">Edit</button>
 													<button @click="addIdNavbar(data.id_navbar)" data-toggle="modal" data-target="#addChildModal" class="btn btn-success btn-sm">Add Child</button>
 													<button @click="deleteData(data.id_navbar)" class="btn btn-danger btn-sm">x</button>
@@ -167,12 +167,10 @@
 					</div>
 
 					<div class="input-group">
-						<input type="text" @keypress="enterSave" v-model="title" ref="title" 
-						class="form-control bg-light border-0 small" placeholder="Title" 
-						aria-label="Search" aria-describedby="basic-addon2">
+						<input type="text" @keypress="enterSave" v-model="title" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
 					</div>
 					<br>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Select Page</label>
 						<select v-model="pages" class="form-control form-control-sm" id="exampleFormControlSelect1">
@@ -195,7 +193,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="addChildModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -212,25 +210,28 @@
 					</div>
 
 					<div class="input-group">
-						<input type="text" @keypress="enterSave" v-model="title" ref="title" 
-						class="form-control bg-light border-0 small" placeholder="Title" 
-						aria-label="Search" aria-describedby="basic-addon2">
+						<input type="text" @keypress="enterSave" v-model="title" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
 					</div>
 					<br>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">Select Page</label>
-						<select v-model="pages"  class="form-control form-control-sm" id="exampleFormControlSelect1">
+						<select v-model="pages" class="form-control form-control-sm" id="exampleFormControlSelect1">
 							<option :value="page.slug" v-for="page in data_pages">
 								{{ page.name }}
 							</option>
 						</select>
 					</div>
-					<!-- <div class="input-group">
-						<input type="text" @keypress="enterSave" v-model="link" ref="link" 
-						class="form-control bg-light border-0 small" placeholder="Link" 
-						aria-label="Search" aria-describedby="basic-addon2">
-					</div> -->
+
+					<hr>
+
+					<ul class="list-group">
+						<li v-for="data in data_navbar_child" class="list-group-item list-group-item-primary">
+						<button @click="deleteData(data.id_navbar_child)" class="btn btn-danger btn-sm">x</button>
+							<a :href="viewLink(data.link_child)">{{ data.title_child }}</a>
+						</li>
+					</ul>
+
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -239,8 +240,8 @@
 			</div>
 		</div>
 	</div>
-	
-		
+
+
 	<div class="modal fade" id="editNavbarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -257,9 +258,7 @@
 					</div>
 
 					<div class="input-group">
-						<input type="text" @keypress="enterSave" v-model="title" ref="title" 
-						class="form-control bg-light border-0 small" placeholder="Title" 
-						aria-label="Search" aria-describedby="basic-addon2">
+						<input type="text" @keypress="enterSave" v-model="title" ref="title" class="form-control bg-light border-0 small" placeholder="Title" aria-label="Search" aria-describedby="basic-addon2">
 					</div>
 					<br>
 					<div class="form-group">
@@ -297,6 +296,10 @@
 	<script>
 		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
 
+		const _NAVBAR_CHILD_ADD_DATA_ = _URL_SERVER_ + 'admin/api_add_navbar_child';
+		const _NAVBAR_CHILD_LOAD_DATA_BYID_ = _URL_SERVER_ + 'admin/api_load_navbar_child_byId';
+		const _NAVBAR_CHILD_DELETE_DATA_ = _URL_SERVER_ + 'admin/api_delete_navbar_child';
+
 		const _NAVBAR_LOAD_ALL_DATA_ = _URL_SERVER_ + 'admin/api_load_all_navbar';
 		const _NAVBAR_ADD_DATA_ = _URL_SERVER_ + 'admin/api_add_navbar';
 		const _NAVBAR_EDIT_DATA_ = _URL_SERVER_ + 'admin/api_update_navbar';
@@ -309,25 +312,109 @@
 		var _READY_UPLOAD_FOTO_ = false;
 		const $typefile_allowed = ['image/png', 'image/jpeg'];
 
-	var $addChildModal=	new Vue({
-			el : '#addChildModal',
-			data : {
+		var $addChildModal = new Vue({
+			el: '#addChildModal',
+			data: {
 				title: null,
-				link:null,
-				data_pages : null,
+				link: null,
+				data_pages: null,
 				pages: null,
-				id_navbar : null,
-				alert:null
+				id_navbar: null,
+				alert: null,
+				data_navbar_child: null
 			},
 			mounted() {
 				this.loadPages()
 			},
 			methods: {
-				save:function(){
+				deleteData: function(id_navbar_child){
+					if (id_navbar_child) {
+						Swal.fire({
+							title: 'Yakin mau hapus data ini ?',
+							text: "",
+							icon: 'warning',
+							showCancelButton: true,
+							confirmButtonColor: '#3085d6',
+							cancelButtonColor: '#d33',
+							confirmButtonText: 'Yes'
+						}).then((result) => {
+							if (result.isConfirmed) {
+								Vony({
+									url: _NAVBAR_CHILD_DELETE_DATA_,
+									method: 'POST',
+									data: {
+										_token: _TOKEN_,
+										id_navbar_child : id_navbar_child
+									}
+								}).ajax($response => {
+									const $obj = JSON.parse($response);
+									if ($obj.result == true) {
+										showToast('Data has been deleted !', 'success')
+										$navbar.loadNavbarChild(this.id_navbar);
+									} else {
+										this.data_navbar_child = null;
+										showToast('Data gagal dihapus !')
+									}
+								});
+							}
+						})
+					}
+				},
+				viewLink: function(link){
+
+					return _URL_SERVER_+`page/p/`+link;
+				},
+				save: function() {
+					if (this.title == null || this.title === '') {
+						this.$refs.title.focus();
+						return;
+					}
+					if (this.pages === 'NULL' || this.pages == null) {
+
+						return;
+					}
+					// if (this.link == null || this.link === '') {
+					// 	this.$refs.link.focus();
+					// 	return;
+					// }
+
+					if (this.id_navbar == null) {
+						return;
+					}
+
+					Vony({
+						url: _NAVBAR_CHILD_ADD_DATA_,
+						method: 'POST',
+						data: {
+							_token: _TOKEN_,
+							title: this.title,
+							link: this.pages,
+							id_navbar: this.id_navbar
+						}
+					}).ajax($response => {
+						const $obj = JSON.parse($response);
+
+						if ($obj) {
+							const $result = $obj.result;
+
+							if ($result) {
+								this.title = null;
+								this.link = null
+								$navbar.loadData();
+								showToast('Data has been added !', 'success');
+								$navbar.loadNavbarChild(this.id_navbar)
+							} else {
+								var message = $obj.message;
+								showToast(message, 'danger')
+							}
+						}
+					});
 
 				},
-				enterSave: function(){
-
+				enterSave: function(e) {
+					if (e.keyCode == 13) {
+						this.save()
+					}
 				},
 				loadPages: function() {
 					Vony({
@@ -337,31 +424,50 @@
 						var obj = JSON.parse(response);
 
 						if (obj) {
+							console.log(obj.data);
 							this.data_pages = obj.data;
 						}
 					})
 				}
 			},
 		})
-		
+
 		var $navbar = new Vue({
 			el: '#navbar',
 			data: {
 				title: null,
-				link:null,
+				link: null,
 				data_navbar: null,
 				search: null,
 				pages: null
 			},
 			methods: {
-				addIdNavbar:function(id){
-					$addChildModal.id_navbar = id;
+				loadNavbarChild: function(id_navbar){
+					Vony({
+						url: _NAVBAR_CHILD_LOAD_DATA_BYID_,
+						method: 'post',
+						data: {
+							id_navbar: id_navbar
+						}
+					}).ajax((response) => {
+						var obj = JSON.parse(response);
+
+						if (obj) {
+							console.log(obj.data);
+							$addChildModal.data_navbar_child = obj.data;
+						}
+					})
 				},
-				viewLink:function(value){
-					var final= _URL_SERVER_ +'page/p/'+value;
+				
+				addIdNavbar: function(id_navbar) {
+					$addChildModal.id_navbar = id_navbar;
+					this.loadNavbarChild(id_navbar);					
+				},
+				viewLink: function(value) {
+					var final = _URL_SERVER_ + 'page/p/' + value;
 					return `<a href="${final}" target="_blank">${value}</a>`;
-				},	
-				showModal: function(data){
+				},
+				showModal: function(data) {
 					$editNavbarModal.id_navbar = data.id_navbar;
 					$editNavbarModal.title = data.title;
 					$editNavbarModal.link = data.link;
@@ -450,19 +556,19 @@
 
 
 		new Vue({
-			el : "#addNavbarModal",
-			data : {
-				title : null,
-				link : null,
-				alert:null,
-				pages:null,
-				data_pages:null
+			el: "#addNavbarModal",
+			data: {
+				title: null,
+				link: null,
+				alert: null,
+				pages: null,
+				data_pages: null
 			},
 			mounted() {
 				this.loadPages()
 			},
 			methods: {
-				loadPages: function(){
+				loadPages: function() {
 					Vony({
 						url: _PAGES_LOAD_DATA_,
 						method: 'post'
@@ -474,7 +580,7 @@
 						}
 					})
 				},
-				save: function(){
+				save: function() {
 					if (this.title == null || this.title === '') {
 						this.$refs.title.focus();
 						return;
@@ -494,8 +600,8 @@
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,
-							title : this.title,
-							link : this.pages
+							title: this.title,
+							link: this.pages
 						}
 					}).ajax($response => {
 						const $obj = JSON.parse($response);
@@ -507,7 +613,7 @@
 								this.title = null;
 								this.link = null
 								$navbar.loadData();
-								showToast('Data has been added !', 'success')
+								showToast('Data has been added !', 'success');
 							} else {
 								var message = $obj.message;
 								showToast(message, 'danger')
@@ -515,8 +621,8 @@
 						}
 					});
 				},
-				enterSave: function(e){
-					if (e.keyCode==13){
+				enterSave: function(e) {
+					if (e.keyCode == 13) {
 						this.save()
 					}
 				}
@@ -524,20 +630,20 @@
 		})
 
 		var $editNavbarModal = new Vue({
-			el : "#editNavbarModal",
-			data : {
-				title : null,
-				link : null,
-				alert:null,
-				id_navbar:null,
-				pages:null,
-				data_pages:null
+			el: "#editNavbarModal",
+			data: {
+				title: null,
+				link: null,
+				alert: null,
+				id_navbar: null,
+				pages: null,
+				data_pages: null
 			},
 			mounted() {
 				this.loadPage()
 			},
 			methods: {
-				loadPage: function(){
+				loadPage: function() {
 					Vony({
 						url: _URL_SERVER_ + 'admin/api_load_all_page',
 						method: 'post'
@@ -549,17 +655,17 @@
 						}
 					})
 				},
-				updateData: function(){
+				updateData: function() {
 					if (this.title == null || this.title === '') {
 						this.$refs.title.focus();
 						return;
 					}
 					if (this.link == null || this.link === '') {
-						
+
 						return;
 					}
 					if (this.pages == null || this.pages === '') {
-						
+
 						return;
 					}
 
@@ -568,8 +674,8 @@
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,
-							title : this.title,
-							link : this.pages,
+							title: this.title,
+							link: this.pages,
 							id_navbar: this.id_navbar
 						}
 					}).ajax($response => {
@@ -591,8 +697,8 @@
 						}
 					});
 				},
-				enterSave: function(e){
-					if (e.keyCode==13){
+				enterSave: function(e) {
+					if (e.keyCode == 13) {
 						this.updateData()
 					}
 				}

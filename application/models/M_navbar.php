@@ -5,6 +5,7 @@ class M_navbar extends CI_Model
 {	
 	// Definisi field/colomn tabel
 	public $id_navbar;
+	public $id_navbar_child;
 	public $title;
 	public $link;
 	//
@@ -29,6 +30,16 @@ class M_navbar extends CI_Model
 		return $obj->result_array();
 	}
 
+	public function loadDataChildById(){
+		$this->db->select('*')
+			->from('navbar_child')
+			->where(['id_navbar' => $this->id_navbar]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
+		return count($data)>0 ? $data :null;
+	}
+
 	public function loadDataNavbarChild()
 	{
 		$this->db->select('*')
@@ -46,6 +57,14 @@ class M_navbar extends CI_Model
 		return $this->db->insert($this->table, $data);
 	}
 	
+	public function addDataNavbarChild(){
+		$data = array(
+			'title_child' => $this->title,
+			'link_child' => $this->link,
+			'id_navbar' => $this->id_navbar
+		);
+		return $this->db->insert('navbar_child', $data);
+	}
 
 	public function loadData_byId(){
 		$this->db->select('*')
@@ -79,5 +98,9 @@ class M_navbar extends CI_Model
 	
 	public function delete_data(){
 		return $this->db->delete($this->table, array('id_navbar' => $this->id_navbar));
+	}
+
+	public function delete_data_navbar_child(){
+		return $this->db->delete('navbar_child', array('id_navbar_child' => $this->id_navbar_child));
 	}
 }
