@@ -678,6 +678,46 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function api_load_feedback(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_feedback');
+
+
+		$result =  $this->M_feedback->loadData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+			$response['data'] = $result;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_send_feedback(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_feedback');
+
+		$rating = $this->input->post('rating');
+
+		validationInput($rating);
+
+		$this->M_feedback->rating = $rating;
+
+		$result =  $this->M_feedback->addData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 	public function api_add_post()
 	{
 		if (!$this->AuthLogin()) {

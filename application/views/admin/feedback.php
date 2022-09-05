@@ -27,6 +27,8 @@
 	<script src="<?= base_url('') ?>public/assets/js/popper.min.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/tippy-bundle.umd.js"></script>
 
+	<script src="<?= base_url('') ?>public/assets/js/chart/chart.min.js"></script>
+
 
 	<style>
 		.v-cloak {
@@ -70,8 +72,8 @@
 						<h1 class="h3 mb-0 text-gray-800">Feedback</h1>
 						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 							<i class="fas fa-back fa-sm text-white-50"></i>
-						Back To App
-						</a>	
+							Back To App
+						</a>
 					</div>
 
 					<!-- Content Row -->
@@ -92,19 +94,11 @@
 							</div>
 							<div class="card-body" id="feedback" v-cloak>
 
-								
-								<div class="input-group">
-									<input type="text" v-model="feedback" @keypress="" ref="feedback" 
-									class="form-control bg-light border-0 small" placeholder="feedback" aria-label="Search" aria-describedby="basic-addon2">
-								</div>
-								
+								<canvas id="myChart" width="400" height="400"></canvas>
+
 							</div>
 						</div>
-
-
 					</div>
-
-
 				</div>
 				<!-- /.container-fluid -->
 
@@ -133,7 +127,7 @@
 		const _TOKEN_ = '';
 		const _URL_SERVER_ = '<?= base_url() ?>';
 
-		const _FEEDBACK_LOAD_DATA_ = _URL_SERVER_ +'admin/api_load_feedback';
+		const _FEEDBACK_LOAD_DATA_ = _URL_SERVER_ + 'admin/api_load_feedback';
 	</script>
 
 
@@ -144,15 +138,16 @@
 	<script src="<?= base_url('') ?>public/assets/js/sb-admin-2.min.js"></script>
 
 	<script>
-	
-
 		var $feedback = new Vue({
 			el: '#feedback',
 			data: {
-				feedback : null
+				data_feedback: null
+			},
+			mounted() {
+				this.loadData()
 			},
 			methods: {
-				
+
 				loadData: function() {
 					Vony({
 						url: _FEEDBACK_LOAD_DATA_,
@@ -164,13 +159,58 @@
 							var result = obj.result;
 
 							if (result) {
-								this.footer = obj.data.footer;
+								this.data_feedback = obj.data;
+
+								var data = [];
+								var $i = 0;
+								var total_data = 0;
+								obj.data.forEach(element => {
+									data[$i] = element['data'];
+									$i++;
+									total_data = total_data + element['data'];
+								});
+								loadChart(data,total_data)
 							}
 						}
 					})
 				}
 			}
 		})
+
+
+		function loadChart(data_feedback,total_data=null) {
+			const ctx = document.getElementById('myChart').getContext('2d');
+			const myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: ['Sangat Baik', 'Baik', 'Kurang Baik', 'Sangat Buruk'],
+					datasets: [{
+						label: 'Total',
+						data: data_feedback,
+						backgroundColor: [
+							'rgba(245, 40, 145, 0.8)',
+							'rgba(0, 134, 255, 0.8)',
+							'rgba(255, 255, 0, 0.8)',
+							'rgba(0, 255, 169, 0.8)',
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+						],
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true
+						}
+					}
+				}
+			});
+		}
 	</script>
 
 </body>

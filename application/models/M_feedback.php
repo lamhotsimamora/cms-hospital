@@ -20,11 +20,15 @@ class M_feedback extends CI_Model
 
 	public function loadData()
 	{
-		$this->db->select('*')
-			->from($this->table);
-		$obj = $this->db->get();
-		$data  = $obj->result();
-		return $data;
+		$query = 'SELECT rating,count(rating) as data from feedback 
+		GROUP by rating;';
+		$query = $this->db->query($query);
+		return $query->result_array();
+		// $this->db->select('*')
+		// 	->from($this->table);
+		// $obj = $this->db->get();
+		// $data  = $obj->result_array();
+		// return $data;
 	}
 
 	public function loadData_byId(){
@@ -38,7 +42,7 @@ class M_feedback extends CI_Model
 	}
 
 
-	public function add()
+	public function addData()
 	{
 		$data = array(
 			'rating' => $this->rating
