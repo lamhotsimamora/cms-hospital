@@ -27,7 +27,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/navbar.php') ?>
 
 	
-	<?php include('component/carousel.php') ?>
+	<?php include('component/slideshow.php') ?>
 	<br>
 	
 	<main class="container">

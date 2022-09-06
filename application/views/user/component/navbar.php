@@ -1,4 +1,36 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary mb-auto">
+  
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+			<img src="<?= base_url() ?>public/img/banner.png" height="120" width="250" class="img-thumbnail" alt="">
+        </li>
+		<li>
+			&nbsp
+		</li>
+       <li>
+		<p>
+			<h4> Contact : Call 021-123456	</h4>
+		</p>
+	   </li>
+      
+      </ul>
+
+	  <button>Icon</button>
+     
+    </div>
+  </div>
+</nav>
+<br><br>
+<br>
+
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-auto">
 	<div class="container-fluid">
 		<a class="navbar-brand" href=".">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,10 +86,9 @@
 
 			</ul>
 
-			<form class="d-flex" role="search">
-				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success" type="button">Search</button>
-			</form>
+			
 		</div>
 	</div>
 </nav>
+
+</div>

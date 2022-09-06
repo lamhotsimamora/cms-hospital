@@ -106,8 +106,6 @@ class Users extends CI_Controller {
 		}
 	}
 
-	
-
 	public function home(){
 		if ($this->AuthLogin()){
 			$this->load->view('user/home');

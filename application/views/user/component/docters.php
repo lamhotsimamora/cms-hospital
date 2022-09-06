@@ -39,30 +39,11 @@
 		</div>
 	</section>
 
-	<ul id="thumbnails" class="thumbnails">
+	<!-- <ul id="thumbnails" class="thumbnails"> -->
 
-		<?php
-
-		
-		foreach ($data_docter as $key => $value) {
-			$foto = $value['foto'];
-			$nama = $value['nama'];
-
-			if ($foto==='' || $foto==null)
-			{
-				$foto = $no_img;
-			}else{
-				$foto =  $server.'public/img/docters/'.$foto;
-			}
-
-			echo '<li class="thumbnail">
-					<img width="60" height="60" src="'  . $foto . '" alt="" />
-				</li>';
-		}
-
-		?>
+	
 
 
-	</ul>
+	<!-- </ul> -->
 </main>
 <!-- slideshow -->

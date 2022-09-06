@@ -1,3 +1,4 @@
+<div class="container">
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-indicators">
 		<?php 
@@ -85,4 +86,6 @@
 	}
 
 	?>
+</div>
+
 </div>
