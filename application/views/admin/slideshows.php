@@ -96,9 +96,7 @@
 								<br> <br>
 								<div class="table-responsive">
 
-									<div class="input-group">
-										<input type="text" v-model="search" @keypress="enterSearch" ref="search" class="form-control bg-light border-0 small" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-									</div>
+									
 									<hr>
 									<table class="table table-bordered" width="100%" cellspacing="0">
 										<thead>

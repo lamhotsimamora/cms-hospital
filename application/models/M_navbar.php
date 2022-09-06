@@ -30,6 +30,19 @@ class M_navbar extends CI_Model
 		return $obj->result_array();
 	}
 
+	public function searchData($search)
+	{
+		$this->db->select('*')
+			->from($this->table)
+			->like('title', $this->title);
+
+		$obj = $this->db->get();
+
+		$data  = $obj->result();
+
+		return count($data) > 0 ? $data : false;
+	}
+
 	public function loadDataChildById(){
 		$this->db->select('*')
 			->from('navbar_child')

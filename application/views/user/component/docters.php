@@ -27,8 +27,8 @@
 					}
 
 					echo '<li class="splide__slide">
-							<img width="150" height="150" src="' . $foto . '" alt="" />
 							<h5 style="background-color:#ecf0f1;">' . $nama . '</h5>
+							<img width="auto" height="auto" src="' . $foto . '" alt="" />
 						</li>';
 				}
 

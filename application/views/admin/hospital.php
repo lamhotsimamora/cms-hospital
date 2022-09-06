@@ -213,7 +213,6 @@
 									text: 'File Berhasil Diupload !',
 									footer: '<a href=""></a>'
 								});
-								$post.loadData();
 								_READY_UPLOAD_FOTO_ = false;
 								this.img_foto = NO_IMAGE;
 							} else {
@@ -353,7 +352,6 @@
 
 								foto = _URL_SERVER_+'public/img/hospital/'+foto;
 								this.img_foto = foto
-								console.log(foto)
 							}
 						}
 					})

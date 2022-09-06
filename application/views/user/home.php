@@ -44,9 +44,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<script>
 		var splide = new Splide("#main-slider", {
-			width: 600,
-			height: 300,
-			pagination: false,
+			width: 200,
+			height: 350,
+			pagination: true,
 			cover: true
 		});
 

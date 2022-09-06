@@ -280,7 +280,7 @@
 						return;
 					}
 					Vony({
-						url: _POST_SEARCH_DATA_,
+						url: _PAGE_SEARCH_DATA_,
 						method: 'POST',
 						data: {
 							_token: _TOKEN_,

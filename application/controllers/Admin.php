@@ -396,13 +396,13 @@ class Admin extends CI_Controller
 
 		$this->load->model('M_post');
 
-		$search = $this->input->post('search');
+		$title = $this->input->post('search');
 
-		validationInput($search);
+		validationInput($title);
 
-		$this->M_post->search = $search;
+		$this->M_post->title = $title;
 
-		$result =  $this->M_post->searchData($search);
+		$result =  $this->M_post->searchData($title);
 
 		$response['result'] = false;
 
@@ -412,6 +412,57 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+
+	public function api_search_navbar()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_navbar');
+
+		$title = $this->input->post('search');
+
+		validationInput($title);
+
+		$this->M_navbar->title = $title;
+
+		$result =  $this->M_navbar->searchData($title);
+
+		$response['result'] = false;
+
+		if ($result) {
+			$response['data'] = $result;
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_search_page()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_page');
+
+		$name = $this->input->post('search');
+
+		validationInput($name);
+
+		$this->M_page->name = $name;
+
+		$result =  $this->M_page->searchData($name);
+
+		$response['result'] = false;
+
+		if ($result) {
+			$response['data'] = $result;
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
 
 	public function api_load_all_slideshow()
 	{
