@@ -124,7 +124,16 @@
 		}else if (pilih4.checked==true){
 			pilih =4;
 		}
-
+		if (pilih==null){
+			
+			Swal.fire({
+				title: 'Upppz !',
+				text: 'Maaf !! Pilih Penilaian Dulu !',
+				icon: 'error',
+				confirmButtonText: 'OK'
+			})
+			return;
+		}
 		Vony({
 			url: _SEND_FEEDBACK_,
 			method: 'POST',

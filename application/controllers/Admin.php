@@ -740,10 +740,7 @@ class Admin extends CI_Controller
 	}
 
 	public function api_send_feedback(){
-		if (!$this->AuthLogin()) {
-			exit(json_encode(array('message' => 'access denied')));
-		}
-
+	
 		$this->load->model('M_feedback');
 
 		$rating = $this->input->post('rating');

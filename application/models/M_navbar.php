@@ -25,7 +25,7 @@ class M_navbar extends CI_Model
 	{
 		$this->db->select('*')
 			->from($this->table)
-			->order_by('id_navbar', 'desc');
+			->order_by('id_navbar', 'asc');
 		$obj = $this->db->get();
 		return $obj->result_array();
 	}
