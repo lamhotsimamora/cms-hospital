@@ -7,9 +7,16 @@
   		<div class="collapse navbar-collapse" id="navbarCollapse">
   			<ul class="navbar-nav me-auto mb-2 mb-md-0">
   				<li class="nav-item">
-  					<img src="<?= base_url() ?>public/img/banner.png" height="120" width="250" class="img-thumbnail" alt="">
+					<?php 
+					
+					$server = base_url().'public/img/headers/';
+
+					?>
+  					<img src="<?= $server.$data_header['foto'] ?>" height="110" width="210" class="img-thumbnail" alt="">
   				</li>
   				<li>
+  					&nbsp
+  					&nbsp
   					&nbsp
   				</li>
   				<li>

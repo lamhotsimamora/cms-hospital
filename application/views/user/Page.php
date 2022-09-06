@@ -20,6 +20,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/main.css">
+	
+	<link href='https://css.gg/instagram.css' rel='stylesheet'>
+	<link href='https://css.gg/facebook.css' rel='stylesheet'>
+	<link href='https://css.gg/twitter.css' rel='stylesheet'>
+	<link href='https://css.gg/youtube.css' rel='stylesheet'>
 </head>
 
 <body>

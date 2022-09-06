@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Sep 2022 pada 13.04
+-- Waktu pembuatan: 06 Sep 2022 pada 16.39
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.0
 
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id_admin`, `username`, `password`, `token`) VALUES
-(1, 'admin', '327488e331b8b64e5794da3fa4eb10ad5d32', '2hz6j7jzbkxhkg9wtx4rpt1ng');
+(1, 'admin', '32f6fdffe48c908deb0f4c3bd36c032e7232', '2hz6j7jzbkxhkg9wtx4rpt1ng');
 
 -- --------------------------------------------------------
 
@@ -60,9 +60,9 @@ CREATE TABLE `docters` (
 --
 
 INSERT INTO `docters` (`id_docter`, `nama`, `id_spesialis`, `ket`, `foto`) VALUES
-(9, 'James John', 2, '-', 'g5a661o01ikds7l5j97n7tcff-lzfgld5n88do1rj1j3fszgwnw.jpg'),
-(10, 'Richard M', 2, '-', 'infji60azrahtqd3q2mg8ufle-n4rk2i0wr84dzqvep28kmmsfa.jpeg'),
-(11, 'John Doe', 1, '-', 'iw29obk7pebaxiyywfn5fcuq5-igc3zn8pi1xe11yf1b8akhtek.jpeg');
+(12, 'Richard Lee', 2, '-', 'j4ophz6tk0m1nawt6x6moeui6-5rao04rqxdtvnfvecd204h4hi.jpeg'),
+(13, 'John Doe', 2, '-', 'y2t4h5xuwxih9g4bydwvvrntn-87iff2hto0ehhynfokrz0q67v.jpg'),
+(14, 'Johnson', 2, '-', '7i1qxpq1ckos4t0xmxs4hvjxu-ko7ttk4mewu1p911k2obt3rrm.jpeg');
 
 -- --------------------------------------------------------
 
@@ -74,6 +74,24 @@ CREATE TABLE `feedback` (
   `id_feedback` int(11) NOT NULL,
   `rating` int(5) NOT NULL COMMENT '1=Sangat Baik\r\n2=Baik\r\n3=Kurang Baik\r\n4=Sangat Buruk\r\n'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `feedback`
+--
+
+INSERT INTO `feedback` (`id_feedback`, `rating`) VALUES
+(1, 3),
+(2, 3),
+(3, 1),
+(4, 2),
+(5, 4),
+(6, 2),
+(7, 4),
+(8, 4),
+(9, 1),
+(10, 1),
+(11, 3),
+(12, 2);
 
 -- --------------------------------------------------------
 
@@ -96,6 +114,24 @@ INSERT INTO `footer` (`id_footer`, `footer`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `header`
+--
+
+CREATE TABLE `header` (
+  `id_header` int(11) NOT NULL,
+  `foto` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `header`
+--
+
+INSERT INTO `header` (`id_header`, `foto`) VALUES
+(1, '6w8skdv4tyvr3d9qm4zhf7ml7-boccfraotei2e1547vr6oprrv.png');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `hospitals`
 --
 
@@ -112,7 +148,7 @@ CREATE TABLE `hospitals` (
 --
 
 INSERT INTO `hospitals` (`id_hospital`, `nama`, `alamat`, `hp`, `foto`) VALUES
-(1, 'RSD Siloam', 'Jakarta', '081212121', 'eknua9sm3wf5czjwx643g8e45-y6yns3noplwnv6cfhmmpx4lp3.png');
+(1, 'RSD Siloam', 'Jakarta', '081212121', 'ih4qn8l6xluk2lua4kolzzhtu-hefabsvovofnocuva94etux32.jpg');
 
 -- --------------------------------------------------------
 
@@ -149,7 +185,8 @@ CREATE TABLE `navbar` (
 --
 
 INSERT INTO `navbar` (`id_navbar`, `title`, `link`) VALUES
-(14, 'Profile', 'profile');
+(14, 'Profile', 'profile'),
+(15, 'About', 'visi-misi');
 
 -- --------------------------------------------------------
 
@@ -214,7 +251,8 @@ CREATE TABLE `partners` (
 --
 
 INSERT INTO `partners` (`id_partner`, `title`, `image`, `link`) VALUES
-(5, 'BPJS', 'w8iszjd2fkp4vj1wo2qy0lr6c-oqhha2eum6upftsn764kcfta9.png', 'https://bpjs-kesehatan.go.id/bpjs/');
+(5, 'BPJS', '37zjqgvp0pbudvjtretgsh1re-2dsstr5gcxx0ie65q1d85qa1l.png', 'https://bpjs-kesehatan.go.id/bpjs/'),
+(6, 'Mandiri In Health', 'ifveyzgmmbxw3y7pghdvo2bpb-9ufcf3vp2ezkkkw74b36e7ys9.jpg', '-');
 
 -- --------------------------------------------------------
 
@@ -258,7 +296,7 @@ CREATE TABLE `slideshows` (
 --
 
 INSERT INTO `slideshows` (`id_slideshow`, `image`, `title`, `description`, `date_created`) VALUES
-(5, '9ilpejqjc7gg2sgnaoqms2870-xoxq2lx42hqdyy5l3bk6ic88j.jpg', 'Profile', 'Enim eiusmod laborum commodo culpa culpa incididunt minim reprehenderit excepteur in laborum dolor consequat velit. Est mollit amet nulla do. Ullamco tempor commodo cillum fugiat labore eiusmod commodo et deserunt ut et. Esse anim eiusmod veniam et deseru', '2022-09-05');
+(5, 'jxzzfu7ofk860koc9inp7ikbn-ltqhitasundpevyg9jeqh292z.jpg', 'Profile', 'Enim eiusmod laborum commodo culpa culpa incididunt minim reprehenderit excepteur in laborum dolor consequat velit. Est mollit amet nulla do. Ullamco tempor commodo cillum fugiat labore eiusmod commodo et deserunt ut et. Esse anim eiusmod veniam et deseru', '2022-09-05');
 
 -- --------------------------------------------------------
 
@@ -338,8 +376,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_navbar_child`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child` 
- AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child`  AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar` ;
 
 --
 -- Indexes for dumped tables
@@ -368,6 +405,12 @@ ALTER TABLE `feedback`
 --
 ALTER TABLE `footer`
   ADD PRIMARY KEY (`id_footer`);
+
+--
+-- Indeks untuk tabel `header`
+--
+ALTER TABLE `header`
+  ADD PRIMARY KEY (`id_header`);
 
 --
 -- Indeks untuk tabel `hospitals`
@@ -444,19 +487,25 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT untuk tabel `docters`
 --
 ALTER TABLE `docters`
-  MODIFY `id_docter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_docter` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_feedback` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `footer`
 --
 ALTER TABLE `footer`
   MODIFY `id_footer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `header`
+--
+ALTER TABLE `header`
+  MODIFY `id_header` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `hospitals`
@@ -474,7 +523,7 @@ ALTER TABLE `map`
 -- AUTO_INCREMENT untuk tabel `navbar`
 --
 ALTER TABLE `navbar`
-  MODIFY `id_navbar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_navbar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `navbar_child`
@@ -492,7 +541,7 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT untuk tabel `partners`
 --
 ALTER TABLE `partners`
-  MODIFY `id_partner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_partner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `post`

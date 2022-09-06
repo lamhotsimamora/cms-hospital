@@ -18,6 +18,7 @@
             <a class="collapse-item" href="<?= base_url() ?>admin/map">Map</a>
             <a class="collapse-item" href="<?= base_url() ?>admin/footer">Footer</a>
             <a class="collapse-item" href="<?= base_url() ?>admin/partner">Partners</a>
+            <a class="collapse-item" href="<?= base_url() ?>admin/header">Header</a>
         </div>
     </div>
 </li>

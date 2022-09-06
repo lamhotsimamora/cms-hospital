@@ -16,6 +16,7 @@ class Page extends CI_Controller {
 		$this->load->model('M_partner');
 		$this->load->model('M_post');
 		$this->load->model('M_hospital');
+		$this->load->model('M_header');
 	}
 
 	private function loadDataNavbar(){
@@ -58,6 +59,7 @@ class Page extends CI_Controller {
 				$data['data_map'] = $this->loadDataMap();
 				$data['data_slideshow'] = $this->loadDataSlideShows();
 				$data['data_hospital'] = $this->loadDataHospital();
+				$data['data_header'] = $this->loadDataHeader();
 			
 
 				$this->load->view('user/page',$data);
@@ -67,6 +69,11 @@ class Page extends CI_Controller {
 		}else{
 			redirect('.');
 		}
+	}
+
+	private function loadDataHeader(){
+		$this->M_header->id_header = 1;
+		return $this->M_header->loadData_byId(1);
 	}
 
 	private function loadDataHospital(){

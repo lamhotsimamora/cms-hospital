@@ -173,6 +173,15 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function header()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		} else {
+			$this->load->view('admin/header',$this->data);
+		}
+	}
+
 	public function hospital()
 	{
 		if (!$this->AuthLogin()) {
@@ -218,6 +227,22 @@ class Admin extends CI_Controller
 			$this->session->set_userdata('token', $token);
 
 			$response = array('message' => 'Login Success', 'result' => true);
+		}
+		echo json_encode($response);
+	}
+
+	public function api_load_header()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+		$this->load->model('M_header');
+		$result = $this->M_header->loadData();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+			$response['data'] = $result;
 		}
 		echo json_encode($response);
 	}
@@ -1278,6 +1303,45 @@ class Admin extends CI_Controller
 			$this->M_docter->foto = $filename;
 
 			$save = $this->M_docter->saveFoto();
+
+			if ($save) {
+				$result = array('result' => true, 'message' => 'File berhasil diupload !');
+			}
+		}
+
+		echo json_encode($result);
+	}
+
+	public function api_upload_foto_header()
+	{
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+
+		$fileName = generateFileName();
+
+		$config['upload_path']      = './public/img/headers/';
+		$config['allowed_types']    = 'jpeg|gif|jpg|png';
+		$config['max_size']         = 1500;
+		$config['file_name']        = $fileName;
+		// $config['max_width']            = 1024;
+		// $config['max_height']           = 768;
+
+		$this->load->library('upload', $config);
+
+		$result = array('result' => false, 'message' => 'File gagal diupload!');
+
+		$result_upload = $this->upload->do_upload('file_img');
+
+		if ($result_upload) {
+			$this->load->model("M_header");
+
+			$filename = $this->upload->data('file_name');
+
+			$this->M_header->foto = $filename;
+
+			$save = $this->M_header->saveFoto();
 
 			if ($save) {
 				$result = array('result' => true, 'message' => 'File berhasil diupload !');
