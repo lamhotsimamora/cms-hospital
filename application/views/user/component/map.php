@@ -42,17 +42,32 @@
 			<hr>
 			<?php
 			$server = base_url() . 'public/img/partners/';
-
+			$i = 1;
+			$total = count($data_partner);
+			
 			foreach ($data_partner as $key => $value) {
 				$image = $value['image'];
 				$title = $value['title'];
 				$link = $value['link'];
 
-				echo '<br>
-				<a target="_blank" href="' . $link . '">
-					<img src="' . $server . $image . '" width="80" height="80" class="img-thumbnail" alt="' . $title . '">
-					<strong>' . $title . '</strong>
-				</a><br>';
+				$float_start= 'rounded float-start';
+				$float_end= 'rounded float-end';
+				$float  = 'rounded';
+
+				$final_float = $float;
+				if ($i==1){
+					$final_float = $float_start;
+				}
+
+				// if ($i==$total){
+				// 	$final_float = $float_end;
+				// }
+
+				echo '<a href="'.$link.'" target="_blank"><img src="' . $server . $image . '" width="90" height="80" 
+				class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp
+				    </a>
+				';
+				$i++;
 			}
 
 

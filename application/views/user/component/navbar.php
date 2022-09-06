@@ -1,94 +1,123 @@
-  
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-			<img src="<?= base_url() ?>public/img/banner.png" height="120" width="250" class="img-thumbnail" alt="">
-        </li>
-		<li>
-			&nbsp
-		</li>
-       <li>
-		<p>
-			<h4> Contact : Call 021-123456	</h4>
-		</p>
-	   </li>
-      
-      </ul>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
+  	<div class="container-fluid">
+  		<a class="navbar-brand" href="#"></a>
+  		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  			<span class="navbar-toggler-icon"></span>
+  		</button>
+  		<div class="collapse navbar-collapse" id="navbarCollapse">
+  			<ul class="navbar-nav me-auto mb-2 mb-md-0">
+  				<li class="nav-item">
+  					<img src="<?= base_url() ?>public/img/banner.png" height="120" width="250" class="img-thumbnail" alt="">
+  				</li>
+  				<li>
+  					&nbsp
+  				</li>
+  				<li>
+  					<p>
+  					<h5 style="color:white"> Call : <?= $data_hospital['hp']; ?></h5>
+  					</p>
+  				</li>
 
-	  <button>Icon</button>
-     
-    </div>
-  </div>
-</nav>
-<br><br>
-<br>
+  			</ul>
 
-<div class="container">
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-auto">
-	<div class="container-fluid">
-		<a class="navbar-brand" href=".">Home</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarCollapse">
-			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 
-				<?php
+  			<a href="#">
+  				<i class="gg-facebook"></i>
+  			</a>
 
-				$server = base_url() . 'page/p/';
+  			&nbsp
+  			&nbsp
+  			&nbsp
 
-				for ($i = 0; $i < count($data_navbar); $i++) {
-					$checking_dropdown = false;
-					$template_dropdown = '';
+  			<a href="#">
+  				<i class="gg-instagram"></i>
+  			</a>
 
-					$id_navbar = $data_navbar[$i]['id_navbar'];
+  			&nbsp
+  			&nbsp
+  			&nbsp
 
-					foreach ($data_navbar_child as $key => $value) {
-						$id_navbar_child = $value['id_navbar'];
-						$title_child = $value['title_child'];
-						$link_child = $value['link_child'];
+  			<a href="#">
+  				<i class="gg-twitter"></i>
+  			</a>
 
-						if ($id_navbar == $id_navbar_child) {
-							$checking_dropdown = true;
-							$template_dropdown .= '<li><a class="dropdown-item" href="' . $server.$link_child . '">' . $title_child . '</a></li>';
-						} else {
+  			&nbsp
+  			&nbsp
+  			&nbsp
+
+  			<a href="#">
+  				<i class="gg-youtube"></i>
+  			</a>
+
+
+
+
+  		</div>
+  	</div>
+  </nav>
+  <br><br>
+  <br>
+
+  <div class="container">
+  	<nav class="navbar navbar-expand-lg navbar-dark bg-light mb-auto">
+  		<div class="container-fluid">
+  			<a class="navbar-brand" href="." style="color:black">Home</a>
+  			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  				<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarCollapse">
+  				<ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+  					<?php
+
+						$server = base_url() . 'page/p/';
+
+						for ($i = 0; $i < count($data_navbar); $i++) {
 							$checking_dropdown = false;
-						}
-					}
+							$template_dropdown = '';
 
-					$title =  $data_navbar[$i]['title'];
-					$link =  $data_navbar[$i]['link'];
+							$id_navbar = $data_navbar[$i]['id_navbar'];
+
+							foreach ($data_navbar_child as $key => $value) {
+								$id_navbar_child = $value['id_navbar'];
+								$title_child = $value['title_child'];
+								$link_child = $value['link_child'];
+
+								if ($id_navbar == $id_navbar_child) {
+									$checking_dropdown = true;
+									$template_dropdown .= '<li><a style="color:black" class="dropdown-item" href="' . $server . $link_child . '">' . $title_child . '</a></li>';
+								} else {
+									$checking_dropdown = false;
+								}
+							}
+
+							$title =  $data_navbar[$i]['title'];
+							$link =  $data_navbar[$i]['link'];
 
 
-					if ($checking_dropdown == false) {
-						echo '<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="' . $server . $link . '">' . $title . '</a>
+							if ($checking_dropdown == false) {
+								echo '<li class="nav-item">
+								<a style="color:black" class="nav-link active" aria-current="page" href="' . $server . $link . '">' . $title . '</a>
 							</li>';
-					} else {
-						echo '<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="' . $server . $link . '" 
+							} else {
+								echo '<li class="nav-item dropdown">
+								<a style="color:black" class="nav-link dropdown-toggle" href="' . $server . $link . '" 
 								data-bs-toggle="dropdown" aria-expanded="false">' . $title . '</a>
 								<ul class="dropdown-menu">
 									' . $template_dropdown . '
 								</ul>
 							</li>';
-					}
-				}
+							}
+						}
 
 
-				?>
+						?>
 
-			</ul>
+  				</ul>
 
-			
-		</div>
-	</div>
-</nav>
 
-</div>
+  			</div>
+  		</div>
+  	</nav>
+
+  </div>
