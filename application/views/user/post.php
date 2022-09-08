@@ -22,7 +22,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/main.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-	
+	<script src="https://use.fontawesome.com/f119b6944b.js"></script>
+
 	<link href='https://css.gg/instagram.css' rel='stylesheet'>
 	<link href='https://css.gg/facebook.css' rel='stylesheet'>
 	<link href='https://css.gg/twitter.css' rel='stylesheet'>

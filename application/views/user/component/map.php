@@ -40,22 +40,24 @@
 				Partners
 			</p>
 			<hr>
+
 			<?php
 			$server = base_url() . 'public/img/partners/';
 			$i = 1;
 			$total = count($data_partner);
-			
+
+
 			foreach ($data_partner as $key => $value) {
 				$image = $value['image'];
 				$title = $value['title'];
 				$link = $value['link'];
 
-				$float_start= 'rounded float-start';
-				$float_end= 'rounded float-end';
+				$float_start = 'rounded float-start';
+				$float_end = 'rounded float-end';
 				$float  = 'rounded';
 
 				$final_float = $float;
-				if ($i==1){
+				if ($i == 1) {
 					$final_float = $float_start;
 				}
 
@@ -63,19 +65,23 @@
 				// 	$final_float = $float_end;
 				// }
 
-				echo '<a href="'.$link.'" target="_blank"><img src="' . $server . $image . '" width="90" height="80" 
-				class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp &nbsp &nbsp
-				    </a>
-				';
-				$i++;
+				// echo '<a href="'.$link.'" target="_blank"><img src="' . $server . $image . '" width="90" height="80" 
+				// class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp &nbsp &nbsp
+				//     </a>';
+				// $i++;
+				echo '<a href="'.$link.'" target="_blank">
+				<img class="img-thumbnail" src="' . $server . $image . '" width="90" height="80"></img>	
+				</a>';
 			}
 
 
 			?>
-
-
+			</ul>
 		</div>
 	</div>
+
+
+
 
 	<br>
 
@@ -120,7 +126,7 @@
 
 <script>
 	const _SEND_FEEDBACK_ = '<?= base_url() ?>admin/api_send_feedback';
-	const _TOKEN_ ='';
+	const _TOKEN_ = '';
 
 	function sendFeedback() {
 		var pilih1 = document.getElementById('pilih1');
@@ -130,17 +136,17 @@
 
 		var pilih = null;
 
-		if (pilih1.checked==true){
-			pilih =1;
-		}else if (pilih2.checked==true){
-			pilih =2;
-		}else if (pilih3.checked==true){
-			pilih =3;
-		}else if (pilih4.checked==true){
-			pilih =4;
+		if (pilih1.checked == true) {
+			pilih = 1;
+		} else if (pilih2.checked == true) {
+			pilih = 2;
+		} else if (pilih3.checked == true) {
+			pilih = 3;
+		} else if (pilih4.checked == true) {
+			pilih = 4;
 		}
-		if (pilih==null){
-			
+		if (pilih == null) {
+
 			Swal.fire({
 				title: 'Upppz !',
 				text: 'Maaf !! Pilih Penilaian Dulu !',
@@ -154,7 +160,7 @@
 			method: 'POST',
 			data: {
 				_token: _TOKEN_,
-				rating : pilih
+				rating: pilih
 			}
 		}).ajax($response => {
 			var obj = JSON.parse($response);

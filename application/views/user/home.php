@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,18 +12,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/splide.css">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/carousel.css">
+	<!-- <link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/slick.css"> -->
 
 	<script src="<?= base_url('') ?>public/assets/js/bootstrap.bundle.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/splide.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vony.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/vue.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
-	<script src="<?= base_url('') ?>public/assets/js/font-awesome.js"></script>
+
+
+	<!-- <script src="public/assets/js/font-awesome.js"></script> -->
 
 	<link href='https://css.gg/instagram.css' rel='stylesheet'>
 	<link href='https://css.gg/facebook.css' rel='stylesheet'>
 	<link href='https://css.gg/twitter.css' rel='stylesheet'>
 	<link href='https://css.gg/youtube.css' rel='stylesheet'>
+
+
+	<script src="https://use.fontawesome.com/f119b6944b.js"></script>
+
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -36,7 +44,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/slideshow.php') ?>
 
-	
+
 	<?php include('component/icon.php') ?>
 	<br>
 	<?php include('component/news.php') ?>
@@ -45,9 +53,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<br>
 	<?php include('component/hospital.php') ?>
 	<br>
-	<?php include('component/map.php')?>
+	<?php include('component/map.php') ?>
 	<br>
 	<?php include('component/footer.php') ?>
+
+
+	<script src="<?= base_url('') ?>public/assets/js/jquery/jquery.min.js"></script>
+	<script src="<?= base_url('') ?>public/assets/js/slick.min.js"></script>
 
 	<script>
 		var splide = new Splide("#main-slider", {
@@ -83,6 +95,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			}
 		});
 		splide.mount();
+
+
 	</script>
 </body>
 

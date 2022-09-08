@@ -1,56 +1,52 @@
 <main class="container">
-	<div class="row text-center">
+	<div class="card">
+		<div class="card-body">
+			<!-- https://materializecss.com/icons.html -->
 
-	<!-- https://materializecss.com/icons.html -->
+			<center class="row">
+			<div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-sm">
+					<i class="fa fa-medkit" aria-hidden="true"></i>
+					<h5>Pendaftaran</h5>
+				</button>
+			</div> <br>
 
-		<div class="col-md-3 text-center">
-			<a href="http://" target="_blank" rel="noopener noreferrer">
-			<i class="large material-icons">insert_chart</i>
-			<h5>Lorem</h5>
-			</a>
+			<div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-sm">
+					<i class="fa fa-calendar" aria-hidden="true"></i>
+					<h5>Jadwal Dokter</h5>
+				</button>
+			</div><br>
+
+			<div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-sm">
+					<i class="fa fa-bed" aria-hidden="true"></i>
+					<h5>Info Kamar</h5>
+				</button>
+			</div><br>
+
+			<div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-sm">
+					<i class="fa fa-clock-o" aria-hidden="true"></i>
+					<h5>Antrian Pasien</h5>
+				</button>
+			</div><br>
+
+			<div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-sm">
+					<i class="fa fa-coffee" aria-hidden="true"></i>
+					<h5>Feedback</h5>
+				</button>
+			</div> <br>
+			</center>
+			<!-- <div class="col-md-2 text-center">
+				<button class="btn btn-primary btn-lg">
+					<i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+					<h5>Layanan</h5>
+				</button>
+			</div> -->
+
 		</div>
-
-		<div class="col-md-3 text-center">
-			<a href="http://" target="_blank" rel="noopener noreferrer">
-			<i class="large material-icons">email</i>
-			<h5>Lorem</h5>
-			</a>
-		</div>
-
-		<div class="col-md-3 text-center">
-			<a href="http://" target="_blank" rel="noopener noreferrer">
-			<i class="large material-icons">error</i>
-			<h5>Lorem</h5>
-			</a>
-		</div>
-
-		<div class="col-md-3 text-center">
-			<a href="http://" target="_blank" rel="noopener noreferrer">
-			<i class="large material-icons">edit</i>
-			<h5>Lorem</h5>
-			</a>
-		</div>
-<!-- 
-		<div class="col-md-3 text-center">
-			<i class="large material-icons">event</i>
-			<h5>Lorem</h5>
-		</div>
-
-		<div class="col-md-3 text-center">
-			<i class="large material-icons">explore</i>
-			<h5>Lorem</h5>
-		</div>
-
-		<div class="col-md-3 text-center">
-			<i class="large material-icons">filter_vintage</i>
-			<h5>Lorem</h5>
-		</div>
-
-		<div class="col-md-3 text-center">
-			<i class="large material-icons">gps_fixed</i>
-			<h5>Lorem</h5>
-		</div> -->
-
-
 	</div>
+
 </main>
