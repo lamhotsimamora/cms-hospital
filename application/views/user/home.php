@@ -24,6 +24,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link href='https://css.gg/twitter.css' rel='stylesheet'>
 	<link href='https://css.gg/youtube.css' rel='stylesheet'>
 
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/main.css">
 </head>
 
@@ -31,8 +33,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/navbar.php') ?>
 
+
 	<?php include('component/slideshow.php') ?>
 
+	
+	<?php include('component/icon.php') ?>
+	<br>
 	<?php include('component/news.php') ?>
 	<br>
 	<?php include('component/docters.php') ?>

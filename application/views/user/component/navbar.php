@@ -1,10 +1,10 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
   	<div class="container-fluid">
   		<a class="navbar-brand" href="#"></a>
-  		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1" aria-controls="navbarCollapse1" aria-expanded="false" aria-label="Toggle navigation">
   			<span class="navbar-toggler-icon"></span>
   		</button>
-  		<div class="collapse navbar-collapse" id="navbarCollapse">
+  		<div class="collapse navbar-collapse" id="navbarCollapse1">
   			<ul class="navbar-nav me-auto mb-2 mb-md-0">
   				<li class="nav-item">
 					<?php 
@@ -69,10 +69,11 @@
   	<nav class="navbar navbar-expand-lg navbar-dark bg-light mb-auto">
   		<div class="container-fluid">
   			<a class="navbar-brand" href="." style="color:black">Home</a>
-  			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse2" 
+			aria-controls="navbarCollapse2" aria-expanded="false" aria-label="Toggle navigation">
   				<span class="navbar-toggler-icon"></span>
   			</button>
-  			<div class="collapse navbar-collapse" id="navbarCollapse">
+  			<div class="collapse navbar-collapse" id="navbarCollapse2">
   				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 
   					<?php

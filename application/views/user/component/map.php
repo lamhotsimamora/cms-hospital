@@ -64,7 +64,7 @@
 				// }
 
 				echo '<a href="'.$link.'" target="_blank"><img src="' . $server . $image . '" width="90" height="80" 
-				class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp
+				class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp &nbsp &nbsp
 				    </a>
 				';
 				$i++;

@@ -20,6 +20,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<script src="<?= base_url('') ?>public/assets/js/sweet-alert.js"></script>
 
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/main.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 	
 	<link href='https://css.gg/instagram.css' rel='stylesheet'>
 	<link href='https://css.gg/facebook.css' rel='stylesheet'>
@@ -34,6 +36,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	
 	<?php include('component/slideshow.php') ?>
 
+	<br>
+	<?php include('component/icon.php') ?>
 	<br>
 	<main class="container">
 		<div class="bg-light p-5 rounded">
