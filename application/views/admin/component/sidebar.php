@@ -34,7 +34,7 @@
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseXX" aria-expanded="true" aria-controls="collapseXX">
 			<i class="fas fa-heartbeat"></i>
 			<span>
-				<?= ($data_hospital['nama']) ?>
+				<?= ($data_hospital['nama']) ?? null ?>
 			</span>
 		</a>
 		<div id="collapseXX" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

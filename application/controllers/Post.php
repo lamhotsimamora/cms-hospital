@@ -66,6 +66,8 @@ class Post extends CI_Controller
 			redirect('.');
 		}
 	}
+	
+
 	private function loadDataPostLimit()
 	{
 		return ($this->M_post->loadData10());

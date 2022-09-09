@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {	
-	private $data;
+	private $data_hospital;
 
 	public function AuthLogin()
 	{
@@ -35,7 +35,7 @@ class Admin extends CI_Controller
 		parent::__construct();
 		$this->load->model('M_admin');
 		$this->load->model('M_hospital');
-		$this->data['data_hospital'] = $this->loadDataHospital();
+		$this->data_hospital = $this->loadDataHospital();
 	}
 
 	private function loadDataHospital(){
@@ -752,6 +752,7 @@ class Admin extends CI_Controller
 		}
 		echo json_encode($response);
 	}
+	
 
 	public function editPost($id_post = null)
 	{
@@ -764,7 +765,7 @@ class Admin extends CI_Controller
 
 			if ($result) {
 				$response['data'] = $this->M_post->getDataById();
-
+				$response['data_hospital'] = $this->data_hospital;
 				$this->load->view("admin/editPost", $response);
 			} else {
 				redirect('/admin/post');
