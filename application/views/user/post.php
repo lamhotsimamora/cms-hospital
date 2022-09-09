@@ -74,7 +74,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	</main>
 	<hr>
 	
-	<?php include('component/map.php')?>
+	<?php include('component/partners.php') ?>
 
 	<hr>
 	<?php include('component/footer.php') ?>

@@ -44,17 +44,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/slideshow.php') ?>
 
-
 	<?php include('component/icon.php') ?>
 	<br>
 	<?php include('component/news.php') ?>
 	<br>
+
+	<div class="b-example-divider"></div>
+	<br>
+
+
 	<?php include('component/docters.php') ?>
 	<br>
+	<div class="b-example-divider"></div>
+
+	<br>
 	<?php include('component/hospital.php') ?>
+	<div class="b-example-divider"></div><br>
+
+
+	<?php include('component/partners.php') ?>
 	<br>
-	<?php include('component/map.php') ?>
-	<br>
+
 	<?php include('component/footer.php') ?>
 
 

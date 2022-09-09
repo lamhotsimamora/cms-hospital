@@ -29,7 +29,7 @@ class M_page extends CI_Model
 			->from($this->table)
 			->order_by('id_page', 'desc');
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return $data;
 	}
 
@@ -40,7 +40,7 @@ class M_page extends CI_Model
 			->where(['id_page' => $this->id_page]);
 
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return count($data) > 0 ? $data[0] : null;
 	}
 

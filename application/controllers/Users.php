@@ -41,6 +41,7 @@ class Users extends CI_Controller {
 		$this->load->model('M_post');
 		$this->load->model('M_hospital');
 		$this->load->model('M_header');
+		$this->load->model('M_page');
 	}
 
 	public function index(){
@@ -54,14 +55,21 @@ class Users extends CI_Controller {
 			$data['data_map'] = $this->loadDataMap();
 			$data['data_partner'] = $this->loadDataPartner();
 			$data['data_post'] = $this->loadDataPost();
+			$data['data_post_limit'] = $this->loadDataPostLimit();
 			$data['data_hospital'] = $this->loadDataHospital();
 			$data['data_header'] = $this->loadDataHeader();
+			$data['data_pages'] = $this->loadDataPage();
 
 			$this->load->view('user/home',$data);
 		//}else{
 			//$this->load->view('user/login');
 		//}
 	}
+
+	private function loadDataPage(){
+		return $this->M_page->loadData();
+	}
+
 
 	private function loadDataHeader(){
 		$this->M_header->id_header = 1;
@@ -71,6 +79,10 @@ class Users extends CI_Controller {
 	private function loadDataHospital(){
 		$this->M_hospital->id_hospital = 1;
 		return $this->M_hospital->loadData_byId(1);
+	}
+
+	private function loadDataPostLimit(){
+		return ($this->M_post->loadData10());
 	}
 
 	private function loadDataPost(){

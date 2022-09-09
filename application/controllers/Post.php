@@ -1,8 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Post extends CI_Controller {
+class Post extends CI_Controller
+{
 
 	public function __construct()
 	{
@@ -17,24 +18,31 @@ class Post extends CI_Controller {
 		$this->load->model('M_post');
 		$this->load->model('M_hospital');
 		$this->load->model('M_header');
+		$this->load->model('M_page');
 	}
-
-	private function loadDataNavbar(){
+	private function loadDataPage(){
+		return $this->M_page->loadData();
+	}
+	
+	private function loadDataNavbar()
+	{
 		return ($this->M_navbar->loadDataNavbar());
 	}
 
-	private function loadDataNavbarChild(){
+	private function loadDataNavbarChild()
+	{
 		return ($this->M_navbar->loadDataNavbarChild());
 	}
 
-	public function detail($id_post=null){
-		if ($id_post){
+	public function detail($id_post = null)
+	{
+		if ($id_post) {
 
 			$this->M_post->id_post = $id_post;
 
 			$check = $this->M_post->checkDataById();
 
-			if ($check){
+			if ($check) {
 				$data['data'] = $this->M_post->getDataById();
 				$data['data_navbar'] = $this->loadDataNavbar();
 				$data['data_navbar_child'] = $this->loadDataNavbarChild();
@@ -42,45 +50,57 @@ class Post extends CI_Controller {
 				$data['data_partner'] = $this->loadDataPartner();
 				$data['data_map'] = $this->loadDataMap();
 				$data['data_slideshow'] = $this->loadDataSlideShows();
-				
+
 				$data['data_hospital'] = $this->loadDataHospital();
 				$data['data_header'] = $this->loadDataHeader();
 
-				$this->load->view('user/post',$data);
-			}else{
+				$data['data_pages'] = $this->loadDataPage();
+
+				$data['data_post_limit'] = $this->loadDataPostLimit();
+
+				$this->load->view('user/post', $data);
+			} else {
 				redirect('.');
 			}
-		}else{
+		} else {
 			redirect('.');
 		}
 	}
-
-	private function loadDataHeader(){
+	private function loadDataPostLimit()
+	{
+		return ($this->M_post->loadData10());
+	}
+	private function loadDataHeader()
+	{
 		$this->M_header->id_header = 1;
 		return $this->M_header->loadData_byId(1);
 	}
 
-	private function loadDataHospital(){
+	private function loadDataHospital()
+	{
 		$this->M_hospital->id_hospital = 1;
 		return $this->M_hospital->loadData_byId(1);
 	}
 
-	private function loadDataSlideShows(){
+	private function loadDataSlideShows()
+	{
 		return $this->M_slideshows->loadData();
 	}
-	
-	
-	private function loadDataMap(){
+
+
+	private function loadDataMap()
+	{
 		return ($this->M_map->loadData());
 	}
 
-	private function loadDataPartner(){
+	private function loadDataPartner()
+	{
 		return ($this->M_partner->loadData());
 	}
 
 
-	private function loadDataFooter(){
+	private function loadDataFooter()
+	{
 		return ($this->M_footer->loadData());
 	}
-
 }
