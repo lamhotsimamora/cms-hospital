@@ -4,8 +4,9 @@
 <div class="container">
 	<footer class="py-5">
 		<div class="row">
-			<div class="col-6 col-md-2 mb-3">
+			<div class="col-sm">
 				<h5>News</h5>
+				<hr>
 				<ul class="nav flex-column">
 					<?php 
 					
@@ -23,8 +24,9 @@
 				</ul>
 			</div>
 
-			<div class="col-6 col-md-2 mb-3">
+			<div class="col-sm">
 				<h5>Page</h5>
+				<hr>
 				<ul class="nav flex-column">
 					<?php 
 					
@@ -41,11 +43,8 @@
 				</ul>
 			</div>
 
-			<div class="col-6 col-md-2 mb-3">
-				
-			</div>
 
-			<div class="col-md-5 offset-md-1 mb-3">
+			<div class="col-sm">
 				<form>
 					<!-- <h5>Subscribe to our newsletter</h5>
 					<p>Monthly digest of what's new and exciting from us.</p>
@@ -59,7 +58,16 @@
 				<div class="gmap_canvas">
 					<center>
 
-						<iframe width="300" height="300" id="gmap_canvas" src="<?php echo $data_map['location'] ?>" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+					<?php 
+
+					$map = $data_map['location'];
+
+					$html_map = 'https://maps.google.com/maps?q='.$map.'&t=&z=13&ie=UTF8&iwloc=&output=embed';
+
+					?>
+
+						<iframe width="300" height="300" id="gmap_canvas" src="<?php echo $html_map; ?>" 
+						frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
 					</center>
 					<br>
 					<style>

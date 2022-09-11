@@ -47,7 +47,7 @@ class Admin extends CI_Controller
 	public function index()
 	{
 		if ($this->AuthLogin()) {
-			$this->load->view('admin/home',$this->data);
+			redirect('admin/home');
 		} else {
 			$this->load->view('admin/login');
 		}
@@ -68,7 +68,8 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/home',$this->data);
+			
+			$this->load->view('admin/home',$this->data_hospital);
 		}
 	}
 
@@ -77,7 +78,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/post_all',$this->data);
+			$this->load->view('admin/post_all',$this->data_hospital);
 		}
 	}
 
@@ -86,7 +87,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/page_all',$this->data);
+			$this->load->view('admin/page_all',$this->data_hospital);
 		}
 	}
 
@@ -95,7 +96,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/addPost',$this->data);
+			$this->load->view('admin/addPost',$this->data_hospital);
 		}
 	}
 
@@ -104,7 +105,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/addPage',$this->data);
+			$this->load->view('admin/addPage',$this->data_hospital);
 		}
 	}
 
@@ -113,7 +114,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/navbar',$this->data);
+			$this->load->view('admin/navbar',$this->data_hospital);
 		}
 	}
 
@@ -122,7 +123,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/slideshows',$this->data);
+			$this->load->view('admin/slideshows',$this->data_hospital);
 		}
 	}
 
@@ -131,7 +132,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/footer',$this->data);
+			$this->load->view('admin/footer',$this->data_hospital);
 		}
 	}
 
@@ -140,7 +141,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/map',$this->data);
+			$this->load->view('admin/map',$this->data_hospital);
 		}
 	}
 
@@ -151,7 +152,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/docters',$this->data);
+			$this->load->view('admin/docters',$this->data_hospital);
 		}
 	}
 
@@ -160,7 +161,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/spesialis',$this->data);
+			$this->load->view('admin/spesialis',$this->data_hospital);
 		}
 	}
 
@@ -169,7 +170,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/change_password',$this->data);
+			$this->load->view('admin/change_password',$this->data_hospital);
 		}
 	}
 
@@ -178,7 +179,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/header',$this->data);
+			$this->load->view('admin/header',$this->data_hospital);
 		}
 	}
 
@@ -187,7 +188,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/hospital',$this->data);
+			$this->load->view('admin/hospital',$this->data_hospital);
 		}
 	}
 
@@ -196,7 +197,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/partner',$this->data);
+			$this->load->view('admin/partner',$this->data_hospital);
 		}
 	}
 
@@ -205,7 +206,7 @@ class Admin extends CI_Controller
 		if (!$this->AuthLogin()) {
 			redirect('/admin/login');
 		} else {
-			$this->load->view('admin/feedback',$this->data);
+			$this->load->view('admin/feedback',$this->data_hospital);
 		}
 	}
 

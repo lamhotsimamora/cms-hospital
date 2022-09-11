@@ -26,7 +26,7 @@ class M_hospital extends CI_Model
 		$this->db->select('*')
 			->from($this->table);
 		$obj = $this->db->get();
-		$data  = $obj->result();
+		$data  = $obj->result_array();
 		return count($data)>0 ? $data[0] : false;
 	}
 

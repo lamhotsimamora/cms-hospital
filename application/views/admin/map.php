@@ -94,6 +94,15 @@
 
 							<a href="https://www.embedgooglemap.net/" target="_blank">Get Map</a>
 							<hr>
+							<strong>
+								Masukkan nama lokasinya saja !, contoh seperti dibawah 
+							</strong>
+
+<pre>
+https://maps.google.com/maps?q=<strong style="color:red">Siloam%20Hospitals%20Agora</strong>&t=&z=13&ie=UTF8&iwloc=&output=embed
+</pre>
+
+							<hr>
 								
 								<div class="input-group">
 									<textarea name="" placeholder="Location" class="form-input"  
