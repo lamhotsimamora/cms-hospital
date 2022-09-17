@@ -7,6 +7,8 @@
 		</p>
 		
 		<hr>
-		<img src="<?= base_url().'public/img/hospital/'.$data_hospital['foto'] ?>" class="img-thumbnail" width="80" height="80" alt="">
+		<img src="<?= base_url().'public/img/hospital/'.$data_hospital['foto'] ?>" 
+		class="rounded" width="150" height="150"  alt="">
 	</div>
 </main>
+<br>

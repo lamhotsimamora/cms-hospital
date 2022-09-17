@@ -1,8 +1,14 @@
 <!-- slideshow -->
 <main class="container">
 
+	<?php
+
+	$total_docter = count($data_docter);
+
+	?>
+
 	<div class="alert alert-secondary" role="alert">
-		Data Docters
+		Jumlah Dokter : <span class="badge text-bg-info"><?= $total_docter ?></span>
 	</div>
 	<br>
 
@@ -13,17 +19,16 @@
 				<?php
 
 				$server = base_url();
-				$no_img = base_url().'public/assets/img/no-img.png';
+				$no_img = base_url() . 'public/assets/img/no-img.png';
 
 				foreach ($data_docter as $key => $value) {
 					$foto = $value['foto'];
 					$nama = $value['nama'];
 
-					if ($foto==='' || $foto==null)
-					{
+					if ($foto === '' || $foto == null) {
 						$foto = $no_img;
-					}else{
-						$foto =  $server.'public/img/docters/'.$foto;
+					} else {
+						$foto =  $server . 'public/img/docters/' . $foto;
 					}
 
 					echo '<li class="splide__slide">
@@ -40,10 +45,6 @@
 	</section>
 
 	<!-- <ul id="thumbnails" class="thumbnails"> -->
-
-	
-
-
 	<!-- </ul> -->
 </main>
 <!-- slideshow -->
