@@ -7,43 +7,36 @@
 				Partners
 			</p>
 			<hr>
+			<center>
+				<?php
+				$server = base_url() . 'public/img/partners/';
+				$i = 1;
+				$total = count($data_partner);
 
-			<?php
-			$server = base_url() . 'public/img/partners/';
-			$i = 1;
-			$total = count($data_partner);
+
+				foreach ($data_partner as $key => $value) {
+					$image = $value['image'];
+					$title = $value['title'];
+					$link = $value['link'];
+
+					$float_start = 'rounded float-start';
+					$float_end = 'rounded float-end';
+					$float  = 'rounded';
+
+					$final_float = $float;
+					if ($i == 1) {
+						$final_float = $float_start;
+					}
 
 
-			foreach ($data_partner as $key => $value) {
-				$image = $value['image'];
-				$title = $value['title'];
-				$link = $value['link'];
-
-				$float_start = 'rounded float-start';
-				$float_end = 'rounded float-end';
-				$float  = 'rounded';
-
-				$final_float = $float;
-				if ($i == 1) {
-					$final_float = $float_start;
+					echo '<a href="' . $link . '" target="_blank">
+				<img class="rounded" src="' . $server . $image . '" width="90" height="80"></img>	
+				</a>';
 				}
 
-				// if ($i==$total){
-				// 	$final_float = $float_end;
-				// }
 
-				// echo '<a href="'.$link.'" target="_blank"><img src="' . $server . $image . '" width="90" height="80" 
-				// class="'.$final_float.'" alt="' . $title . '"> &nbsp &nbsp &nbsp &nbsp
-				//     </a>';
-				// $i++;
-				echo '<a href="'.$link.'" target="_blank">
-				<img class="img-thumbnail" src="' . $server . $image . '" width="90" height="80"></img>	
-				</a>';
-			}
-
-
-			?>
-			</ul>
+				?>
+			</center>
 		</div>
 	</div>
 

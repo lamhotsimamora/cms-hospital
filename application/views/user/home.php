@@ -9,6 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
+	<link rel="icon" type="image/x-icon" href="<?= base_url('') ?>public/favicon.ico">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/splide.css">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/carousel.css">
@@ -35,6 +36,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/main.css">
+
+
 </head>
 
 <body style="background:white">
@@ -73,10 +76,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<script>
 		var splide = new Splide("#main-slider", {
-			width: 200,
+			width: 950,
 			height: 350,
 			pagination: true,
-			cover: true
+			cover: true,
+			perPage:3,
+			breakpoints: {
+			640: {
+				perPage: 1,
+			},
+		},
 		});
 
 		var thumbnails = document.getElementsByClassName("thumbnail");

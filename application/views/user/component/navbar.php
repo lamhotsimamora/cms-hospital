@@ -12,8 +12,10 @@
 					$server = base_url().'public/img/headers/';
 
 					?>
-  					<img src="<?= $server.$data_header['foto'] ?>" height="110" width="210" class="img-thumbnail" alt="">
-  				</li>
+					<a href="<?= base_url() ?>">
+					<img src="<?= $server.$data_header['foto'] ?>" height="110" width="210" class="img-thumbnail" alt="">
+					</a>
+				</li>
   				<li>
   					&nbsp
   					&nbsp

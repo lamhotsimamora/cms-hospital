@@ -83,3 +83,12 @@
 body {
     min-height: 75rem;
 }
+
+
+.btn_pdr {
+background-color: #34495e;
+width: 90px;
+border: 1px solid gray;
+padding: 10px;
+margin: 10px;
+}
