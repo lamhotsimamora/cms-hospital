@@ -67,6 +67,18 @@ class M_post extends CI_Model
 		return count($data) > 0 ? $data[0] : null;
 	}
 
+	public function loadData_byWhere()
+	{
+		$this->db->select('*')
+			->from($this->table)
+			->like(['title' => $this->title])
+			->or_like(['description' => $this->description]);
+
+		$obj = $this->db->get();
+		$data  = $obj->result_array();
+		return count($data) > 0 ? $data : null;
+	}
+
 	public function getDataById()
 	{
 		$this->db->select('*')

@@ -46,8 +46,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/slideshow.php') ?>
 
+	<?php include('component/search.php') ?>
 	<br>
-	<?php include('component/news.php') ?>
+	<?php include('component/post.php') ?>
 	<br>
 
 	<div class="b-example-divider"></div>

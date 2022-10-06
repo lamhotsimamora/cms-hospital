@@ -39,8 +39,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/slideshow.php') ?>
 	<br>
-	<?php include('component/icon.php') ?>
-	<br>
 
 	<main class="container">
 		<div class="bg-light p-5 rounded">
