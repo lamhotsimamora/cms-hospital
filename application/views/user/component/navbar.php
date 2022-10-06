@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-danger">
 <div class="container-fluid">
 	<a class="navbar-brand" href="<?= base_url() ?>"></a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1" aria-controls="navbarCollapse1" aria-expanded="false" aria-label="Toggle navigation">
