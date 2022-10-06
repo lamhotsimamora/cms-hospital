@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Sep 2022 pada 16.39
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.0
+-- Waktu pembuatan: 06 Okt 2022 pada 08.35
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,7 +39,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id_admin`, `username`, `password`, `token`) VALUES
-(1, 'admin', '32f6fdffe48c908deb0f4c3bd36c032e7232', '2hz6j7jzbkxhkg9wtx4rpt1ng');
+(2, 'admin', '327488e331b8b64e5794da3fa4eb10ad5d32', '');
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ CREATE TABLE `header` (
 --
 
 INSERT INTO `header` (`id_header`, `foto`) VALUES
-(1, '6w8skdv4tyvr3d9qm4zhf7ml7-boccfraotei2e1547vr6oprrv.png');
+(1, 'kexk46dkjo2dr6j6txd2065ss-phwqu2jpaphq9ekmw0jx0ctjy.jpeg');
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,7 @@ CREATE TABLE `hospitals` (
 --
 
 INSERT INTO `hospitals` (`id_hospital`, `nama`, `alamat`, `hp`, `foto`) VALUES
-(1, 'RSD Siloam', 'Jakarta', '081212121', 'ih4qn8l6xluk2lua4kolzzhtu-hefabsvovofnocuva94etux32.jpg');
+(1, 'Rumah Sakit ABCD', 'Jakarta Pusat', '0812111222333', 'wc6bq2zh8xdpt679fzrwvwaw1-lsrqal8mz1laz4f8356netw5i.jpeg');
 
 -- --------------------------------------------------------
 
@@ -166,7 +166,7 @@ CREATE TABLE `map` (
 --
 
 INSERT INTO `map` (`id_map`, `location`) VALUES
-(1, 'https://maps.google.com/maps?q=Siloam%20Hospitals%20Agora&t=&z=13&ie=UTF8&iwloc=&output=embed');
+(1, 'Siloam%20Hospitals%20Agora');
 
 -- --------------------------------------------------------
 
@@ -185,8 +185,9 @@ CREATE TABLE `navbar` (
 --
 
 INSERT INTO `navbar` (`id_navbar`, `title`, `link`) VALUES
-(14, 'Profile', 'profile'),
-(15, 'About', 'visi-misi');
+(16, 'Profile', 'profile'),
+(17, 'About', 'about'),
+(18, 'Contact', 'contact');
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,8 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`id_page`, `name`, `slug`, `description`, `date_created`, `time_created`) VALUES
 (10, 'Profile', 'profile', '-', '2022-09-05', '12:54:00'),
-(11, 'Visi Misi', 'visi-misi', '-', '2022-09-05', '12:58:00');
+(13, 'Contact', 'contact', '<p>Contact</p>\n', '2022-10-06', '12:20:00'),
+(14, 'About', 'about', '<p>About</p>\n', '2022-10-06', '12:20:00');
 
 -- --------------------------------------------------------
 
@@ -251,8 +253,8 @@ CREATE TABLE `partners` (
 --
 
 INSERT INTO `partners` (`id_partner`, `title`, `image`, `link`) VALUES
-(5, 'BPJS', '37zjqgvp0pbudvjtretgsh1re-2dsstr5gcxx0ie65q1d85qa1l.png', 'https://bpjs-kesehatan.go.id/bpjs/'),
-(6, 'Mandiri In Health', 'ifveyzgmmbxw3y7pghdvo2bpb-9ufcf3vp2ezkkkw74b36e7ys9.jpg', '-');
+(7, 'Gigabyte', 'u7cchsgjsksybqso5ttptdfjq-i5yl1ggpal6mgfdk1iwayqz1z.png', 'https://www.gigabyte.com/'),
+(8, 'Samsung', 'y4pczq0lbk8klfkmwxtyscow6-bwx4q120hipi57r1wz44duu4a.png', 'https://www.samsung.com/id/');
 
 -- --------------------------------------------------------
 
@@ -274,8 +276,9 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`id_post`, `title`, `description`, `cover`, `date_created`, `time_created`) VALUES
-(8, 'Daftar Rumah Sakit Rujukan Covid-19 di DKI Jakarta', '<p>JAKARTA, KOMPAS.com- Situasi pandemi Covid-19 di Jakarta semakin memburuk. Pada Minggu (6/2/2022), ada penambahan 15.825 kasus Covid-19 dalam satu hari. Lonjakan kasus dengan angka di atas 10.000 bahkan terjadi dalam waktu empat hari terakhir. Sejalan dengan kenaikan kasus dan permintaan ambulans, tingkat keterisian tempat tidur atau bed occupancy ratio (BOR) di rumah sakit rujukan Covid-19 wilayah DKI Jakarta juga meningkat. Berdasarkan data Pemprov DKI Jakarta, BOR isolasi sudah mencapai 63 persen per Sabtu (5/1/2022).</p>\n\n<p>Artikel ini telah tayang di Kompas.com dengan judul ', 'a8k5z8hqfjqym5t76iz1l2dgw-38omcy8m94tga58k00nt89wkw.jpg', '2022-09-05', '12:43:00'),
-(9, 'Siap Oke ', '<p>Oke</p>\n', NULL, '2022-09-05', '12:57:00');
+(10, 'Lorem Ipsum Dot Semir', '<p>Duis dolor quis mollit quis non ipsum enim ut deserunt. Laboris anim enim laborum quis laborum. Deserunt officia esse culpa velit nisi magna enim adipisicing dolor deserunt magna quis cillum.</p>\n', '02k0gaqqmc6laugtexsofgks4-wag8cz3otfrofmmdezfxg1qdr.jpg', '2022-10-06', '12:16:00'),
+(11, 'Lorem Ipsum Belanda', '<p>Nisi nostrud id anim sit dolore esse incididunt qui cillum dolore aute occaecat non reprehenderit.</p>\n', NULL, '2022-10-06', '12:40:00'),
+(12, 'Lorem Ipsum Dot Semir', '<p>Lorem ipsum dot semir bla bla</p>\n', NULL, '2022-10-06', '13:25:00');
 
 -- --------------------------------------------------------
 
@@ -296,7 +299,29 @@ CREATE TABLE `slideshows` (
 --
 
 INSERT INTO `slideshows` (`id_slideshow`, `image`, `title`, `description`, `date_created`) VALUES
-(5, 'jxzzfu7ofk860koc9inp7ikbn-ltqhitasundpevyg9jeqh292z.jpg', 'Profile', 'Enim eiusmod laborum commodo culpa culpa incididunt minim reprehenderit excepteur in laborum dolor consequat velit. Est mollit amet nulla do. Ullamco tempor commodo cillum fugiat labore eiusmod commodo et deserunt ut et. Esse anim eiusmod veniam et deseru', '2022-09-05');
+(5, 'jxzzfu7ofk860koc9inp7ikbn-ltqhitasundpevyg9jeqh292z.jpg', 'Profile', 'Enim eiusmod laborum commodo culpa culpa incididunt minim reprehenderit excepteur in laborum dolor consequat velit. Est mollit amet nulla do. Ullamco tempor commodo cillum fugiat labore eiusmod commodo et deserunt ut et. Esse anim eiusmod veniam et deseru', '2022-09-05'),
+(6, 'n4sd4gq7ohd939l60ayboop5u-pvzz12dzs36622051iz9sh3n2.jpg', 'Home', 'Enim eiusmod laborum commodo culpa culpa incididunt minim reprehenderit excepteur in laborum dolor consequat velit. Est mollit amet nulla do. Ullamco tempor commodo cillum fugiat labore eiusmod commodo et deserunt ut et. Esse anim eiusmod veniam et deseru', '2022-10-06');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `social_media`
+--
+
+CREATE TABLE `social_media` (
+  `id_social_media` int(11) NOT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `instagram` varchar(255) NOT NULL,
+  `twitter` varchar(255) NOT NULL,
+  `youtube` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `social_media`
+--
+
+INSERT INTO `social_media` (`id_social_media`, `facebook`, `instagram`, `twitter`, `youtube`) VALUES
+(1, 'https://web.facebook.com/abcdef/', 'https://www.instagram.com/abcdef/', 'https://twitter.com/abcdef/', 'https://youtube.com/abcdef/');
 
 -- --------------------------------------------------------
 
@@ -367,7 +392,7 @@ CREATE TABLE `view_navbar_child` (
 --
 DROP TABLE IF EXISTS `view_docters`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_docters`  AS SELECT `docters`.`id_docter` AS `id_docter`, `docters`.`nama` AS `nama`, `docters`.`id_spesialis` AS `id_spesialis`, `docters`.`ket` AS `ket`, `docters`.`foto` AS `foto`, `spesialis`.`spesialis` AS `spesialis` FROM (`docters` join `spesialis`) WHERE `docters`.`id_spesialis` = `spesialis`.`id_spesialis` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_docters`  AS SELECT `docters`.`id_docter` AS `id_docter`, `docters`.`nama` AS `nama`, `docters`.`id_spesialis` AS `id_spesialis`, `docters`.`ket` AS `ket`, `docters`.`foto` AS `foto`, `spesialis`.`spesialis` AS `spesialis` FROM (`docters` join `spesialis`) WHERE `docters`.`id_spesialis` = `spesialis`.`id_spesialis``id_spesialis`  ;
 
 -- --------------------------------------------------------
 
@@ -376,7 +401,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_navbar_child`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child`  AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_navbar_child`  AS SELECT `navbar`.`id_navbar` AS `id_navbar`, `navbar`.`title` AS `title`, `navbar`.`link` AS `link`, `navbar_child`.`id_navbar_child` AS `id_navbar_child`, `navbar_child`.`title_child` AS `title_child`, `navbar_child`.`link_child` AS `link_child` FROM (`navbar` join `navbar_child`) WHERE `navbar`.`id_navbar` = `navbar_child`.`id_navbar``id_navbar`  ;
 
 --
 -- Indexes for dumped tables
@@ -462,6 +487,12 @@ ALTER TABLE `slideshows`
   ADD PRIMARY KEY (`id_slideshow`);
 
 --
+-- Indeks untuk tabel `social_media`
+--
+ALTER TABLE `social_media`
+  ADD PRIMARY KEY (`id_social_media`);
+
+--
 -- Indeks untuk tabel `spesialis`
 --
 ALTER TABLE `spesialis`
@@ -481,7 +512,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `docters`
@@ -523,7 +554,7 @@ ALTER TABLE `map`
 -- AUTO_INCREMENT untuk tabel `navbar`
 --
 ALTER TABLE `navbar`
-  MODIFY `id_navbar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_navbar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `navbar_child`
@@ -535,25 +566,31 @@ ALTER TABLE `navbar_child`
 -- AUTO_INCREMENT untuk tabel `page`
 --
 ALTER TABLE `page`
-  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_page` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `partners`
 --
 ALTER TABLE `partners`
-  MODIFY `id_partner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_partner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `post`
 --
 ALTER TABLE `post`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `slideshows`
 --
 ALTER TABLE `slideshows`
-  MODIFY `id_slideshow` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_slideshow` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `social_media`
+--
+ALTER TABLE `social_media`
+  MODIFY `id_social_media` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `spesialis`

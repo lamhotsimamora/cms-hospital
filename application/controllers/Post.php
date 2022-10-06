@@ -21,6 +21,7 @@ class Post extends CI_Controller
 		$this->load->model('M_page');
 		$this->load->model('M_social_media');
 	}
+
 	private function loadDataPage(){
 		return $this->M_page->loadData();
 	}
@@ -59,12 +60,9 @@ class Post extends CI_Controller
 
 				$data['data_hospital'] = $this->loadDataHospital();
 				$data['data_header'] = $this->loadDataHeader();
-
 				$data['data_pages'] = $this->loadDataPage();
-
 				$data['data_post_limit'] = $this->loadDataPostLimit();
 				$data['data_social_media'] = $this->loadDataSocialMedia();
-
 
 				$this->load->view('user/post', $data);
 			} else {
@@ -75,11 +73,11 @@ class Post extends CI_Controller
 		}
 	}
 	
-
 	private function loadDataPostLimit()
 	{
 		return ($this->M_post->loadData10());
 	}
+
 	private function loadDataHeader()
 	{
 		$this->M_header->id_header = 1;
@@ -97,7 +95,6 @@ class Post extends CI_Controller
 		return $this->M_slideshows->loadData();
 	}
 
-
 	private function loadDataMap()
 	{
 		return ($this->M_map->loadData());
@@ -107,7 +104,6 @@ class Post extends CI_Controller
 	{
 		return ($this->M_partner->loadData());
 	}
-
 
 	private function loadDataFooter()
 	{

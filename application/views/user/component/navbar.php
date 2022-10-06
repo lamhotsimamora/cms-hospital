@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary">
 <div class="container-fluid">
-	<a class="navbar-brand" href="#"></a>
+	<a class="navbar-brand" href="<?= base_url() ?>"></a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse1" aria-controls="navbarCollapse1" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -64,7 +64,7 @@
 <div class="container">
 <nav class="navbar navbar-expand-lg navbar-dark bg-light mb-auto">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="." style="color:black">Home</a>
+		<a class="navbar-brand" href="<?= base_url() ?>" style="color:black">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse2" aria-controls="navbarCollapse2" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>

@@ -8,7 +8,7 @@
 	?>
 
 	<div class="alert alert-secondary" role="alert">
-		Jumlah Dokter : <span class="badge text-bg-info"><?= $total_docter ?></span>
+		Total Docters : <span class="badge text-bg-info"><?= $total_docter ?></span>
 	</div>
 	<br>
 
@@ -44,7 +44,4 @@
 		</div>
 	</section>
 
-	<!-- <ul id="thumbnails" class="thumbnails"> -->
-	<!-- </ul> -->
 </main>
-<!-- slideshow -->
