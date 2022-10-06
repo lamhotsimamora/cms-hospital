@@ -3,7 +3,7 @@
 		<h1><?= ($data_hospital['nama']) ?></h1>
 		
 		<p class="lead">
-		<?= ($data_hospital['alamat']) ?>
+		<?= ($data_hospital['alamat']).'-'.($data_hospital['hp']) ?>
 		</p>
 		
 		<hr>

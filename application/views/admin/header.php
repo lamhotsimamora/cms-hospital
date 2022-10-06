@@ -92,6 +92,12 @@
 							</div>
 							<div class="card-body" id="header" v-cloak>
 
+							<center v-if="loading">
+									<div class="spinner-border text-primary" role="status">
+									<span class="visually-hidden"></span>
+									</div>
+								</center>
+
 								<center>
 									<input type="file" @change="selectFoto" accept="image/*" id="file_img" name="file_img"> <br><br>
 									<img :src="img_foto" alt="" width="300px" height="100px" id="img_foto" name="img_foto">
@@ -158,7 +164,8 @@
 			el: '#header',
 			data: {
 				img_foto: NO_IMAGE,
-				file_img : null
+				file_img : null,
+				loading : false
 			},
 			methods: {
 				uploadFoto: function(){
@@ -179,6 +186,7 @@
 						// String
 						token: _TOKEN_
 					}).start(($response) => {
+						this.loading = false
 						var obj = JSON.parse($response);
 
 						if (obj) {

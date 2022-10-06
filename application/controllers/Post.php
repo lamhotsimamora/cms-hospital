@@ -19,6 +19,7 @@ class Post extends CI_Controller
 		$this->load->model('M_hospital');
 		$this->load->model('M_header');
 		$this->load->model('M_page');
+		$this->load->model('M_social_media');
 	}
 	private function loadDataPage(){
 		return $this->M_page->loadData();
@@ -32,6 +33,11 @@ class Post extends CI_Controller
 	private function loadDataNavbarChild()
 	{
 		return ($this->M_navbar->loadDataNavbarChild());
+	}
+
+	private function loadDataSocialMedia(){
+		$this->M_social_media->id_social_media = 1;
+		return $this->M_social_media->loadData_byId();
 	}
 
 	public function detail($id_post = null)
@@ -57,6 +63,8 @@ class Post extends CI_Controller
 				$data['data_pages'] = $this->loadDataPage();
 
 				$data['data_post_limit'] = $this->loadDataPostLimit();
+				$data['data_social_media'] = $this->loadDataSocialMedia();
+
 
 				$this->load->view('user/post', $data);
 			} else {

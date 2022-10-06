@@ -44,10 +44,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/navbar.php') ?>
 
-
 	<?php include('component/slideshow.php') ?>
 
-	<?php include('component/icon.php') ?>
 	<br>
 	<?php include('component/news.php') ?>
 	<br>
@@ -64,12 +62,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<?php include('component/hospital.php') ?>
 	<div class="b-example-divider"></div><br>
 
-
 	<?php include('component/partners.php') ?>
 	<br>
 
 	<?php include('component/footer.php') ?>
-
+	
+	
+	<div class="b-example-divider"></div>
 
 	<script src="<?= base_url('') ?>public/assets/js/jquery/jquery.min.js"></script>
 	<script src="<?= base_url('') ?>public/assets/js/slick.min.js"></script>
@@ -114,8 +113,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			}
 		});
 		splide.mount();
-
-
 	</script>
 </body>
 

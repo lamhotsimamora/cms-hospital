@@ -19,6 +19,12 @@ class Page extends CI_Controller
 		$this->load->model('M_hospital');
 		$this->load->model('M_header');
 		$this->load->model('M_page');
+		$this->load->model('M_social_media');
+	}
+
+	private function loadDataSocialMedia(){
+		$this->M_social_media->id_social_media = 1;
+		return $this->M_social_media->loadData_byId();
 	}
 
 	private function loadDataPage(){
@@ -26,13 +32,11 @@ class Page extends CI_Controller
 	}
 	private function loadDataNavbar()
 	{
-		$this->load->model("M_navbar");
 		return ($this->M_navbar->loadDataNavbar());
 	}
 
 	private function loadDataNavbarChild()
 	{
-		$this->load->model("M_navbar");
 		return ($this->M_navbar->loadDataNavbarChild());
 	}
 
@@ -74,6 +78,7 @@ class Page extends CI_Controller
 				$data['data_post_limit'] = $this->loadDataPostLimit();
 
 				$data['data_pages'] = $this->loadDataPage();
+				$data['data_social_media'] = $this->loadDataSocialMedia();
 
 				$this->load->view('user/page', $data);
 			} else {
