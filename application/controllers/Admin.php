@@ -82,6 +82,58 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function socialmedia()
+	{
+		if (!$this->AuthLogin()) {
+			redirect('/admin/login');
+		} else {
+			$this->load->view('admin/socialmedia',$this->data_hospital);
+		}
+	}
+
+	public function api_update_social_media(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+
+		$this->load->model('M_social_media');
+
+		$facebook = $this->input->post('facebook');
+		$instagram = $this->input->post('instagram');
+		$youtube = $this->input->post('youtube');
+		$twitter = $this->input->post('twitter');
+
+		validationInput($facebook, $instagram, $youtube,$twitter);
+
+		$this->M_social_media->facebook = $facebook;
+		$this->M_social_media->instagram = $instagram;
+		$this->M_social_media->youtube = $youtube;
+		$this->M_social_media->twitter = $twitter;
+
+		$result =  $this->M_social_media->update();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+		}
+		echo json_encode($response);
+	}
+
+	public function api_load_social_media(){
+		if (!$this->AuthLogin()) {
+			exit(json_encode(array('message' => 'access denied')));
+		}
+		$this->load->model('M_social_media');
+		$result = $this->M_social_media->loadDataById();
+
+		$response['result'] = false;
+		if ($result) {
+			$response['result'] = true;
+			$response['data'] = $result;
+		}
+		echo json_encode($response);
+	}
+
 	public function page()
 	{
 		if (!$this->AuthLogin()) {
@@ -144,8 +196,6 @@ class Admin extends CI_Controller
 			$this->load->view('admin/map',$this->data_hospital);
 		}
 	}
-
-
 
 	public function docters()
 	{
@@ -329,9 +379,6 @@ class Admin extends CI_Controller
 		echo json_encode($response);
 	}
 
-
-
-
 	public function api_search_data()
 	{
 		if (!$this->AuthLogin()) {
@@ -345,7 +392,6 @@ class Admin extends CI_Controller
 		$result = $this->M_peserta->searchData($search);
 		echo json_encode($result);
 	}
-
 
 	public function api_delete_spesialis()
 	{
@@ -1541,5 +1587,9 @@ class Admin extends CI_Controller
 		$this->session->unset_userdata('admin');
 		$this->session->unset_userdata('token');
 		redirect(base_url('/'));
+	}
+
+	public function add(){
+		$this->M_admin->add();
 	}
 }

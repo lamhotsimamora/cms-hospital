@@ -46,14 +46,7 @@
 
 			<div class="col-sm">
 				<form>
-					<!-- <h5>Subscribe to our newsletter</h5>
-					<p>Monthly digest of what's new and exciting from us.</p>
-					<div class="d-flex flex-column flex-sm-row w-100 gap-2">
-						<label for="newsletter1" class="visually-hidden">Email address</label>
-						<input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-						<button class="btn btn-primary" type="button">Subscribe</button>
-					</div>  -->
-
+					
 					<div class="mapouter">
 				<div class="gmap_canvas">
 					<center>
@@ -101,8 +94,13 @@
 
 					?>
 				</a>
+				<br>
+				<a href="<?= base_url() ?>admin" target="_blank">Admin</a>
 			</p>
 			<ul class="list-unstyled d-flex">
+
+			
+			
 				<li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24">
 							<use xlink:href="#twitter" />
 						</svg></a></li>

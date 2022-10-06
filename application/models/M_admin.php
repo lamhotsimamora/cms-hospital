@@ -91,4 +91,13 @@ class M_admin extends CI_Model
 		$this->db->where('id_admin', $this->id_admin);
 		return $this->db->update($this->table, $data);
 	}
+
+	public function add(){
+		
+		$data = array(
+			'username' => 'admin',
+			'password' => _md5('admin12345')
+		);
+		return $this->db->insert($this->table, $data);
+	}
 }

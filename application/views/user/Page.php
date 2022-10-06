@@ -9,7 +9,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?= $data['name']; ?></title>
-	
+
 	<link rel="icon" type="image/x-icon" href="<?= base_url('') ?>public/favicon.ico">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="<?= base_url('') ?>public/assets/css/splide.css">
@@ -36,24 +36,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<?php include('component/navbar.php') ?>
 
-	
+
 	<?php include('component/slideshow.php') ?>
 	<br>
 	<?php include('component/icon.php') ?>
 	<br>
-	
+
 	<main class="container">
 		<div class="bg-light p-5 rounded">
 			<h1><?= $data['name']; ?></h1>
 			<hr>
-			<p class="lead">
-			<?= $data['description']; ?>
-			</p>
+			<?php
+
+			if ($data['description'] === '' || $data['description'] == null || $data['description'] === '-') {
+			} else {
+				echo '<p class="lead">' . $data['description'] . '</p>';
+			}
+
+			?>
+
 		</div>
 	</main>
+	<br>
 
-	<hr>
-	
+	<div class="b-example-divider"></div>
+
+
 	<?php include('component/partners.php') ?>
 
 	<hr>

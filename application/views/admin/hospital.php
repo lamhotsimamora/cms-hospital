@@ -70,8 +70,8 @@
 						<h1 class="h3 mb-0 text-gray-800">Profile</h1>
 						<a href="<?= base_url() ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
 							<i class="fas fa-back fa-sm text-white-50"></i>
-						Back To App
-						</a>	
+							Back To App
+						</a>
 					</div>
 
 					<!-- Content Row -->
@@ -91,7 +91,12 @@
 								</h6>
 							</div>
 							<div class="card-body" id="hospital" v-cloak>
-
+								<center v-if="loading">
+									<div class="spinner-border text-primary" role="status">
+									<span class="visually-hidden"></span>
+									</div>
+								</center>
+								<br>
 								<center>
 									<input type="file" @change="selectFoto" accept="image/*" id="file_img" name="file_img"> <br><br>
 									<img :src="img_foto" alt="" width="100px" height="100px" id="img_foto" name="img_foto">
@@ -99,7 +104,7 @@
 								<br>
 								<center>
 									<button class="btn btn-success btn-sm" @click="uploadFoto">Upload</button>
-						
+
 								</center>
 								<hr>
 								<div class="input-group">
@@ -164,7 +169,7 @@
 		const NO_IMAGE = _URL_SERVER_ + 'public/assets/img/no-img.png';
 		const id_hospital = 1;
 
-		
+
 		var _READY_UPLOAD_FOTO_ = false;
 		const $typefile_allowed = ['image/png', 'image/jpeg'];
 
@@ -177,10 +182,11 @@
 				hp: null,
 				foto: null,
 				id_hospital: id_hospital,
-				img_foto: NO_IMAGE
+				img_foto: NO_IMAGE,
+				loading : false
 			},
 			methods: {
-				uploadFoto: function(){
+				uploadFoto: function() {
 					if (_READY_UPLOAD_FOTO_ == false) {
 						console.log("Not ready")
 						return;
@@ -191,6 +197,7 @@
 						return;
 					}
 					this.loading = true;
+					const $this = this;
 					new Upload({
 						// Array
 						el: ['file_img'],
@@ -201,6 +208,8 @@
 						// String
 						token: _TOKEN_
 					}).start(($response) => {
+						this.loading= false;
+					
 						var obj = JSON.parse($response);
 
 						if (obj) {
@@ -226,9 +235,9 @@
 							this.loading = false;
 						}
 					});
-				
+
 				},
-				selectFoto : function(){
+				selectFoto: function() {
 					if (event.target.files && event.target.files[0]) {
 						const obj_file = event.target.files[0];
 
@@ -350,7 +359,7 @@
 
 								var foto = obj.data.foto;
 
-								foto = _URL_SERVER_+'public/img/hospital/'+foto;
+								foto = _URL_SERVER_ + 'public/img/hospital/' + foto;
 								this.img_foto = foto
 							}
 						}

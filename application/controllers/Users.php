@@ -42,11 +42,10 @@ class Users extends CI_Controller {
 		$this->load->model('M_hospital');
 		$this->load->model('M_header');
 		$this->load->model('M_page');
+		$this->load->model('M_social_media');
 	}
 
-	public function index(){
-		//if ($this->AuthLogin()){
-			
+	public function index(){	
 			$data['data_navbar'] = $this->loadDataNavbar();
 			$data['data_navbar_child'] = $this->loadDataNavbarChild();
 			$data['data_slideshow'] = $this->loadDataSlideShows();
@@ -59,26 +58,28 @@ class Users extends CI_Controller {
 			$data['data_hospital'] = $this->loadDataHospital();
 			$data['data_header'] = $this->loadDataHeader();
 			$data['data_pages'] = $this->loadDataPage();
+			$data['data_social_media'] = $this->loadDataSocialMedia();
 
 			$this->load->view('user/home',$data);
-		//}else{
-			//$this->load->view('user/login');
-		//}
 	}
 
 	private function loadDataPage(){
 		return $this->M_page->loadData();
 	}
 
-
 	private function loadDataHeader(){
 		$this->M_header->id_header = 1;
-		return $this->M_header->loadData_byId(1);
+		return $this->M_header->loadData_byId();
 	}
 
 	private function loadDataHospital(){
 		$this->M_hospital->id_hospital = 1;
-		return $this->M_hospital->loadData_byId(1);
+		return $this->M_hospital->loadData_byId();
+	}
+
+	private function loadDataSocialMedia(){
+		$this->M_social_media->id_social_media = 1;
+		return $this->M_social_media->loadData_byId();
 	}
 
 	private function loadDataPostLimit(){

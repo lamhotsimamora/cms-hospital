@@ -1,3 +1,4 @@
+
 <main class="container">
 
 
@@ -8,34 +9,33 @@
 			</p>
 			<hr>
 			<center>
-				<?php
-				$server = base_url() . 'public/img/partners/';
-				$i = 1;
-				$total = count($data_partner);
+			<?php
+			$server = base_url() . 'public/img/partners/';
+			$i = 1;
+			$total = count($data_partner);
 
 
-				foreach ($data_partner as $key => $value) {
-					$image = $value['image'];
-					$title = $value['title'];
-					$link = $value['link'];
+			foreach ($data_partner as $key => $value) {
+				$image = $value['image'];
+				$title = $value['title'];
+				$link = $value['link'];
 
-					$float_start = 'rounded float-start';
-					$float_end = 'rounded float-end';
-					$float  = 'rounded';
+				$float_start = 'rounded float-start';
+				$float_end = 'rounded float-end';
+				$float  = 'rounded';
 
-					$final_float = $float;
-					if ($i == 1) {
-						$final_float = $float_start;
-					}
-
-
-					echo '<a href="' . $link . '" target="_blank">
-				<img class="rounded" src="' . $server . $image . '" width="90" height="80"></img>	
-				</a>';
+				$final_float = $float;
+				if ($i == 1) {
+					$final_float = $float_start;
 				}
 
+			
+				echo '<a href="'.$link.'" target="_blank">
+				<img class="rounded" src="' . $server . $image . '" width="120" height="80"></img></a>';
+			}
 
-				?>
+
+			?>
 			</center>
 		</div>
 	</div>
@@ -146,3 +146,4 @@
 		})
 	}
 </script>
+
